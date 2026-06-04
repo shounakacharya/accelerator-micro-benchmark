@@ -1,0 +1,21 @@
+
+Total bytes used: 1818230784 (1.69GiB)
+
+Used values:
+<7 x.1 @0>
+ positions:
+  x.1
+ uses:
+  fusion, operand 0
+ from instruction: %x.1 = bf16[17408,17408]{1,0:T(8,128)(2,1)} parameter(0), metadata={op_name="x"}
+<8 y.1 @0>
+ positions:
+  y.1
+ uses:
+  fusion, operand 1
+ from instruction: %y.1 = bf16[17408,17408]{1,0:T(8,128)(2,1)} parameter(1), metadata={op_name="y"}
+<9 fusion @0>
+ positions:
+  fusion
+ uses:
+ from instruction: %fusion = bf16[17408,17408]{1,0:T(8,128)(2,1)} fusion(%x.1, %y.1), kind=kOutput, calls=%fused_computation, metadata={op_name="jit(f)/ij,jk->ik/dot_general" stack_frame_id=5}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

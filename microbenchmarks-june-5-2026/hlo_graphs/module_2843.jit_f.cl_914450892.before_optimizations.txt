@@ -1,0 +1,83 @@
+HloModule jit_f, entry_computation_layout={(f32[2,1,512,1024]{3,2,1,0:T(8,128)}, f32[2,1,512,1024]{3,2,1,0:T(8,128)}, f32[2,1,512,1024]{3,2,1,0:T(8,128)})->f32[2,1,512,1024]{3,2,1,0:T(8,128)}}, allow_spmd_sharding_propagation_to_parameters={true,true,true}, allow_spmd_sharding_propagation_to_output={true}
+
+FileNames
+1 "/home/shounaka_google_com/amb-venv/lib/python3.11/site-packages/jax/experimental/pallas/ops/tpu/flash_attention.py"
+2 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_attention.py"
+
+FunctionNames
+1 "mha_reference"
+2 "_mha_reference"
+3 "mha_reference_no_custom_vjp"
+4 "pallas_flash_attention_benchmark.<locals>.f"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=1540 end_line=1550 column=9 end_column=3}
+2 {file_name_id=1 function_name_id=2 line=1565 end_line=1575 column=9 end_column=3}
+3 {file_name_id=1 function_name_id=3 line=1516 end_line=1516 column=6 end_column=25}
+4 {file_name_id=1 function_name_id=3 line=1518 end_line=1518 column=6 end_column=31}
+5 {file_name_id=1 function_name_id=3 line=1494 end_line=1494 column=11 end_column=46}
+6 {file_name_id=1 function_name_id=3 line=1517 end_line=1517 column=34 end_column=46}
+7 {file_name_id=1 function_name_id=3 line=1517 end_line=1517 column=25 end_column=46}
+8 {file_name_id=1 function_name_id=3 line=1517 end_line=1517 column=17 end_column=47}
+9 {file_name_id=1 function_name_id=3 line=1519 end_line=1519 column=27 end_column=39}
+10 {file_name_id=1 function_name_id=3 line=1519 end_line=1519 column=12 end_column=39}
+11 {file_name_id=1 function_name_id=3 line=1520 end_line=1520 column=8 end_column=49}
+12 {file_name_id=2 function_name_id=4 line=172 end_line=174 column=15 end_column=9}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=3}
+5 {file_location_id=5 parent_frame_id=3}
+6 {file_location_id=6 parent_frame_id=3}
+7 {file_location_id=7 parent_frame_id=3}
+8 {file_location_id=8 parent_frame_id=3}
+9 {file_location_id=9 parent_frame_id=3}
+10 {file_location_id=10 parent_frame_id=3}
+11 {file_location_id=11 parent_frame_id=3}
+12 {file_location_id=12 parent_frame_id=1}
+
+
+%region_0.1 (reduce_max.3: f32[], reduce_max.4: f32[]) -> f32[] {
+  %reduce_max.3 = f32[] parameter(0), metadata={op_name="reduce_max"}
+  %reduce_max.4 = f32[] parameter(1), metadata={op_name="reduce_max"}
+  ROOT %reduce_max.5 = f32[] maximum(%reduce_max.3, %reduce_max.4), metadata={op_name="reduce_max" stack_frame_id=3}
+}
+
+%region_1.2 (reduce_sum.3: f32[], reduce_sum.4: f32[]) -> f32[] {
+  %reduce_sum.3 = f32[] parameter(0), metadata={op_name="reduce_sum"}
+  %reduce_sum.4 = f32[] parameter(1), metadata={op_name="reduce_sum"}
+  ROOT %reduce_sum.5 = f32[] add(%reduce_sum.3, %reduce_sum.4), metadata={op_name="reduce_sum" stack_frame_id=4}
+}
+
+%mha_reference.3 (Arg_0.1: f32[2,1,512,1024], Arg_1.1: f32[2,1,512,1024], Arg_2.1: f32[2,1,512,1024]) -> f32[2,1,512,1024] {
+  %Arg_0.1 = f32[2,1,512,1024]{3,2,1,0} parameter(0)
+  %Arg_1.1 = f32[2,1,512,1024]{3,2,1,0} parameter(1)
+  %dot_general.2 = f32[2,1,512,512]{3,2,1,0} dot(%Arg_0.1, %Arg_1.1), lhs_batch_dims={0,1}, lhs_contracting_dims={3}, rhs_batch_dims={0,1}, rhs_contracting_dims={3}, metadata={op_name="bhqc,bhkc->bhqk/dot_general" stack_frame_id=5}
+  %constant.3 = f32[] constant(-inf)
+  %reduce_max.7 = f32[2,1,512]{2,1,0} reduce(%dot_general.2, %constant.3), dimensions={3}, to_apply=%region_0.1, metadata={op_name="reduce_max" stack_frame_id=3}
+  %broadcast_in_dim.2 = f32[2,1,512,1]{3,2,1,0} reshape(%reduce_max.7), metadata={op_name="broadcast_in_dim" stack_frame_id=6}
+  %sub.4 = f32[2,1,512,1]{3,2,1,0} broadcast(%broadcast_in_dim.2), dimensions={0,1,2,3}, metadata={op_name="sub" stack_frame_id=7}
+  %sub.5 = f32[2,1,512]{2,1,0} reshape(%sub.4), metadata={op_name="sub" stack_frame_id=7}
+  %sub.6 = f32[2,1,512,512]{3,2,1,0} broadcast(%sub.5), dimensions={0,1,2}, metadata={op_name="sub" stack_frame_id=7}
+  %sub.7 = f32[2,1,512,512]{3,2,1,0} subtract(%dot_general.2, %sub.6), metadata={op_name="sub" stack_frame_id=7}
+  %exp.1 = f32[2,1,512,512]{3,2,1,0} exponential(%sub.7), metadata={op_name="exp" stack_frame_id=8}
+  %constant.2 = f32[] constant(0)
+  %reduce_sum.7 = f32[2,1,512]{2,1,0} reduce(%exp.1, %constant.2), dimensions={3}, to_apply=%region_1.2, metadata={op_name="reduce_sum" stack_frame_id=4}
+  %broadcast_in_dim.3 = f32[2,1,512,1]{3,2,1,0} reshape(%reduce_sum.7), metadata={op_name="broadcast_in_dim" stack_frame_id=9}
+  %div.4 = f32[2,1,512,1]{3,2,1,0} broadcast(%broadcast_in_dim.3), dimensions={0,1,2,3}, metadata={op_name="div" stack_frame_id=10}
+  %div.5 = f32[2,1,512]{2,1,0} reshape(%div.4), metadata={op_name="div" stack_frame_id=10}
+  %div.6 = f32[2,1,512,512]{3,2,1,0} broadcast(%div.5), dimensions={0,1,2}, metadata={op_name="div" stack_frame_id=10}
+  %div.7 = f32[2,1,512,512]{3,2,1,0} divide(%exp.1, %div.6), metadata={op_name="div" stack_frame_id=10}
+  %Arg_2.1 = f32[2,1,512,1024]{3,2,1,0} parameter(2)
+  ROOT %dot_general.3 = f32[2,1,512,1024]{3,2,1,0} dot(%div.7, %Arg_2.1), lhs_batch_dims={0,1}, lhs_contracting_dims={3}, rhs_batch_dims={0,1}, rhs_contracting_dims={2}, metadata={op_name="bhqk,bhkc->bhqc/dot_general" stack_frame_id=11}
+}
+
+ENTRY %main.4 (q.1: f32[2,1,512,1024], k.1: f32[2,1,512,1024], v.1: f32[2,1,512,1024]) -> f32[2,1,512,1024] {
+  %q.1 = f32[2,1,512,1024]{3,2,1,0} parameter(0), metadata={op_name="q"}
+  %k.1 = f32[2,1,512,1024]{3,2,1,0} parameter(1), metadata={op_name="k"}
+  %v.1 = f32[2,1,512,1024]{3,2,1,0} parameter(2), metadata={op_name="v"}
+  ROOT %jit_mha_reference_.1 = f32[2,1,512,1024]{3,2,1,0} call(%q.1, %k.1, %v.1), to_apply=%mha_reference.3, metadata={op_name="jit(f)/jit(mha_reference)" stack_frame_id=12}
+}
+

@@ -1,0 +1,12 @@
+BufferAssignment:
+allocation 0: size 512, thread-local:
+ value: <2 add.0 @0> (size=512,offset=0): bf16[]{:T(256)}
+allocation 1: size 1644167168, output shape is |bf16[28672,28672]|, maybe-live-out:
+ value: <4 psum_invariant.7 @0> (size=1644167168,offset=0): bf16[28672,28672]{1,0:T(8,128)(2,1)}
+allocation 2: size 1644167168, parameter 0, shape |bf16[28672,28672]| at ShapeIndex {}:
+ value: <3 param.1 @0> (size=1644167168,offset=0): bf16[28672,28672]{1,0:T(8,128)(2,1)}
+allocation 3: size 512, thread-local:
+ value: <0 psum_invariant.0 @0> (size=512,offset=0): bf16[]{:T(256)}
+allocation 4: size 512, thread-local:
+ value: <1 psum_invariant.1 @0> (size=512,offset=0): bf16[]{:T(256)}
+allocation 5: size 0, color 1, preallocated-temp:

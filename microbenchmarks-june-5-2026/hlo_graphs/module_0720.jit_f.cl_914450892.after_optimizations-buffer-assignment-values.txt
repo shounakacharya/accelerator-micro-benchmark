@@ -1,0 +1,109 @@
+
+Total bytes used: 1338586664 (1.25GiB)
+
+Used values:
+<0 reduce_scatter.8 @0>
+ positions:
+  reduce_scatter.8
+ uses:
+  add.2, operand 0
+ from instruction: %reduce_scatter.8 = bf16[]{:T(256)} parameter(0), metadata={op_name="reduce_scatter"}
+<1 reduce_scatter.9 @0>
+ positions:
+  reduce_scatter.9
+ uses:
+  add.2, operand 1
+ from instruction: %reduce_scatter.9 = bf16[]{:T(256)} parameter(1), metadata={op_name="reduce_scatter"}
+<2 add.2 @0>
+ positions:
+  add.2
+ uses:
+ from instruction: %add.2 = bf16[]{:T(256)} add(%reduce_scatter.8, %reduce_scatter.9), metadata={op_name="add" stack_frame_id=8}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<16 param.1 @0>
+ positions:
+  param.1
+ uses:
+  fusion, operand 0
+ from instruction: %param.1 = bf16[19456,19456]{1,0:T(8,128)(2,1)} parameter(0), sharding={replicated}, metadata={op_name="x"}
+<17 fusion @0>
+ positions:
+  fusion
+ uses:
+  slice, operand 0
+  concatenate, operand 1
+ from instruction: %fusion = bf16[4896,19456]{1,0:T(8,128)(2,1)} fusion(%param.1), kind=kCustom, calls=%all-reduce-scatter, backend_config={"flag_configs":[],"scoped_memory_configs":[{"memory_space":"0","offset":"0","size":"67108864"}],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<18 slice @1>
+ positions:
+  slice
+  collective-permute-start {0}
+ uses:
+  collective-permute-start, operand 0
+  collective-permute-done, operand 0 {0}
+ from instruction: %slice = bf16[96,19456]{1,0:T(8,128)(2,1)S(1)} slice(%fusion), slice={[4800:4896], [0:19456]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<19 collective-permute-start{} @0>
+ positions:
+  collective-permute-start {}
+ uses:
+  collective-permute-done, operand 0 {}
+ from instruction: %collective-permute-start = (bf16[96,19456]{1,0:T(8,128)(2,1)S(1)}, bf16[96,19456]{1,0:T(8,128)(2,1)S(1)}, u32[]{:S(2)}, u32[]{:S(2)}) collective-permute-start(%slice), channel_id=1, source_target_pairs={{0,1},{1,2},{2,3}}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[],"used_scoped_memory_configs":[]}
+<20 collective-permute-start{1} @1>
+ positions:
+  collective-permute-start {1}
+  collective-permute-done
+ uses:
+  collective-permute-done, operand 0 {1}
+  concatenate, operand 0
+ from instruction: %collective-permute-start = (bf16[96,19456]{1,0:T(8,128)(2,1)S(1)}, bf16[96,19456]{1,0:T(8,128)(2,1)S(1)}, u32[]{:S(2)}, u32[]{:S(2)}) collective-permute-start(%slice), channel_id=1, source_target_pairs={{0,1},{1,2},{2,3}}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[],"used_scoped_memory_configs":[]}
+<21 collective-permute-start{2} @2>
+ positions:
+  collective-permute-start {2}
+ uses:
+  collective-permute-done, operand 0 {2}
+ from instruction: %collective-permute-start = (bf16[96,19456]{1,0:T(8,128)(2,1)S(1)}, bf16[96,19456]{1,0:T(8,128)(2,1)S(1)}, u32[]{:S(2)}, u32[]{:S(2)}) collective-permute-start(%slice), channel_id=1, source_target_pairs={{0,1},{1,2},{2,3}}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[],"used_scoped_memory_configs":[]}
+<22 collective-permute-start{3} @2>
+ positions:
+  collective-permute-start {3}
+ uses:
+  collective-permute-done, operand 0 {3}
+ from instruction: %collective-permute-start = (bf16[96,19456]{1,0:T(8,128)(2,1)S(1)}, bf16[96,19456]{1,0:T(8,128)(2,1)S(1)}, u32[]{:S(2)}, u32[]{:S(2)}) collective-permute-start(%slice), channel_id=1, source_target_pairs={{0,1},{1,2},{2,3}}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[],"used_scoped_memory_configs":[]}
+<23 concatenate @0>
+ positions:
+  concatenate
+ uses:
+  constant_dynamic-slice_fusion, operand 0
+ from instruction: %concatenate = bf16[4992,19456]{1,0:T(8,128)(2,1)} concatenate(%collective-permute-done, %fusion), dimensions={0}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<24 constant.8 @0>
+ positions:
+  constant.8
+ uses:
+  subtract, operand 0
+ from instruction: %constant.8 = u32[] constant(96)
+<25 constant.7 @0>
+ positions:
+  constant.7
+ uses:
+  multiply.3, operand 0
+ from instruction: %constant.7 = u32[] constant(32)
+<26 partition-id.2 @6>
+ positions:
+  partition-id.2
+ uses:
+  multiply.3, operand 1
+ from instruction: %partition-id.2 = u32[]{:S(6)} partition-id()
+<27 multiply.3 @6>
+ positions:
+  multiply.3
+ uses:
+  subtract, operand 1
+ from instruction: %multiply.3 = u32[]{:S(6)} multiply(%constant.7, %partition-id.2), backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","2"]}]}}
+<28 subtract @6>
+ positions:
+  subtract
+ uses:
+  constant_dynamic-slice_fusion, operand 1
+ from instruction: %subtract = u32[]{:S(6)} subtract(%constant.8, %multiply.3), backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","2"]}]}}
+<29 constant_dynamic-slice_fusion @0>
+ positions:
+  constant_dynamic-slice_fusion
+ uses:
+ from instruction: %constant_dynamic-slice_fusion = bf16[4864,19456]{1,0:T(8,128)(2,1)} fusion(%concatenate, %subtract), kind=kLoop, calls=%fused_computation, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

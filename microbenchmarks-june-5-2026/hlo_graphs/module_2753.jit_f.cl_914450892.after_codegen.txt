@@ -1,0 +1,121 @@
+HloModule jit_f, is_scheduled=true, entry_computation_layout={(f32[2,1,256,1024]{3,2,1,0:T(8,128)}, f32[2,1,256,1024]{3,2,1,0:T(8,128)}, f32[2,1,256,1024]{3,2,1,0:T(8,128)})->f32[2,1,256,1024]{3,2,1,0:T(8,128)}}, allow_spmd_sharding_propagation_to_parameters={true,true,true}, allow_spmd_sharding_propagation_to_output={true}
+
+FileNames
+1 "/home/shounaka_google_com/amb-venv/lib/python3.11/site-packages/jax/experimental/pallas/ops/tpu/flash_attention.py"
+2 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_attention.py"
+
+FunctionNames
+1 "mha_reference"
+2 "_mha_reference"
+3 "mha_reference_no_custom_vjp"
+4 "pallas_flash_attention_benchmark.<locals>.f"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=1540 end_line=1550 column=9 end_column=3}
+2 {file_name_id=1 function_name_id=2 line=1565 end_line=1575 column=9 end_column=3}
+3 {file_name_id=1 function_name_id=3 line=1516 end_line=1516 column=6 end_column=25}
+4 {file_name_id=1 function_name_id=3 line=1518 end_line=1518 column=6 end_column=31}
+5 {file_name_id=1 function_name_id=3 line=1494 end_line=1494 column=11 end_column=46}
+6 {file_name_id=1 function_name_id=3 line=1509 end_line=1509 column=14 end_column=64}
+7 {file_name_id=1 function_name_id=3 line=1510 end_line=1510 column=14 end_column=64}
+8 {file_name_id=1 function_name_id=3 line=1511 end_line=1511 column=19 end_column=37}
+9 {file_name_id=1 function_name_id=3 line=1511 end_line=1511 column=18 end_column=56}
+10 {file_name_id=1 function_name_id=3 line=1514 end_line=1514 column=48 end_column=80}
+11 {file_name_id=1 function_name_id=3 line=1514 end_line=1514 column=39 end_column=80}
+12 {file_name_id=1 function_name_id=3 line=1517 end_line=1517 column=34 end_column=46}
+13 {file_name_id=1 function_name_id=3 line=1517 end_line=1517 column=25 end_column=46}
+14 {file_name_id=1 function_name_id=3 line=1517 end_line=1517 column=17 end_column=47}
+15 {file_name_id=1 function_name_id=3 line=1519 end_line=1519 column=27 end_column=39}
+16 {file_name_id=1 function_name_id=3 line=1519 end_line=1519 column=12 end_column=39}
+17 {file_name_id=1 function_name_id=3 line=1520 end_line=1520 column=8 end_column=49}
+18 {file_name_id=2 function_name_id=4 line=172 end_line=174 column=15 end_column=9}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=3}
+5 {file_location_id=5 parent_frame_id=3}
+6 {file_location_id=6 parent_frame_id=3}
+7 {file_location_id=7 parent_frame_id=3}
+8 {file_location_id=8 parent_frame_id=3}
+9 {file_location_id=9 parent_frame_id=3}
+10 {file_location_id=2 parent_frame_id=1}
+11 {file_location_id=10 parent_frame_id=11}
+12 {file_location_id=11 parent_frame_id=3}
+13 {file_location_id=12 parent_frame_id=3}
+14 {file_location_id=13 parent_frame_id=3}
+15 {file_location_id=14 parent_frame_id=3}
+16 {file_location_id=15 parent_frame_id=3}
+17 {file_location_id=16 parent_frame_id=3}
+18 {file_location_id=17 parent_frame_id=3}
+19 {file_location_id=18 parent_frame_id=1}
+20 {file_location_id=1 parent_frame_id=20}
+21 {file_location_id=2 parent_frame_id=21}
+22 {file_location_id=5 parent_frame_id=22}
+23 {file_location_id=7 parent_frame_id=22}
+24 {file_location_id=6 parent_frame_id=22}
+25 {file_location_id=8 parent_frame_id=22}
+26 {file_location_id=9 parent_frame_id=22}
+27 {file_location_id=2 parent_frame_id=20}
+28 {file_location_id=10 parent_frame_id=28}
+29 {file_location_id=11 parent_frame_id=22}
+30 {file_location_id=3 parent_frame_id=22}
+31 {file_location_id=12 parent_frame_id=22}
+32 {file_location_id=13 parent_frame_id=22}
+33 {file_location_id=14 parent_frame_id=22}
+34 {file_location_id=4 parent_frame_id=22}
+35 {file_location_id=15 parent_frame_id=22}
+36 {file_location_id=16 parent_frame_id=22}
+37 {file_location_id=17 parent_frame_id=22}
+
+
+%fused_computation.5 () -> f32[256,256] {
+  %iota.19 = s32[256,256]{1,0:T(8,128)} iota(), iota_dimension=1, metadata={op_name="jit(f)/jit(mha_reference)/iota" stack_frame_id=23}
+  %iota.18 = s32[256,256]{1,0:T(8,128)} iota(), iota_dimension=0, metadata={op_name="jit(f)/jit(mha_reference)/iota" stack_frame_id=24}
+  %le.8 = pred[256,256]{1,0:T(8,128)(4,1)} compare(%iota.19, %iota.18), direction=LE, metadata={op_name="jit(f)/jit(mha_reference)/le" stack_frame_id=25}
+  %constant.9 = f32[]{:T(128)} constant(0), metadata={op_name="jit(f)/jit(mha_reference)" stack_frame_id=19}
+  %broadcast.20 = f32[256,256]{1,0:T(8,128)} broadcast(%constant.9), dimensions={}, metadata={op_name="jit(f)/jit(mha_reference)/jit(_where)/broadcast_in_dim" stack_frame_id=28}
+  %constant.8 = f32[]{:T(128)} constant(-2.38197633e+38), metadata={op_name="jit(f)/jit(mha_reference)" stack_frame_id=19}
+  %broadcast.19 = f32[256,256]{1,0:T(8,128)} broadcast(%constant.8), dimensions={}, metadata={op_name="jit(f)/jit(mha_reference)/jit(_where)/broadcast_in_dim" stack_frame_id=28}
+  ROOT %select_n.8 = f32[256,256]{1,0:T(8,128)S(1)} select(%le.8, %broadcast.20, %broadcast.19), metadata={op_name="jit(f)/jit(mha_reference)/jit(_where)/select_n" stack_frame_id=28}
+}
+
+%bitcast_fusion (param_0.22: f32[2,1,256,1024]) -> f32[2,256,1024] {
+  %param_0.22 = f32[2,1,256,1024]{3,2,1,0:T(8,128)S(1)} parameter(0)
+  %bitcast.25 = f32[2,256,1024]{2,1,0:T(8,128)} bitcast(%param_0.22)
+  ROOT %bitcast.21 = f32[2,256,1024]{2,1,0:T(8,128)} bitcast(%bitcast.25)
+}
+
+%fused_computation.7 (param_0.19: f32[2,1,256,1024]) -> bf16[2,256,1024] {
+  %param_0.19 = f32[2,1,256,1024]{3,2,1,0:T(8,128)} parameter(0)
+  %bitcast.19 = f32[2,256,1024]{2,1,0:T(8,128)} bitcast(%param_0.19)
+  ROOT %convert.2 = bf16[2,256,1024]{2,1,0:T(8,128)(2,1)} convert(%bitcast.19)
+}
+
+%fused_computation.3 (param_0.18: f32[256,256], param_1.15: f32[2,1,256,1024], param_2.8: f32[2,1,256,1024]) -> f32[2,256,256] {
+  %param_2.8 = f32[2,1,256,1024]{3,2,1,0:T(8,128)S(1)} parameter(2)
+  %fusion.14 = f32[2,256,1024]{2,1,0:T(8,128)} fusion(%param_2.8), kind=kLoop, calls=%bitcast_fusion
+  %param_1.15 = f32[2,1,256,1024]{3,2,1,0:T(8,128)} parameter(1)
+  %fusion.12 = bf16[2,256,1024]{2,1,0:T(8,128)(2,1)} fusion(%param_1.15), kind=kLoop, calls=%fused_computation.7
+  %convolution-base-dilated.3 = f32[2,256,256]{2,1,0:T(8,128)} convolution(%fusion.14, %fusion.12), window={size=2 lhs_dilate=2}, dim_labels=0bf_0oi->0bf, metadata={op_name="jit(f)/jit(mha_reference)/bhqc,bhkc->bhqk/dot_general" stack_frame_id=22}
+  %param_0.18 = f32[256,256]{1,0:T(8,128)S(1)} parameter(0)
+  %broadcast.18 = f32[2,256,256]{2,1,0:T(8,128)} broadcast(%param_0.18), dimensions={1,2}, metadata={op_name="jit(f)/jit(mha_reference)/add" stack_frame_id=29}
+  ROOT %add.9 = f32[2,256,256]{2,1,0:T(8,128)S(1)} add(%convolution-base-dilated.3, %broadcast.18), metadata={op_name="jit(f)/jit(mha_reference)/add" stack_frame_id=29}
+}
+
+ENTRY %main.5 (q.1: f32[2,1,256,1024], k.1: f32[2,1,256,1024], v.1: f32[2,1,256,1024]) -> f32[2,1,256,1024] {
+  %q.1 = f32[2,1,256,1024]{3,2,1,0:T(8,128)} parameter(0), metadata={op_name="q"}
+  %copy-start = (f32[2,1,256,1024]{3,2,1,0:T(8,128)S(1)}, f32[2,1,256,1024]{3,2,1,0:T(8,128)}, u32[]{:S(2)}) copy-start(%q.1), cross_program_prefetch_index=0
+  %v.1 = f32[2,1,256,1024]{3,2,1,0:T(8,128)} parameter(2), metadata={op_name="v"}
+  %k.1 = f32[2,1,256,1024]{3,2,1,0:T(8,128)} parameter(1), metadata={op_name="k"}
+  %fusion.8 = f32[256,256]{1,0:T(8,128)S(1)} fusion(), kind=kLoop, calls=%fused_computation.5, metadata={op_name="jit(f)/jit(mha_reference)/jit(_where)/select_n" stack_frame_id=28}, backend_config={"flag_configs":[],"window_config":{"kernel_window_bounds":[],"output_window_bounds":["32","2"],"input_window_bounds":[],"estimated_cycles":"64","iteration_bounds":["1","1"],"cost_model_type":"COST_MODEL_TYPE_INVALID","ml_estimated_microseconds":0,"is_mask":false,"pad_output_on_minor_dim":"0","pad_input_on_minor_dim":"0","estimated_vmem_bytes":"0","estimated_bundle_count":"0","estimated_scoped_vmem_bytes":"0"},"scoped_memory_configs":[],"used_scoped_memory_configs":[{"memory_space":"1","offset":"0","size":"0"}],"retry_config":{"retry_count":"0"},"aliasing_operands":{"lists":[]}}
+  %copy-done = f32[2,1,256,1024]{3,2,1,0:T(8,128)S(1)} copy-done(%copy-start)
+  %copy-start.1 = (f32[2,1,256,1024]{3,2,1,0:T(8,128)S(1)}, f32[2,1,256,1024]{3,2,1,0:T(8,128)}, u32[]{:S(2)}) copy-start(%v.1)
+  %fusion.3 = f32[2,256,256]{2,1,0:T(8,128)S(1)} fusion(%fusion.8, %k.1, %copy-done), kind=kOutput, calls=%fused_computation.3, metadata={op_name="jit(f)/jit(mha_reference)/bhqc,bhkc->bhqk/dot_general" stack_frame_id=22}, backend_config={"flag_configs":[],"window_config":{"kernel_window_bounds":["2","32","8"],"output_window_bounds":["2","32","2"],"input_window_bounds":["2","32","8"],"estimated_cycles":"4976","iteration_bounds":["1","1","1","1","1"],"cost_model_type":"COST_MODEL_TYPE_CLASSIC","ml_estimated_microseconds":0,"is_mask":false,"pad_output_on_minor_dim":"0","pad_input_on_minor_dim":"0","estimated_vmem_bytes":"0","estimated_bundle_count":"0","estimated_scoped_vmem_bytes":"0"},"scoped_memory_configs":[],"used_scoped_memory_configs":[{"memory_space":"1","offset":"0","size":"2097152"}],"retry_config":{"retry_count":"0"},"convolution_algorithm_config":{"emitter":"EmitAllBatchInSublanes"},"aliasing_operands":{"lists":[]}}
+  %copy-done.1 = f32[2,1,256,1024]{3,2,1,0:T(8,128)S(1)} copy-done(%copy-start.1)
+  %bitcast.26 = f32[2,256,1024]{2,1,0:T(8,128)S(1)} bitcast(%copy-done.1)
+  %online-softmax = f32[2,256,1024]{2,1,0:T(8,128)} custom-call(%fusion.3, %bitcast.26), custom_call_target="tpu_custom_call", operand_layout_constraints={f32[2,256,256]{2,1,0}, f32[2,256,1024]{2,1,0}}, frontend_attributes={tiling="256,256"}, metadata={op_name="online-softmax"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"custom_call_config":{"body":"bW9kdWxlIHsKICBmdW5jLmZ1bmMgQG1haW4oJWFyZzA6IGkzMiwgJWFyZzE6IGkzMiwgJWFyZzI6IGkzMiwgJWFyZzM6IG1lbXJlZjwxeDI1NngyNTZ4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sICVhcmc0OiBtZW1yZWY8MXgyNTZ4MTAyNHhmMzIsICN0cHUubWVtb3J5X3NwYWNlPHZtZW0+PiwgJWFyZzU6IG1lbXJlZjwxeDI1NngxMDI0eGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCAlYXJnNjogbWVtcmVmPDF4MjU2eDF4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sICVhcmc3OiBtZW1yZWY8MXgyNTZ4MXhmMzIsICN0cHUubWVtb3J5X3NwYWNlPHZtZW0+PikgYXR0cmlidXRlcyB7ZGltZW5zaW9uX3NlbWFudGljcyA9IFsjdHB1LmRpbWVuc2lvbl9zZW1hbnRpY3M8cGFyYWxsZWw+LCAjdHB1LmRpbWVuc2lvbl9zZW1hbnRpY3M8cGFyYWxsZWw+LCAjdHB1LmRpbWVuc2lvbl9zZW1hbnRpY3M8YXJiaXRyYXJ5Pl0sIGl0ZXJhdGlvbl9ib3VuZHMgPSBhcnJheTxpNjQ6IDIsIDEsIDE+LCBzY3JhdGNoX29wZXJhbmRzID0gMiA6IGk2NCwgd2luZG93X3BhcmFtcyA9IFt7dHJhbnNmb3JtX2luZGljZXMgPSBAcWtfZm4sIHdpbmRvd19ib3VuZHMgPSBhcnJheTxpNjQ6IDEsIDI1NiwgMjU2Pn0sIHt0cmFuc2Zvcm1faW5kaWNlcyA9IEB2X2ZuLCB3aW5kb3dfYm91bmRzID0gYXJyYXk8aTY0OiAxLCAyNTYsIDEwMjQ+fSwge3RyYW5zZm9ybV9pbmRpY2VzID0gQG9pX2ZuLCB3aW5kb3dfYm91bmRzID0gYXJyYXk8aTY0OiAxLCAyNTYsIDEwMjQ+fV19IHsKICAgICVjMCA9IGFyaXRoLmNvbnN0YW50IDAgOiBpbmRleAogICAgJWMwX2kzMiA9IGFyaXRoLmNvbnN0YW50IDAgOiBpMzIKICAgICUwID0gYXJpdGguY21waSBlcSwgJWMwX2kzMiwgJWFyZzIgOiBpMzIKICAgIHNjZi5pZiAlMCB7CiAgICAgICVjc3RfMyA9IGFyaXRoLmNvbnN0YW50IGRlbnNlPDAuMDAwMDAwZSswMD4gOiB2ZWN0b3I8MXgyNTZ4MTAyNHhmMzI+CiAgICAgIHZlY3Rvci5zdG9yZSAlY3N0XzMsICVhcmc1WyVjMCwgJWMwLCAlYzBdIDogbWVtcmVmPDF4MjU2eDEwMjR4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sIHZlY3RvcjwxeDI1NngxMDI0eGYzMj4KICAgICAgJWNzdF80ID0gYXJpdGguY29uc3RhbnQgZGVuc2U8MHhGRjgwMDAwMD4gOiB2ZWN0b3I8MXgyNTZ4MXhmMzI+CiAgICAgIHZlY3Rvci5zdG9yZSAlY3N0XzQsICVhcmc2WyVjMCwgJWMwLCAlYzBdIDogbWVtcmVmPDF4MjU2eDF4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sIHZlY3RvcjwxeDI1NngxeGYzMj4KICAgICAgJWNzdF81ID0gYXJpdGguY29uc3RhbnQgZGVuc2U8MC4wMDAwMDBlKzAwPiA6IHZlY3RvcjwxeDI1NngxeGYzMj4KICAgICAgdmVjdG9yLnN0b3JlICVjc3RfNSwgJWFyZzdbJWMwLCAlYzAsICVjMF0gOiBtZW1yZWY8MXgyNTZ4MXhmMzIsICN0cHUubWVtb3J5X3NwYWNlPHZtZW0+PiwgdmVjdG9yPDF4MjU2eDF4ZjMyPgogICAgfQogICAgJTEgPSB2ZWN0b3IubG9hZCAlYXJnM1slYzAsICVjMCwgJWMwXSA6IG1lbXJlZjwxeDI1NngyNTZ4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sIHZlY3RvcjwxeDI1NngyNTZ4ZjMyPgogICAgJWNzdCA9IGFyaXRoLmNvbnN0YW50IGRlbnNlPDB4RkY4MDAwMDA+IDogdmVjdG9yPDF4MjU2eGYzMj4KICAgICUyID0gdmVjdG9yLm11bHRpX3JlZHVjdGlvbiA8bWF4aW11bWY+LCAlMSwgJWNzdCBbMl0gOiB2ZWN0b3I8MXgyNTZ4MjU2eGYzMj4gdG8gdmVjdG9yPDF4MjU2eGYzMj4KICAgICUzID0gdmVjdG9yLnNoYXBlX2Nhc3QgJTIgOiB2ZWN0b3I8MXgyNTZ4ZjMyPiB0byB2ZWN0b3I8MXgyNTZ4MXhmMzI+CiAgICAlNCA9IHZlY3Rvci5sb2FkICVhcmc2WyVjMCwgJWMwLCAlYzBdIDogbWVtcmVmPDF4MjU2eDF4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sIHZlY3RvcjwxeDI1NngxeGYzMj4KICAgICU1ID0gYXJpdGgubWF4aW11bWYgJTQsICUzIDogdmVjdG9yPDF4MjU2eDF4ZjMyPgogICAgJWNzdF8wID0gYXJpdGguY29uc3RhbnQgZGVuc2U8MC4wMDAwMDBlKzAwPiA6IHZlY3RvcjwxeDI1NngxeGYzMj4KICAgICU2ID0gYXJpdGguY21wZiBvZXEsICU0LCAlNSA6IHZlY3RvcjwxeDI1NngxeGYzMj4KICAgICU3ID0gYXJpdGguc3ViZiAlNCwgJTUgOiB2ZWN0b3I8MXgyNTZ4MXhmMzI+CiAgICAlOCA9IGFyaXRoLnNlbGVjdCAlNiwgJWNzdF8wLCAlNyA6IHZlY3RvcjwxeDI1NngxeGkxPiwgdmVjdG9yPDF4MjU2eDF4ZjMyPgogICAgJTkgPSB2ZWN0b3IuYnJvYWRjYXN0ICU1IDogdmVjdG9yPDF4MjU2eDF4ZjMyPiB0byB2ZWN0b3I8MXgyNTZ4MjU2eGYzMj4KICAgICUxMCA9IGFyaXRoLnN1YmYgJTEsICU5IDogdmVjdG9yPDF4MjU2eDI1NnhmMzI+CiAgICAlMTEgPSBtYXRoLmV4cCAlMTAgOiB2ZWN0b3I8MXgyNTZ4MjU2eGYzMj4KICAgICVjc3RfMSA9IGFyaXRoLmNvbnN0YW50IGRlbnNlPDAuMDAwMDAwZSswMD4gOiB2ZWN0b3I8MXgyNTZ4ZjMyPgogICAgJTEyID0gdmVjdG9yLm11bHRpX3JlZHVjdGlvbiA8YWRkPiwgJTExLCAlY3N0XzEgWzJdIDogdmVjdG9yPDF4MjU2eDI1NnhmMzI+IHRvIHZlY3RvcjwxeDI1NnhmMzI+CiAgICAlMTMgPSB2ZWN0b3Iuc2hhcGVfY2FzdCAlMTIgOiB2ZWN0b3I8MXgyNTZ4ZjMyPiB0byB2ZWN0b3I8MXgyNTZ4MXhmMzI+CiAgICAlMTQgPSB2ZWN0b3IubG9hZCAlYXJnN1slYzAsICVjMCwgJWMwXSA6IG1lbXJlZjwxeDI1NngxeGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCB2ZWN0b3I8MXgyNTZ4MXhmMzI+CiAgICAlMTUgPSBtYXRoLmV4cCAlOCA6IHZlY3RvcjwxeDI1NngxeGYzMj4KICAgICUxNiA9IGFyaXRoLm11bGYgJTE1LCAlMTQgOiB2ZWN0b3I8MXgyNTZ4MXhmMzI+CiAgICAlMTcgPSBhcml0aC5hZGRmICUxNiwgJTEzIDogdmVjdG9yPDF4MjU2eDF4ZjMyPgogICAgJTE4ID0gdmVjdG9yLmxvYWQgJWFyZzVbJWMwLCAlYzAsICVjMF0gOiBtZW1yZWY8MXgyNTZ4MTAyNHhmMzIsICN0cHUubWVtb3J5X3NwYWNlPHZtZW0+PiwgdmVjdG9yPDF4MjU2eDEwMjR4ZjMyPgogICAgJTE5ID0gbWF0aC5leHAgJTggOiB2ZWN0b3I8MXgyNTZ4MXhmMzI+CiAgICAlMjAgPSBhcml0aC5tdWxmICUxOSwgJTE0IDogdmVjdG9yPDF4MjU2eDF4ZjMyPgogICAgJTIxID0gdmVjdG9yLmJyb2FkY2FzdCAlMjAgOiB2ZWN0b3I8MXgyNTZ4MXhmMzI+IHRvIHZlY3RvcjwxeDI1NngxMDI0eGYzMj4KICAgICUyMiA9IGFyaXRoLm11bGYgJTIxLCAlMTggOiB2ZWN0b3I8MXgyNTZ4MTAyNHhmMzI+CiAgICAlMjMgPSB2ZWN0b3IubG9hZCAlYXJnNFslYzAsICVjMCwgJWMwXSA6IG1lbXJlZjwxeDI1NngxMDI0eGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCB2ZWN0b3I8MXgyNTZ4MTAyNHhmMzI+CiAgICAlMjQgPSB2ZWN0b3Iuc2hhcGVfY2FzdCAlMjMgOiB2ZWN0b3I8MXgyNTZ4MTAyNHhmMzI+IHRvIHZlY3RvcjwyNTZ4MTAyNHhmMzI+CiAgICAlMjUgPSB2ZWN0b3Iuc2hhcGVfY2FzdCAlMTEgOiB2ZWN0b3I8MXgyNTZ4MjU2eGYzMj4gdG8gdmVjdG9yPDI1NngyNTZ4ZjMyPgogICAgJTI2ID0gdmVjdG9yLnNoYXBlX2Nhc3QgJTIyIDogdmVjdG9yPDF4MjU2eDEwMjR4ZjMyPiB0byB2ZWN0b3I8MjU2eDEwMjR4ZjMyPgogICAgJTI3ID0gdHB1Lm1hdG11bCAlMjUsICUyNCwgJTI2IHtkaW1lbnNpb25fbnVtYmVycyA9ICN0cHUuZG90X2RpbWVuc2lvbl9udW1iZXJzPFsxXSwgWzBdLCBbMF0sIFsxXSwgWzAsIDAsIDEsIDFdLCBbXSwgW10+LCBwcmVjaXNpb24gPSAjdHB1LmNvbnRyYWN0X3ByZWNpc2lvbjxiZjE2PiwgdHJhbnNwb3NlX2xoc19oaW50ID0gZmFsc2V9IDogdmVjdG9yPDI1NngyNTZ4ZjMyPiwgdmVjdG9yPDI1NngxMDI0eGYzMj4sIHZlY3RvcjwyNTZ4MTAyNHhmMzI+IC0+IHZlY3RvcjwyNTZ4MTAyNHhmMzI+CiAgICAlMjggPSB2ZWN0b3Iuc2hhcGVfY2FzdCAlMjcgOiB2ZWN0b3I8MjU2eDEwMjR4ZjMyPiB0byB2ZWN0b3I8MXgyNTZ4MTAyNHhmMzI+CiAgICAlY3N0XzIgPSBhcml0aC5jb25zdGFudCBkZW5zZTwxLjAwMDAwMGUrMDA+IDogdmVjdG9yPDF4MjU2eDF4ZjMyPgogICAgJTI5ID0gYXJpdGguZGl2ZiAlY3N0XzIsICUxNyA6IHZlY3RvcjwxeDI1NngxeGYzMj4KICAgICUzMCA9IHZlY3Rvci5icm9hZGNhc3QgJTI5IDogdmVjdG9yPDF4MjU2eDF4ZjMyPiB0byB2ZWN0b3I8MXgyNTZ4MTAyNHhmMzI+CiAgICAlMzEgPSBhcml0aC5tdWxmICUyOCwgJTMwIDogdmVjdG9yPDF4MjU2eDEwMjR4ZjMyPgogICAgJTMyID0gdmVjdG9yLnNoYXBlX2Nhc3QgJTMxIDogdmVjdG9yPDF4MjU2eDEwMjR4ZjMyPiB0byB2ZWN0b3I8MXgyNTZ4MTAyNHhmMzI+CiAgICB2ZWN0b3Iuc3RvcmUgJTMyLCAlYXJnNVslYzAsICVjMCwgJWMwXSA6IG1lbXJlZjwxeDI1NngxMDI0eGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCB2ZWN0b3I8MXgyNTZ4MTAyNHhmMzI+CiAgICB2ZWN0b3Iuc3RvcmUgJTUsICVhcmc2WyVjMCwgJWMwLCAlYzBdIDogbWVtcmVmPDF4MjU2eDF4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sIHZlY3RvcjwxeDI1NngxeGYzMj4KICAgIHZlY3Rvci5zdG9yZSAlMTcsICVhcmc3WyVjMCwgJWMwLCAlYzBdIDogbWVtcmVmPDF4MjU2eDF4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sIHZlY3RvcjwxeDI1NngxeGYzMj4KICAgIHJldHVybgogIH0KICBmdW5jLmZ1bmMgQHFrX2ZuKCVhcmcwOiBpMzIsICVhcmcxOiBpMzIsICVhcmcyOiBpMzIpIC0+IChpMzIsIGkzMiwgaTMyKSB7CiAgICByZXR1cm4gJWFyZzAsICVhcmcxLCAlYXJnMiA6IGkzMiwgaTMyLCBpMzIKICB9CiAgZnVuYy5mdW5jIEB2X2ZuKCVhcmcwOiBpMzIsICVhcmcxOiBpMzIsICVhcmcyOiBpMzIpIC0+IChpMzIsIGkzMiwgaTMyKSB7CiAgICAlYzBfaTMyID0gYXJpdGguY29uc3RhbnQgMCA6IGkzMgogICAgcmV0dXJuICVhcmcwLCAlYXJnMiwgJWMwX2kzMiA6IGkzMiwgaTMyLCBpMzIKICB9CiAgZnVuYy5mdW5jIEBvaV9mbiglYXJnMDogaTMyLCAlYXJnMTogaTMyLCAlYXJnMjogaTMyKSAtPiAoaTMyLCBpMzIsIGkzMikgewogICAgJWMwX2kzMiA9IGFyaXRoLmNvbnN0YW50IDAgOiBpMzIKICAgIHJldHVybiAlYXJnMCwgJWFyZzEsICVjMF9pMzIgOiBpMzIsIGkzMiwgaTMyCiAgfQp9","needs_layout_passes":true,"needs_hlo_passes":false,"allow_input_fusion":[],"output_memory_colors":[],"output_memory_space_colors":[],"input_memory_space_colors":[]},"used_scoped_memory_configs":[{"memory_space":"1","offset":"0","size":"2834432"}],"retry_config":{"retry_count":"0"},"aliasing_operands":{"lists":[]}}
+  ROOT %bitcast.4 = f32[2,1,256,1024]{3,2,1,0:T(8,128)} bitcast(%online-softmax), metadata={op_name="jit(f)/jit(mha_reference)/bhqk,bhkc->bhqc/dot_general" stack_frame_id=37}
+}
+

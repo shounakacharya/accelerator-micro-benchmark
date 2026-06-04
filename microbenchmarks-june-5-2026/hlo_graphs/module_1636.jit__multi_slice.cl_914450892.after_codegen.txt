@@ -1,0 +1,47 @@
+HloModule jit__multi_slice, is_scheduled=true, entry_computation_layout={(bf16[6144,6144]{1,0:T(8,128)(2,1)})->(bf16[6144,1536]{1,0:T(8,128)(2,1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)})}, allow_spmd_sharding_propagation_to_parameters={true}, allow_spmd_sharding_propagation_to_output={true,true,true,true}
+
+FileNames
+1 "/home/shounaka_google_com/accelerator-microbenchmarks/src/run_benchmark.py"
+2 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_matmul.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "run_single_benchmark"
+4 "multilayer_collective_matmul"
+5 "multilayer_collective_matmul.<locals>.<listcomp>"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=527 end_line=527 column=4 end_column=41}
+2 {file_name_id=1 function_name_id=2 line=422 end_line=422 column=12 end_column=50}
+3 {file_name_id=1 function_name_id=3 line=328 end_line=330 column=28 end_column=9}
+4 {file_name_id=2 function_name_id=4 line=561 end_line=561 column=14 end_column=77}
+5 {file_name_id=2 function_name_id=5 line=561 end_line=561 column=15 end_column=54}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+5 {file_location_id=5 parent_frame_id=5}
+
+
+%fused_computation (param_0: bf16[6144,6144]) -> (bf16[6144,1536], bf16[6144,1536], bf16[6144,1536], bf16[6144,1536]) {
+  %param_0 = bf16[6144,6144]{1,0:T(8,128)(2,1)} parameter(0)
+  %slice.0 = bf16[6144,1536]{1,0:T(8,128)(2,1)} slice(%param_0), slice={[0:6144], [4608:6144]}, metadata={op_name="jit(_multi_slice)/slice" stack_frame_id=5}
+  %slice.1 = bf16[6144,1536]{1,0:T(8,128)(2,1)} slice(%param_0), slice={[0:6144], [3072:4608]}, metadata={op_name="jit(_multi_slice)/slice" stack_frame_id=5}
+  %slice.2 = bf16[6144,1536]{1,0:T(8,128)(2,1)} slice(%param_0), slice={[0:6144], [1536:3072]}, metadata={op_name="jit(_multi_slice)/slice" stack_frame_id=5}
+  %slice.3 = bf16[6144,1536]{1,0:T(8,128)(2,1)} slice(%param_0), slice={[0:6144], [0:1536]}, metadata={op_name="jit(_multi_slice)/slice" stack_frame_id=5}
+  ROOT %tuple.3 = (bf16[6144,1536]{1,0:T(8,128)(2,1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)}) tuple(%slice.0, %slice.1, %slice.2, %slice.3)
+}
+
+ENTRY %main.1 (self.1: bf16[6144,6144]) -> (bf16[6144,1536], bf16[6144,1536], bf16[6144,1536], bf16[6144,1536]) {
+  %self.1 = bf16[6144,6144]{1,0:T(8,128)(2,1)} parameter(0), metadata={op_name="self"}
+  %fusion = (bf16[6144,1536]{1,0:T(8,128)(2,1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)}) fusion(%self.1), kind=kLoop, calls=%fused_computation, metadata={op_name="jit(_multi_slice)/slice" stack_frame_id=5}, backend_config={"flag_configs":[],"window_config":{"kernel_window_bounds":[],"output_window_bounds":["70","12"],"input_window_bounds":[],"estimated_cycles":"229645","iteration_bounds":["11","1"],"cost_model_type":"COST_MODEL_TYPE_INVALID","ml_estimated_microseconds":0,"is_mask":false,"pad_output_on_minor_dim":"0","pad_input_on_minor_dim":"0","estimated_vmem_bytes":"0","estimated_bundle_count":"0","estimated_scoped_vmem_bytes":"0"},"scoped_memory_configs":[],"used_scoped_memory_configs":[{"memory_space":"1","offset":"0","size":"27525120"}],"retry_config":{"retry_count":"0"},"aliasing_operands":{"lists":[]}}
+  %get-tuple-element.3 = bf16[6144,1536]{1,0:T(8,128)(2,1)} get-tuple-element(%fusion), index=3, metadata={op_name="jit(_multi_slice)/slice" stack_frame_id=5}
+  %get-tuple-element.2 = bf16[6144,1536]{1,0:T(8,128)(2,1)} get-tuple-element(%fusion), index=2, metadata={op_name="jit(_multi_slice)/slice" stack_frame_id=5}
+  %get-tuple-element.1 = bf16[6144,1536]{1,0:T(8,128)(2,1)} get-tuple-element(%fusion), index=1, metadata={op_name="jit(_multi_slice)/slice" stack_frame_id=5}
+  %get-tuple-element = bf16[6144,1536]{1,0:T(8,128)(2,1)} get-tuple-element(%fusion), index=0, metadata={op_name="jit(_multi_slice)/slice" stack_frame_id=5}
+  ROOT %tuple.1 = (bf16[6144,1536]{1,0:T(8,128)(2,1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)}) tuple(%get-tuple-element.3, %get-tuple-element.2, %get-tuple-element.1, %get-tuple-element)
+}
+

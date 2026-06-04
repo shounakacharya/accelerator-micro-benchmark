@@ -1,0 +1,44 @@
+HloLiveRange (max 13):
+  InstructionSequence:
+    0:constant.15
+    1:key.1
+    2:fusion.16
+    3:get-tuple-element.1
+    4:get-tuple-element
+    5:bitcast
+    6:bitcast.1
+    7:xor.4
+    8:xor.5
+    9:add_add_fusion
+    10:get-tuple-element.3
+    11:get-tuple-element.2
+    12:pad_add_fusion
+  BufferLiveRange:
+    key.1{}:0-13
+    fusion.16{}:2-4
+    fusion.16{0}:2-9
+    fusion.16{1}:2-9
+    xor.4{}:7-8
+    constant.15{}:0-8
+    xor.5{}:8-9
+    add_add_fusion{}:9-11
+    add_add_fusion{0}:9-12
+    add_add_fusion{1}:9-12
+    pad_add_fusion{}:12-13
+  Live ranges at 9 (peak):
+    add_add_fusion{}: 16 bytes (cumulative: 16 bytes)
+    add_add_fusion{0}: 12 bytes (cumulative: 28 bytes)
+    add_add_fusion{1}: 12 bytes (cumulative: 40 bytes)
+    key.1{}: 8 bytes (cumulative: 48 bytes)
+    fusion.16{0}: 4 bytes (cumulative: 52 bytes)
+    fusion.16{1}: 4 bytes (cumulative: 56 bytes)
+    xor.5{}: 4 bytes (cumulative: 60 bytes)
+  Stack trace breakdown for peak usage: 60 bytes
+    main.2 (100.0%, total: 60 bytes, current: 0 bytes, remaining: 60 bytes)
+      ├── jit(_threefry_split)/add (26.7%, total: 16 bytes, current: 16 bytes, remaining: 44 bytes)
+      ├── jit(_threefry_split)/add{0} (20.0%, total: 12 bytes, current: 12 bytes, remaining: 32 bytes)
+      ├── jit(_threefry_split)/add{1} (20.0%, total: 12 bytes, current: 12 bytes, remaining: 20 bytes)
+      ├── key (13.3%, total: 8 bytes, current: 8 bytes, remaining: 12 bytes)
+      ├── jit(_threefry_split)/slice{0} (6.7%, total: 4 bytes, current: 4 bytes, remaining: 8 bytes)
+      ├── jit(_threefry_split)/slice{1} (6.7%, total: 4 bytes, current: 4 bytes, remaining: 4 bytes)
+      └── jit(_threefry_split)/xor (6.7%, total: 4 bytes, current: 4 bytes, remaining: 0 bytes)

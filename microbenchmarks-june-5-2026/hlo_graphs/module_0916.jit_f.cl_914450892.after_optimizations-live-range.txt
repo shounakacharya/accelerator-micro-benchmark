@@ -1,0 +1,20 @@
+HloLiveRange (max 5):
+  InstructionSequence:
+    0:param.1
+    1:bitcast
+    2:all_to_all.9
+    3:bitcast.1
+    4:copy.3
+  BufferLiveRange:
+    param.1{}:0-5
+    all_to_all.9{}:2-4
+    copy.3{}:4-5
+  Live ranges at 4 (peak):
+    all_to_all.9{}: 1763704832 bytes (cumulative: 1763704832 bytes)
+    copy.3{}: 1763704832 bytes (cumulative: 3527409664 bytes)
+    param.1{}: 1763704832 bytes (cumulative: 5291114496 bytes)
+  Stack trace breakdown for peak usage: 5 291 114 496 bytes
+    main.0_spmd (100.0%, total: 5 291 114 496 bytes, current: 0 bytes, remaining: 5 291 114 496 bytes)
+      ├── copy.3 (33.3%, total: 1 763 704 832 bytes, current: 1 763 704 832 bytes, remaining: 3 527 409 664 bytes)
+      ├── jit(f)/shard_map/all_to_all (33.3%, total: 1 763 704 832 bytes, current: 1 763 704 832 bytes, remaining: 1 763 704 832 bytes)
+      └── x (33.3%, total: 1 763 704 832 bytes, current: 1 763 704 832 bytes, remaining: 0 bytes)

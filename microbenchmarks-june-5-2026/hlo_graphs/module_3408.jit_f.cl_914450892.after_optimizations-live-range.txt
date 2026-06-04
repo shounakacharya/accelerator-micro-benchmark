@@ -1,0 +1,48 @@
+HloLiveRange (max 16):
+  InstructionSequence:
+    0:constant.4
+    1:kernel.1
+    2:copy-start
+    3:x.1
+    4:copy-done
+    5:rev.3
+    6:bitcast.7
+    7:copy.2
+    8:reshape.2
+    9:slice.2
+    10:fusion.2
+    11:copy.1
+    12:convolution_select_fusion
+    13:copy.3
+    14:reshape.6
+    15:slice_reduce_fusion
+  BufferLiveRange:
+    constant.4{}:0-12
+    x.1{}:0-16
+    reshape.2{}:8-10
+    slice.2{}:9-10
+    fusion.2{}:10-11
+    copy.1{}:11-12
+    kernel.1{}:0-16
+    copy-start{}:2-4
+    copy-start{0}:2-5
+    copy-start{2}:2-4
+    rev.3{}:5-7
+    copy.2{}:7-12
+    convolution_select_fusion{}:12-13
+    copy.3{}:13-14
+    reshape.6{}:14-15
+    slice_reduce_fusion{}:15-16
+  Live ranges at 11 (peak):
+    copy.1{}: 4128 bytes (cumulative: 4128 bytes)
+    fusion.2{}: 4128 bytes (cumulative: 8256 bytes)
+    x.1{}: 4096 bytes (cumulative: 12352 bytes)
+    constant.4{}: 2048 bytes (cumulative: 14400 bytes)
+    copy.2{}: 6 bytes (cumulative: 14406 bytes)
+    kernel.1{}: 6 bytes (cumulative: 14412 bytes)
+  Stack trace breakdown for peak usage: 14 412 bytes
+    main.4 (100.0%, total: 14 412 bytes, current: 0 bytes, remaining: 14 412 bytes)
+      ├── jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated (71.5%, total: 10 304 bytes, current: 10 304 bytes, remaining: 4 108 bytes)
+      ├── x (28.4%, total: 4 096 bytes, current: 4 096 bytes, remaining: 12 bytes)
+      ├── jit(f)/jit(convolve)/jit(_conv)/broadcast_in_dim (0.0%, total: 6 bytes, current: 6 bytes, remaining: 6 bytes)
+      └── kernel (0.0%, total: 6 bytes, current: 6 bytes, remaining: 0 bytes)

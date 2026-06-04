@@ -1,0 +1,38 @@
+BufferAssignment:
+allocation 0: size 2048, thread-local:
+ value: <2 add @0> (size=2048,offset=0): bf16[]
+allocation 1: size 33792, constant:
+ value: <42 constant.5 @0> (size=33792,offset=0): pred[8,33,1]{2,0,1:T(8,128)(4,1)}
+allocation 2: size 512, output shape is |bf16[256]|, maybe-live-out:
+ value: <59 slice_reduce_fusion @0> (size=512,offset=0): bf16[256]{0:T(256)(128)(2,1)}
+allocation 3: size 512, parameter 0, shape |bf16[256]| at ShapeIndex {}:
+ value: <46 x.1 @0> (size=512,offset=0): bf16[256]{0:T(256)(128)(2,1)}
+allocation 4: size 512, parameter 1, shape |bf16[3]| at ShapeIndex {}:
+ value: <53 kernel.1 @0> (size=512,offset=0): bf16[3]{0:T(256)(128)(2,1)}
+allocation 5: size 2048, thread-local:
+ value: <1 rhs @0> (size=2048,offset=0): bf16[]
+allocation 6: size 2048, thread-local:
+ value: <0 lhs @0> (size=2048,offset=0): bf16[]
+allocation 7: size 2048, thread-local:
+ value: <3 lhs.1 @0> (size=2048,offset=0): bf16[]
+allocation 8: size 2048, thread-local:
+ value: <4 rhs.1 @0> (size=2048,offset=0): bf16[]
+allocation 9: size 2048, thread-local:
+ value: <5 add.1 @0> (size=2048,offset=0): bf16[]
+allocation 10: size 4, color 2, preallocated-temp:
+ value: <45 copy-start{2} @2> (size=4,offset=0): u32[]{:S(2)}
+allocation 11: size 32, preallocated-temp:
+ value: <43 copy-start{} @0> (size=32,offset=0): (pred[8,33,1]{2,0,1:T(8,128)(4,1)S(1)}, pred[8,33,1]{2,0,1:T(8,128)(4,1)}, u32[]{:S(2)})
+allocation 12: size 128512, color 1, preallocated-temp:
+ value: <44 copy-start{0} @1> (size=33792,offset=90112): pred[8,33,1]{2,0,1:T(8,128)(4,1)S(1)}
+ value: <47 reshape.8 @1> (size=1024,offset=0): bf16[1,1,256]{2,1,0:T(2,128)(2,1)S(1)}
+ value: <48 pad_reduce_fusion @1> (size=1024,offset=4096): bf16[264]{0:T(512)(128)(2,1)S(1)}
+ value: <49 reshape.2 @1> (size=2048,offset=0): bf16[1,1,8,33]{3,2,1,0:T(8,128)(2,1)S(1)}
+ value: <50 slice @1> (size=2048,offset=8192): bf16[1,1,7,2]{3,2,1,0:T(8,128)(2,1)S(1)}
+ value: <51 fusion.2 @1> (size=2048,offset=4096): bf16[1,8,35]{2,1,0:T(8,128)(2,1)S(1)}
+ value: <52 copy.1 @1> (size=17920,offset=69632): bf16[1,8,35]{1,0,2:T(2,128)(2,1)S(1)}
+ value: <54 rev.3 @1> (size=512,offset=0): bf16[3]{0:T(256)(128)(2,1)S(1)}
+ value: <55 copy.2 @1> (size=1536,offset=126976): bf16[1,1,3]{1,0,2:T(2,128)(2,1)S(1)}
+ value: <56 convolution_select_fusion @1> (size=67584,offset=0): bf16[8,33,1]{2,0,1:T(8,128)(2,1)S(1)}
+ value: <57 copy.3 @1> (size=2048,offset=69632): bf16[8,33,1]{1,0,2:T(8,128)(2,1)S(1)}
+ value: <58 reshape.6 @1> (size=1536,offset=0): bf16[1,264,1]{1,2,0:T(2,128)(2,1)S(1)}

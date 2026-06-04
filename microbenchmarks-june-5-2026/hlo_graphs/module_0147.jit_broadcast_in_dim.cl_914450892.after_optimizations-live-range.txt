@@ -1,0 +1,18 @@
+HloLiveRange (max 3):
+  InstructionSequence:
+    0:args_0_.1
+    1:copy
+    2:broadcast_in_dim.1
+  BufferLiveRange:
+    args_0_.1{}:0-3
+    copy{}:1-2
+    broadcast_in_dim.1{}:2-3
+  Live ranges at 2 (peak):
+    broadcast_in_dim.1{}: 757071872 bytes (cumulative: 757071872 bytes)
+    args_0_.1{}: 2 bytes (cumulative: 757071874 bytes)
+    copy{}: 2 bytes (cumulative: 757071876 bytes)
+  Stack trace breakdown for peak usage: 757 071 876 bytes
+    main.1 (100.0%, total: 757 071 876 bytes, current: 0 bytes, remaining: 757 071 876 bytes)
+      ├── jit(broadcast_in_dim)/broadcast_in_dim (100.0%, total: 757 071 872 bytes, current: 757 071 872 bytes, remaining: 4 bytes)
+      ├── args[0] (0.0%, total: 2 bytes, current: 2 bytes, remaining: 2 bytes)
+      └── copy (0.0%, total: 2 bytes, current: 2 bytes, remaining: 0 bytes)

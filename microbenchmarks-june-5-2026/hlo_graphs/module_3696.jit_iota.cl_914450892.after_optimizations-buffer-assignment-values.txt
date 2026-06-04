@@ -1,0 +1,9 @@
+
+Total bytes used: 16384 (16.0KiB)
+
+Used values:
+<0 iota.1 @0>
+ positions:
+  iota.1
+ uses:
+ from instruction: %iota.1 = s32[3969]{0:T(1024)} iota(), iota_dimension=0, metadata={op_name="jit(iota)/iota" stack_frame_id=5}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

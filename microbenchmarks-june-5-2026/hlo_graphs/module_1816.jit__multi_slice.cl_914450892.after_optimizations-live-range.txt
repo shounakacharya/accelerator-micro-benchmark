@@ -1,0 +1,32 @@
+HloLiveRange (max 7):
+  InstructionSequence:
+    0:self.1
+    1:fusion
+    2:get-tuple-element.3
+    3:get-tuple-element.2
+    4:get-tuple-element.1
+    5:get-tuple-element
+    6:tuple.1
+  BufferLiveRange:
+    self.1{}:0-7
+    fusion{}:1-5
+    fusion{0}:1-7
+    fusion{1}:1-7
+    fusion{2}:1-7
+    fusion{3}:1-7
+    tuple.1{}:6-7
+  Live ranges at 6 (peak):
+    self.1{}: 924844032 bytes (cumulative: 924844032 bytes)
+    fusion{0}: 231211008 bytes (cumulative: 1156055040 bytes)
+    fusion{1}: 231211008 bytes (cumulative: 1387266048 bytes)
+    fusion{2}: 231211008 bytes (cumulative: 1618477056 bytes)
+    fusion{3}: 231211008 bytes (cumulative: 1849688064 bytes)
+    tuple.1{}: 32 bytes (cumulative: 1849688096 bytes)
+  Stack trace breakdown for peak usage: 1 849 688 096 bytes
+    main.1 (100.0%, total: 1 849 688 096 bytes, current: 0 bytes, remaining: 1 849 688 096 bytes)
+      ├── self (50.0%, total: 924 844 032 bytes, current: 924 844 032 bytes, remaining: 924 844 064 bytes)
+      ├── jit(_multi_slice)/slice{0} (12.5%, total: 231 211 008 bytes, current: 231 211 008 bytes, remaining: 693 633 056 bytes)
+      ├── jit(_multi_slice)/slice{1} (12.5%, total: 231 211 008 bytes, current: 231 211 008 bytes, remaining: 462 422 048 bytes)
+      ├── jit(_multi_slice)/slice{2} (12.5%, total: 231 211 008 bytes, current: 231 211 008 bytes, remaining: 231 211 040 bytes)
+      ├── jit(_multi_slice)/slice{3} (12.5%, total: 231 211 008 bytes, current: 231 211 008 bytes, remaining: 32 bytes)
+      └── tuple.1 (0.0%, total: 32 bytes, current: 32 bytes, remaining: 0 bytes)

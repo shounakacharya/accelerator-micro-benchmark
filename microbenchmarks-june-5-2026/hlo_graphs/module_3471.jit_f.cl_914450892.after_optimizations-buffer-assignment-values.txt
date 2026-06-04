@@ -1,0 +1,123 @@
+
+Total bytes used: 956964 (934.5KiB)
+
+Used values:
+<0 lhs @0>
+ positions:
+  lhs
+ uses:
+  add, operand 0
+ from instruction: %lhs = bf16[] parameter(0)
+<1 rhs @0>
+ positions:
+  rhs
+ uses:
+  add, operand 1
+ from instruction: %rhs = bf16[] parameter(1)
+<2 add @0>
+ positions:
+  add
+ uses:
+ from instruction: %add = bf16[] add(%lhs, %rhs), backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<34 constant.4 @0>
+ positions:
+  constant.4
+ uses:
+  convolution_select_fusion, operand 0
+ from instruction: %constant.4 = pred[8,256,1]{2,0,1:T(8,128)(4,1)} constant({...}), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+<35 x.1 @0>
+ positions:
+  x.1
+ uses:
+  reshape.2, operand 0
+ from instruction: %x.1 = bf16[2048]{0:T(1024)(128)(2,1)} parameter(0), metadata={op_name="x"}
+<36 reshape.2 @1>
+ positions:
+  reshape.2
+ uses:
+  slice.2, operand 0
+  fusion.2, operand 1
+ from instruction: %reshape.2 = bf16[1,1,8,256]{3,2,1,0:T(8,128)(2,1)S(1)} reshape(%x.1), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<37 slice.2 @1>
+ positions:
+  slice.2
+ uses:
+  fusion.2, operand 0
+ from instruction: %slice.2 = bf16[1,1,7,23]{3,2,1,0:T(8,128)(2,1)S(1)} slice(%reshape.2), slice={[0:1], [0:1], [1:8], [0:23]}, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<38 fusion.2 @1>
+ positions:
+  fusion.2
+ uses:
+  copy.1, operand 0
+ from instruction: %fusion.2 = bf16[1,8,279]{2,1,0:T(8,128)(2,1)S(1)} fusion(%slice.2, %reshape.2), kind=kLoop, calls=%fused_computation.5, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<39 copy.1 @1>
+ positions:
+  copy.1
+ uses:
+  convolution_select_fusion, operand 1
+ from instruction: %copy.1 = bf16[1,8,279]{1,0,2:T(2,128)(2,1)S(1)} copy(%fusion.2), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<40 kernel.1 @0>
+ positions:
+  kernel.1
+  copy-start {1}
+ uses:
+  copy-start, operand 0
+  copy-done, operand 0 {1}
+ from instruction: %kernel.1 = bf16[24]{0:T(256)(128)(2,1)} parameter(1), metadata={op_name="kernel"}
+<41 copy-start{} @0>
+ positions:
+  copy-start {}
+ uses:
+  copy-done, operand 0 {}
+ from instruction: %copy-start = (bf16[24]{0:T(256)(128)(2,1)S(1)}, bf16[24]{0:T(256)(128)(2,1)}, u32[]{:S(2)}) copy-start(%kernel.1)
+<42 copy-start{0} @1>
+ positions:
+  copy-start {0}
+  copy-done
+ uses:
+  copy-done, operand 0 {0}
+  rev.3, operand 0
+ from instruction: %copy-start = (bf16[24]{0:T(256)(128)(2,1)S(1)}, bf16[24]{0:T(256)(128)(2,1)}, u32[]{:S(2)}) copy-start(%kernel.1)
+<43 copy-start{2} @2>
+ positions:
+  copy-start {2}
+ uses:
+  copy-done, operand 0 {2}
+ from instruction: %copy-start = (bf16[24]{0:T(256)(128)(2,1)S(1)}, bf16[24]{0:T(256)(128)(2,1)}, u32[]{:S(2)}) copy-start(%kernel.1)
+<44 rev.3 @1>
+ positions:
+  rev.3
+  bitcast.7
+ uses:
+  bitcast.7, operand 0
+  copy.2, operand 0
+ from instruction: %rev.3 = bf16[24]{0:T(256)(128)(2,1)S(1)} reverse(%copy-done), dimensions={0}, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/jit(_flip)/rev" stack_frame_id=2}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<45 copy.2 @1>
+ positions:
+  copy.2
+ uses:
+  convolution_select_fusion, operand 2
+ from instruction: %copy.2 = bf16[1,1,24]{1,0,2:T(2,128)(2,1)S(1)} copy(%bitcast.7), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/broadcast_in_dim" stack_frame_id=2}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<46 convolution_select_fusion @1>
+ positions:
+  convolution_select_fusion
+ uses:
+  copy.3, operand 0
+ from instruction: %convolution_select_fusion = bf16[8,256,1]{2,0,1:T(8,128)(2,1)S(1)} fusion(%constant.4, %copy.1, %copy.2), kind=kOutput, calls=%fused_computation, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<47 copy.3 @1>
+ positions:
+  copy.3
+ uses:
+  reshape.6, operand 0
+ from instruction: %copy.3 = bf16[8,256,1]{1,0,2:T(8,128)(2,1)S(1)} copy(%convolution_select_fusion), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<48 reshape.6 @1>
+ positions:
+  reshape.6
+ uses:
+  slice_reduce_fusion, operand 0
+ from instruction: %reshape.6 = bf16[1,2048,1]{1,2,0:T(2,128)(2,1)S(1)} reshape(%copy.3), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<49 slice_reduce_fusion @0>
+ positions:
+  slice_reduce_fusion
+ uses:
+ from instruction: %slice_reduce_fusion = bf16[2025]{0:T(1024)(128)(2,1)} fusion(%reshape.6), kind=kLoop, calls=%fused_computation.3, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

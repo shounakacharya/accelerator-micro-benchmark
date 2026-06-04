@@ -1,0 +1,24 @@
+BufferAssignment:
+allocation 0: size 512, constant:
+ value: <33 constant @0> (size=512,offset=0): bf16[]{:T(256)}
+allocation 1: size 131072, output shape is |bf16[256,256]|, maybe-live-out:
+ value: <46 copy.6 @0> (size=131072,offset=0): bf16[256,256]{1,0:T(8,128)(2,1)}
+allocation 2: size 131072, parameter 0, shape |bf16[256,256]| at ShapeIndex {}:
+ value: <31 x.1 @0> (size=131072,offset=0): bf16[256,256]{1,0:T(8,128)(2,1)}
+allocation 3: size 5120, constant:
+ value: <30 constant.4 @0> (size=5120,offset=0): pred[8,33]{0,1:T(8,128)(4,1)}
+allocation 4: size 1024, parameter 1, shape |bf16[3,3]| at ShapeIndex {}:
+ value: <39 kernel.1 @0> (size=1024,offset=0): bf16[3,3]{1,0:T(4,128)(2,1)}
+allocation 5: size 21893632, color 1, preallocated-temp:
+ value: <32 copy.9 @1> (size=131072,offset=0): bf16[1,256,1,256]{1,3,2,0:T(8,128)(2,1)S(1)}
+ value: <34 pad.clone @1> (size=135168,offset=163840): bf16[1,256,1,264]{1,3,2,0:T(8,128)(2,1)S(1)}
+ value: <35 reshape.2 @1> (size=163840,offset=0): bf16[1,256,1,8,33]{1,4,3,2,0:T(8,128)(2,1)S(1)}
+ value: <36 slice.2 @1> (size=7168,offset=327680): bf16[1,256,1,7,2]{1,4,3,2,0:T(2,128)(2,1)S(1)}
+ value: <37 fusion.2 @1> (size=163840,offset=163840): bf16[1,256,8,35]{1,3,2,0:T(8,128)(2,1)S(1)}
+ value: <38 copy.3 @1> (size=4587520,offset=17301504): bf16[1,256,8,35]{2,0,3,1:T(2,128)(2,1)S(1)}
+ value: <40 rev.0 @1> (size=1024,offset=0): bf16[3,3]{1,0:T(4,128)(2,1)S(1)}
+ value: <41 copy.4 @1> (size=4608,offset=21889024): bf16[1,1,3,3]{1,0,3,2:T(2,128)(2,1)S(1)}
+ value: <42 broadcast_select_fusion @1> (size=17301504,offset=0): bf16[256,8,33,1]{3,1,2,0:T(8,128)(2,1)S(1)}
+ value: <43 copy.5 @1> (size=163840,offset=17301504): bf16[256,8,33,1]{0,2,1,3:T(8,128)(2,1)S(1)}
+ value: <44 reshape.6 @1> (size=135168,offset=0): bf16[256,1,264,1]{0,2,3,1:T(8,128)(2,1)S(1)}
+ value: <45 slice_bitcast_fusion @1> (size=131072,offset=135168): bf16[256,256]{0,1:T(8,128)(2,1)S(1)}

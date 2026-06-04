@@ -1,0 +1,122 @@
+HloModule jit_f, is_scheduled=true, entry_computation_layout={(f32[2,128,1,1024]{3,2,1,0:T(1,128)}, f32[2,128,1,1024]{3,2,1,0:T(1,128)}, f32[2,128,1,1024]{3,2,1,0:T(1,128)})->f32[2,128,1,1024]{3,2,1,0:T(1,128)}}, allow_spmd_sharding_propagation_to_parameters={true,true,true}, allow_spmd_sharding_propagation_to_output={true}
+
+FileNames
+1 "/home/shounaka_google_com/accelerator-microbenchmarks/src/run_benchmark.py"
+2 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_attention.py"
+3 "/home/shounaka_google_com/amb-venv/lib/python3.11/site-packages/flax/nnx/nn/attention.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "run_single_benchmark"
+4 "flax_nnx_attention_benchmark"
+5 "flax_nnx_attention_benchmark.<locals>.f"
+6 "dot_product_attention"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=527 end_line=527 column=4 end_column=41}
+2 {file_name_id=1 function_name_id=2 line=422 end_line=422 column=12 end_column=50}
+3 {file_name_id=1 function_name_id=3 line=328 end_line=330 column=28 end_column=9}
+4 {file_name_id=2 function_name_id=4 line=325 end_line=325 column=13 end_column=23}
+5 {file_name_id=2 function_name_id=5 line=313 end_line=313 column=17 end_column=51}
+6 {file_name_id=3 function_name_id=6 line=275 end_line=275 column=10 end_column=90}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+5 {file_location_id=5 parent_frame_id=5}
+6 {file_location_id=6 parent_frame_id=6}
+
+
+%fused_computation.6.clone.clone.clone.clone (param_0.49: f32[2,128,1,1024]) -> bf16[2,128,1024] {
+  %param_0.49 = f32[2,128,1,1024]{3,2,1,0:T(1,128)} parameter(0)
+  %copy.27 = bf16[2,128,1,1024]{3,1,2,0:T(8,128)(2,1)} copy(%param_0.49)
+  ROOT %bitcast.26 = bf16[2,128,1024]{2,1,0:T(8,128)(2,1)} bitcast(%copy.27)
+}
+
+%fused_computation.4.clone.clone.clone.clone (param_0.48: f32[2,128,1,1024]) -> bf16[2,128,1024] {
+  %param_0.48 = f32[2,128,1,1024]{3,2,1,0:T(1,128)} parameter(0)
+  %copy.26 = bf16[2,128,1,1024]{3,1,2,0:T(8,128)(2,1)} copy(%param_0.48)
+  ROOT %bitcast.25 = bf16[2,128,1024]{2,1,0:T(8,128)(2,1)} bitcast(%copy.26)
+}
+
+%region_0.1 (reduce_max.3: f32[], reduce_max.4: f32[]) -> f32[] {
+  %reduce_max.4 = f32[]{:T(128)} parameter(1), metadata={op_name="reduce_max"}
+  %reduce_max.3 = f32[]{:T(128)} parameter(0), metadata={op_name="reduce_max"}
+  ROOT %reduce_max.5 = f32[]{:T(128)} maximum(%reduce_max.3, %reduce_max.4), metadata={op_name="jit(f)/vmap()/reduce_max" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+}
+
+%fused_computation.15 (param_0.50: f32[2,128,1,1024], param_1.36: f32[2,128,1,1024]) -> (f32[2,128], f32[2,128,128]) {
+  %param_1.36 = f32[2,128,1,1024]{3,2,1,0:T(1,128)} parameter(1)
+  %fusion.15.clone.1 = bf16[2,128,1024]{2,1,0:T(8,128)(2,1)} fusion(%param_1.36), kind=kLoop, calls=%fused_computation.6.clone.clone.clone.clone
+  %param_0.50 = f32[2,128,1,1024]{3,2,1,0:T(1,128)} parameter(0)
+  %fusion.14.clone.1 = bf16[2,128,1024]{2,1,0:T(8,128)(2,1)} fusion(%param_0.50), kind=kLoop, calls=%fused_computation.4.clone.clone.clone.clone
+  %convolution-base-dilated.7.clone.1 = f32[2,128,128]{1,2,0:T(8,128)} convolution(%fusion.15.clone.1, %fusion.14.clone.1), window={size=2 lhs_dilate=2}, dim_labels=0bf_0oi->0bf, metadata={op_name="jit(f)/vmap(BTNH,BSNH->BNTS)/dot_general" stack_frame_id=6}
+  %constant.14.clone.1 = f32[]{:T(128)} constant(0.03125)
+  %broadcast.22.clone.1 = f32[2,128,128]{1,2,0:T(8,128)} broadcast(%constant.14.clone.1), dimensions={}, metadata={op_name="jit(f)/vmap()/mul" stack_frame_id=6}
+  %mul.1.clone.1 = f32[2,128,128]{1,2,0:T(8,128)S(1)} multiply(%convolution-base-dilated.7.clone.1, %broadcast.22.clone.1), metadata={op_name="jit(f)/vmap()/mul" stack_frame_id=6}
+  %constant.15 = f32[]{:T(128)} constant(-inf)
+  %reduce.6 = f32[2,128]{1,0:T(2,128)S(1)} reduce(%mul.1.clone.1, %constant.15), dimensions={2}, to_apply=%region_0.1, metadata={op_name="jit(f)/vmap()/reduce_max" stack_frame_id=6}
+  ROOT %tuple = (f32[2,128]{1,0:T(2,128)S(1)}, f32[2,128,128]{1,2,0:T(8,128)S(1)}) tuple(%reduce.6, %mul.1.clone.1)
+}
+
+%region_1.2 (reduce_sum.3: f32[], reduce_sum.4: f32[]) -> f32[] {
+  %reduce_sum.4 = f32[]{:T(128)} parameter(1), metadata={op_name="reduce_sum"}
+  %reduce_sum.3 = f32[]{:T(128)} parameter(0), metadata={op_name="reduce_sum"}
+  ROOT %reduce_sum.5 = f32[]{:T(128)} add(%reduce_sum.3, %reduce_sum.4), metadata={op_name="jit(f)/vmap()/reduce_sum" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+}
+
+%fused_computation.12 (param_0.43: f32[2,128,128], param_1.31: f32[2,128]) -> f32[2,128] {
+  %param_0.43 = f32[2,128,128]{1,2,0:T(8,128)S(1)} parameter(0)
+  %param_1.31 = f32[2,128]{1,0:T(2,128)S(1)} parameter(1)
+  %broadcast.17 = f32[2,128,128]{1,2,0:T(8,128)} broadcast(%param_1.31), dimensions={0,1}, metadata={op_name="jit(f)/vmap()/sub" stack_frame_id=6}
+  %sub.11 = f32[2,128,128]{1,2,0:T(8,128)} subtract(%param_0.43, %broadcast.17), metadata={op_name="jit(f)/vmap()/sub" stack_frame_id=6}
+  %exp.8 = f32[2,128,128]{1,2,0:T(8,128)} exponential(%sub.11), metadata={op_name="jit(f)/vmap()/exp" stack_frame_id=6}
+  %constant.13 = f32[]{:T(128)} constant(0)
+  ROOT %reduce.5 = f32[2,128]{1,0:T(2,128)S(1)} reduce(%exp.8, %constant.13), dimensions={2}, to_apply=%region_1.2, metadata={op_name="jit(f)/vmap()/reduce_sum" stack_frame_id=6}
+}
+
+%fused_computation.10 (param_0.39: f32[2,128,128], param_1.29: f32[2,128], param_2.11: f32[2,128]) -> f32[2,128,128] {
+  %param_0.39 = f32[2,128,128]{1,2,0:T(8,128)S(1)} parameter(0)
+  %param_2.11 = f32[2,128]{1,0:T(2,128)S(1)} parameter(2)
+  %broadcast.21 = f32[2,128,128]{1,2,0:T(8,128)} broadcast(%param_2.11), dimensions={0,1}, metadata={op_name="jit(f)/vmap()/sub" stack_frame_id=6}
+  %sub.14 = f32[2,128,128]{1,2,0:T(8,128)} subtract(%param_0.39, %broadcast.21), metadata={op_name="jit(f)/vmap()/sub" stack_frame_id=6}
+  %exp.11 = f32[2,128,128]{1,2,0:T(8,128)} exponential(%sub.14), metadata={op_name="jit(f)/vmap()/exp" stack_frame_id=6}
+  %param_1.29 = f32[2,128]{1,0:T(2,128)S(1)} parameter(1)
+  %broadcast.16 = f32[2,128,128]{1,2,0:T(8,128)} broadcast(%param_1.29), dimensions={0,1}, metadata={op_name="jit(f)/vmap()/div" stack_frame_id=6}
+  ROOT %div.8 = f32[2,128,128]{1,2,0:T(8,128)} divide(%exp.11, %broadcast.16), metadata={op_name="jit(f)/vmap()/div" stack_frame_id=6}
+}
+
+%fused_computation.1.clone.clone (param_0.19: f32[2,128,1,1024]) -> bf16[2,128,1024] {
+  %param_0.19 = f32[2,128,1,1024]{3,2,1,0:T(1,128)S(1)} parameter(0)
+  %copy.19 = bf16[2,128,1,1024]{3,1,2,0:T(8,128)(2,1)} copy(%param_0.19)
+  ROOT %bitcast.18 = bf16[2,128,1024]{2,1,0:T(8,128)(2,1)} bitcast(%copy.19)
+}
+
+%fused_computation.8 (param_0.27: f32[2,128,1,1024], param_1.27: f32[2,128,128], param_2.10: f32[2,128], param_3.2: f32[2,128]) -> f32[2,128,1,1024] {
+  %param_1.27 = f32[2,128,128]{1,2,0:T(8,128)S(1)} parameter(1)
+  %param_2.10 = f32[2,128]{1,0:T(2,128)S(1)} parameter(2)
+  %param_3.2 = f32[2,128]{1,0:T(2,128)S(1)} parameter(3)
+  %fusion.16 = f32[2,128,128]{1,2,0:T(8,128)} fusion(%param_1.27, %param_2.10, %param_3.2), kind=kLoop, calls=%fused_computation.10, metadata={op_name="jit(f)/vmap()/div" stack_frame_id=6}
+  %param_0.27 = f32[2,128,1,1024]{3,2,1,0:T(1,128)S(1)} parameter(0)
+  %fusion.10 = bf16[2,128,1024]{2,1,0:T(8,128)(2,1)} fusion(%param_0.27), kind=kLoop, calls=%fused_computation.1.clone.clone
+  %convolution-base-dilated.5 = f32[2,128,1024]{2,1,0:T(8,128)} convolution(%fusion.16, %fusion.10), window={size=2 lhs_dilate=2}, dim_labels=0bf_0io->0bf, metadata={op_name="jit(f)/vmap(BNTS,BSNH->BTNH)/dot_general" stack_frame_id=6}
+  ROOT %bitcast.16 = f32[2,128,1,1024]{3,1,0,2:T(8,128)S(1)} bitcast(%convolution-base-dilated.5), metadata={op_name="jit(f)/reshape" stack_frame_id=6}
+}
+
+ENTRY %main.3 (q.1: f32[2,128,1,1024], k.1: f32[2,128,1,1024], v.1: f32[2,128,1,1024]) -> f32[2,128,1,1024] {
+  %v.1 = f32[2,128,1,1024]{3,2,1,0:T(1,128)} parameter(2), metadata={op_name="v"}
+  %copy-start = (f32[2,128,1,1024]{3,2,1,0:T(1,128)S(1)}, f32[2,128,1,1024]{3,2,1,0:T(1,128)}, u32[]{:S(2)}) copy-start(%v.1)
+  %k.1 = f32[2,128,1,1024]{3,2,1,0:T(1,128)} parameter(1), metadata={op_name="k"}
+  %q.1 = f32[2,128,1,1024]{3,2,1,0:T(1,128)} parameter(0), metadata={op_name="q"}
+  %fusion.20 = (f32[2,128]{1,0:T(2,128)S(1)}, f32[2,128,128]{1,2,0:T(8,128)S(1)}) fusion(%k.1, %q.1), kind=kOutput, calls=%fused_computation.15, metadata={op_name="jit(f)/vmap(BTNH,BSNH->BNTS)/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %get-tuple-element.1 = f32[2,128,128]{1,2,0:T(8,128)S(1)} get-tuple-element(%fusion.20), index=1, metadata={op_name="jit(f)/vmap()/reduce_max" stack_frame_id=6}
+  %get-tuple-element = f32[2,128]{1,0:T(2,128)S(1)} get-tuple-element(%fusion.20), index=0, metadata={op_name="jit(f)/vmap()/reduce_max" stack_frame_id=6}
+  %fusion.17 = f32[2,128]{1,0:T(2,128)S(1)} fusion(%get-tuple-element.1, %get-tuple-element), kind=kLoop, calls=%fused_computation.12, metadata={op_name="jit(f)/vmap()/reduce_sum" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %copy-done = f32[2,128,1,1024]{3,2,1,0:T(1,128)S(1)} copy-done(%copy-start)
+  %fusion.8 = f32[2,128,1,1024]{3,1,0,2:T(8,128)S(1)} fusion(%copy-done, %get-tuple-element.1, %fusion.17, %get-tuple-element), kind=kOutput, calls=%fused_computation.8, metadata={op_name="jit(f)/vmap(BNTS,BSNH->BTNH)/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  ROOT %copy.1 = f32[2,128,1,1024]{3,2,1,0:T(1,128)} copy(%fusion.8), metadata={op_name="jit(f)/reshape" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+}
+

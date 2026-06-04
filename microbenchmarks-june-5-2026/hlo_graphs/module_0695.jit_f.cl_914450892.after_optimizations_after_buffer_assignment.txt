@@ -1,0 +1,77 @@
+HloModule jit_f, is_scheduled=true, entry_computation_layout={(bf16[15360,15360]{1,0:T(8,128)(2,1)})->bf16[3840,15360]{1,0:T(8,128)(2,1)}}, allow_spmd_sharding_propagation_to_parameters={true}, allow_spmd_sharding_propagation_to_output={true}, num_partitions=4
+
+FileNames
+1 "/home/shounaka_google_com/accelerator-microbenchmarks/src/run_benchmark.py"
+2 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_collectives.py"
+3 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_utils.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "run_single_benchmark"
+4 "psum_scatter_benchmark"
+5 "benchmark_collective"
+6 "simple_timeit"
+7 "benchmark_collective.<locals>.f"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=527 end_line=527 column=4 end_column=4}
+2 {file_name_id=1 function_name_id=2 line=422 end_line=422 column=12 end_column=12}
+3 {file_name_id=1 function_name_id=3 line=328 end_line=328 column=28 end_column=28}
+4 {file_name_id=2 function_name_id=4 line=346 end_line=346 column=38 end_column=38}
+5 {file_name_id=2 function_name_id=5 line=139 end_line=139 column=19 end_column=19}
+6 {file_name_id=3 function_name_id=6 line=50 end_line=50 column=17 end_column=17}
+7 {file_name_id=2 function_name_id=7 line=136 end_line=136 column=15 end_column=15}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+5 {file_location_id=5 parent_frame_id=5}
+6 {file_location_id=6 parent_frame_id=6}
+7 {file_location_id=7 parent_frame_id=1}
+8 {file_location_id=7 parent_frame_id=8}
+9 {file_location_id=7 parent_frame_id=7}
+
+
+%region_0.0.clone (reduce_scatter.8: bf16[], reduce_scatter.9: bf16[]) -> bf16[] {
+  %reduce_scatter.8 = bf16[]{:T(256)} parameter(0), metadata={op_name="reduce_scatter"}
+  %reduce_scatter.9 = bf16[]{:T(256)} parameter(1), metadata={op_name="reduce_scatter"}
+  ROOT %add.2 = bf16[]{:T(256)} add(%reduce_scatter.8, %reduce_scatter.9), metadata={op_name="add" stack_frame_id=8}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+}
+
+%all-reduce-scatter (input: bf16[15360,15360]) -> bf16[3864,15360] {
+  %input = bf16[15360,15360]{1,0:T(8,128)(2,1)} parameter(0)
+  %constant.3 = bf16[] constant(0)
+  %pad = bf16[15456,15360]{1,0:T(8,128)(2,1)} pad(%input, %constant.3), padding=0_96x0_0
+  %all-reduce.1 = bf16[15456,15360]{1,0:T(8,128)(2,1)} all-reduce(%pad), channel_id=2, replica_groups={{0,1,2,3}}, use_global_device_ids=true, to_apply=%region_0.0.clone, frontend_attributes={from-cross-replica-sharding="true"}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"1"},"scoped_memory_configs":[],"used_scoped_memory_configs":[]}
+  %partition-id.3 = u32[] partition-id()
+  %constant.4 = u32[] constant(3864)
+  %multiply.2 = u32[]{:T(128)} multiply(%partition-id.3, %constant.4)
+  %constant.5 = u32[] constant(0)
+  ROOT %dynamic-slice.1 = bf16[3864,15360]{1,0:T(8,128)(2,1)} dynamic-slice(%all-reduce.1, %multiply.2, %constant.5), dynamic_slice_sizes={3864,15360}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"indices_config":{"index_known_bits":[{"zeroes":"4294950919","ones":"0","bitwidth":"32"},{"zeroes":"4294967295","ones":"0","bitwidth":"32"}],"is_index_aligned":[]},"used_scoped_memory_configs":[]}
+}
+
+%fused_computation (param_0: bf16[3936,15360], param_1: u32[]) -> bf16[3840,15360] {
+  %param_0 = bf16[3936,15360]{1,0:T(8,128)(2,1)} parameter(0)
+  %param_1 = u32[]{:S(6)} parameter(1)
+  %constant.9 = u32[] constant(0)
+  ROOT %dynamic-slice.3 = bf16[3840,15360]{1,0:T(8,128)(2,1)} dynamic-slice(%param_0, %param_1, %constant.9), dynamic_slice_sizes={3840,15360}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"indices_config":{"index_known_bits":[{"zeroes":"4294967175","ones":"0","bitwidth":"32"},{"zeroes":"4294967295","ones":"0","bitwidth":"32"}],"is_index_aligned":[]},"used_scoped_memory_configs":[]}
+}
+
+ENTRY %main.0_spmd (param.1: bf16[15360,15360]) -> bf16[3840,15360] {
+  %constant.7 = u32[] constant(24)
+  %constant.8 = u32[] constant(72)
+  %param.1 = bf16[15360,15360]{1,0:T(8,128)(2,1)} parameter(0), sharding={replicated}, metadata={op_name="x"}
+  %fusion = bf16[3864,15360]{1,0:T(8,128)(2,1)} fusion(%param.1), kind=kCustom, calls=%all-reduce-scatter, backend_config={"flag_configs":[],"scoped_memory_configs":[{"memory_space":"0","offset":"0","size":"67108864"}],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %slice = bf16[72,15360]{1,0:T(8,128)(2,1)S(1)} slice(%fusion), slice={[3792:3864], [0:15360]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %collective-permute-start = (bf16[72,15360]{1,0:T(8,128)(2,1)S(1)}, bf16[72,15360]{1,0:T(8,128)(2,1)S(1)}, u32[]{:S(2)}, u32[]{:S(2)}) collective-permute-start(%slice), channel_id=1, source_target_pairs={{0,1},{1,2},{2,3}}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[],"used_scoped_memory_configs":[]}
+  %partition-id.2 = u32[]{:S(6)} partition-id()
+  %multiply.3 = u32[]{:S(6)} multiply(%constant.7, %partition-id.2), backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","2"]}]}}
+  %subtract = u32[]{:S(6)} subtract(%constant.8, %multiply.3), backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","2"]}]}}
+  %collective-permute-done = bf16[72,15360]{1,0:T(8,128)(2,1)S(1)} collective-permute-done(%collective-permute-start)
+  %concatenate = bf16[3936,15360]{1,0:T(8,128)(2,1)} concatenate(%collective-permute-done, %fusion), dimensions={0}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  ROOT %constant_dynamic-slice_fusion = bf16[3840,15360]{1,0:T(8,128)(2,1)} fusion(%concatenate, %subtract), kind=kLoop, calls=%fused_computation, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+}
+

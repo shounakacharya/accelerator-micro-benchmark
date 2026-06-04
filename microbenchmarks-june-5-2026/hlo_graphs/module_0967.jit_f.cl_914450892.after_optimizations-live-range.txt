@@ -1,0 +1,29 @@
+HloLiveRange (max 6):
+  InstructionSequence:
+    0:param.3
+    1:copy-start
+    2:param.2
+    3:all-gather.5
+    4:copy-done
+    5:fusion
+  BufferLiveRange:
+    param.2{}:0-6
+    all-gather.5{}:3-5
+    param.3{}:0-6
+    copy-start{}:1-4
+    copy-start{0}:1-5
+    copy-start{2}:1-4
+    fusion{}:5-6
+  Live ranges at 5 (peak):
+    all-gather.5{}: 18874368 bytes (cumulative: 18874368 bytes)
+    copy-start{0}: 18874368 bytes (cumulative: 37748736 bytes)
+    fusion{}: 18874368 bytes (cumulative: 56623104 bytes)
+    param.3{}: 18874368 bytes (cumulative: 75497472 bytes)
+    param.2{}: 4718592 bytes (cumulative: 80216064 bytes)
+  Stack trace breakdown for peak usage: 80 216 064 bytes
+    main.0_spmd (100.0%, total: 80 216 064 bytes, current: 0 bytes, remaining: 80 216 064 bytes)
+      ├── copy-start{0} (23.5%, total: 18 874 368 bytes, current: 18 874 368 bytes, remaining: 61 341 696 bytes)
+      ├── jit(f)/shard_map (23.5%, total: 18 874 368 bytes, current: 18 874 368 bytes, remaining: 42 467 328 bytes)
+      ├── jit(f)/shard_map/ij,jk->ik/dot_general (23.5%, total: 18 874 368 bytes, current: 18 874 368 bytes, remaining: 23 592 960 bytes)
+      ├── y (23.5%, total: 18 874 368 bytes, current: 18 874 368 bytes, remaining: 4 718 592 bytes)
+      └── x (5.9%, total: 4 718 592 bytes, current: 4 718 592 bytes, remaining: 0 bytes)

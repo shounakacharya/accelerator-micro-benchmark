@@ -1,0 +1,30 @@
+BufferAssignment:
+allocation 0: size 2048, thread-local:
+ value: <2 add @0> (size=2048,offset=0): bf16[]
+allocation 1: size 262144, constant:
+ value: <34 constant.4 @0> (size=262144,offset=0): pred[8,256,1]{2,0,1:T(8,128)(4,1)}
+allocation 2: size 4096, output shape is |bf16[2025]|, maybe-live-out:
+ value: <49 slice_reduce_fusion @0> (size=4096,offset=0): bf16[2025]{0:T(1024)(128)(2,1)}
+allocation 3: size 4096, parameter 0, shape |bf16[2048]| at ShapeIndex {}:
+ value: <35 x.1 @0> (size=4096,offset=0): bf16[2048]{0:T(1024)(128)(2,1)}
+allocation 4: size 512, parameter 1, shape |bf16[24]| at ShapeIndex {}:
+ value: <40 kernel.1 @0> (size=512,offset=0): bf16[24]{0:T(256)(128)(2,1)}
+allocation 5: size 2048, thread-local:
+ value: <1 rhs @0> (size=2048,offset=0): bf16[]
+allocation 6: size 2048, thread-local:
+ value: <0 lhs @0> (size=2048,offset=0): bf16[]
+allocation 7: size 4, color 2, preallocated-temp:
+ value: <43 copy-start{2} @2> (size=4,offset=0): u32[]{:S(2)}
+allocation 8: size 32, preallocated-temp:
+ value: <41 copy-start{} @0> (size=32,offset=0): (bf16[24]{0:T(256)(128)(2,1)S(1)}, bf16[24]{0:T(256)(128)(2,1)}, u32[]{:S(2)})
+allocation 9: size 679936, color 1, preallocated-temp:
+ value: <36 reshape.2 @1> (size=4096,offset=0): bf16[1,1,8,256]{3,2,1,0:T(8,128)(2,1)S(1)}
+ value: <37 slice.2 @1> (size=2048,offset=12288): bf16[1,1,7,23]{3,2,1,0:T(8,128)(2,1)S(1)}
+ value: <38 fusion.2 @1> (size=6144,offset=4096): bf16[1,8,279]{2,1,0:T(8,128)(2,1)S(1)}
+ value: <39 copy.1 @1> (size=142848,offset=524288): bf16[1,8,279]{1,0,2:T(2,128)(2,1)S(1)}
+ value: <42 copy-start{0} @1> (size=512,offset=0): bf16[24]{0:T(256)(128)(2,1)S(1)}
+ value: <44 rev.3 @1> (size=512,offset=16384): bf16[24]{0:T(256)(128)(2,1)S(1)}
+ value: <45 copy.2 @1> (size=12288,offset=667648): bf16[1,1,24]{1,0,2:T(2,128)(2,1)S(1)}
+ value: <46 convolution_select_fusion @1> (size=524288,offset=0): bf16[8,256,1]{2,0,1:T(8,128)(2,1)S(1)}
+ value: <47 copy.3 @1> (size=4096,offset=524288): bf16[8,256,1]{1,0,2:T(8,128)(2,1)S(1)}
+ value: <48 reshape.6 @1> (size=8192,offset=0): bf16[1,2048,1]{1,2,0:T(2,128)(2,1)S(1)}

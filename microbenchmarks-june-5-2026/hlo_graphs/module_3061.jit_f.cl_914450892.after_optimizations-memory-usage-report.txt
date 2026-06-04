@@ -1,0 +1,39 @@
+Memory Space: default (color=0)
+Total bytes: 33554464 (32.00MiB)
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+    8.00MiB(100%);    8.00MiB;            0;                1; f32[2,1024,1,1024]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+    8.00MiB(100%);    8.00MiB;            0;                1; f32[2,1024,1,1024]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+    8.00MiB(100%);    8.00MiB;            0;                1; f32[2,1024,1,1024]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+    8.00MiB(100%);    8.00MiB;            0;                1; f32[2,1024,1,1024]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+        32B(100%);        32B;            0;                1; (f32[2,1024,1,1024], f32[2,1024,1,1024], u32[])
+
+
+Memory Space: vmem (color=1)
+Total bytes: 25165824 (24.00MiB)
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+    8.00MiB( 33%);    8.00MiB;            0;                1; f32[2,1024,1024]
+   16.00MiB( 67%);    8.00MiB;     16777216;                1; f32[2,1024,1024]
+   24.00MiB(100%);    8.00MiB;      8388608;                2; f32[2,1024,1,1024], f32[2,1024,1024]
+
+
+Memory Space: smem (color=2)
+Total bytes: 4 (4B)
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+         4B(100%);         4B;            0;                1; u32[]
+
+

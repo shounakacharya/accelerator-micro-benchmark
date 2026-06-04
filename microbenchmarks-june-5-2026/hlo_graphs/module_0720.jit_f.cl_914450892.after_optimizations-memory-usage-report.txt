@@ -1,0 +1,60 @@
+Memory Space: default (color=0)
+Total bytes: 1331111456 (1.24GiB)
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+  722.00MiB(100%);  722.00MiB;            0;                1; bf16[19456,19456]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+  185.25MiB( 50%);  185.25MiB;    190513152;                1; bf16[4992,19456]
+  366.94MiB(100%);  181.69MiB;            0;                1; bf16[4896,19456]
+  366.94MiB(100%);        32B;    384761856;                1; (bf16[96,19456], bf16[96,19456], u32[], u32[])
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+  180.50MiB(100%);  180.50MiB;            0;                1; bf16[4864,19456]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+     4.0KiB(100%);     4.0KiB;            0;                1; u32[]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+     4.0KiB(100%);     4.0KiB;            0;                1; u32[]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+       512B(100%);       512B;            0;                1; bf16[]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+       512B(100%);       512B;            0;                1; bf16[]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+       512B(100%);       512B;            0;                1; bf16[]
+
+
+Memory Space: vmem (color=1)
+Total bytes: 7471104 (7.12MiB)
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+    3.56MiB( 50%);    3.56MiB;      3735552;                1; bf16[96,19456]
+    7.12MiB(100%);    3.56MiB;            0;                1; bf16[96,19456]
+
+
+Memory Space: smem (color=2)
+Total bytes: 8 (8B)
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+         4B( 50%);         4B;            0;                1; u32[]
+         8B(100%);         4B;            4;                1; u32[]
+
+
+Memory Space: color_6 (color=6)
+Total bytes: 4096 (4.0KiB)
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+     4.0KiB(100%);     4.0KiB;            0;                3; 3×u32[]
+
+

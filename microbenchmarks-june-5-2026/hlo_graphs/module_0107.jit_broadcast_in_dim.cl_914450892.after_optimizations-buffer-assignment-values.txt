@@ -1,0 +1,21 @@
+
+Total bytes used: 411042816 (392.00MiB)
+
+Used values:
+<0 args_0_.1 @0>
+ positions:
+  args_0_.1
+ uses:
+  copy, operand 0
+ from instruction: %args_0_.1 = bf16[]{:T(256)} parameter(0), metadata={op_name="args[0]"}
+<1 copy @6>
+ positions:
+  copy
+ uses:
+  broadcast_in_dim.1, operand 0
+ from instruction: %copy = bf16[]{:T(256)S(6)} copy(%args_0_.1), backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<2 broadcast_in_dim.1 @0>
+ positions:
+  broadcast_in_dim.1
+ uses:
+ from instruction: %broadcast_in_dim.1 = bf16[14336,14336]{1,0:T(8,128)(2,1)} broadcast(%copy), dimensions={}, metadata={op_name="jit(broadcast_in_dim)/broadcast_in_dim" stack_frame_id=4}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"output_chunk_bound_config":{"output_chunk_bound":[]},"aliasing_operands":{"lists":[]}}

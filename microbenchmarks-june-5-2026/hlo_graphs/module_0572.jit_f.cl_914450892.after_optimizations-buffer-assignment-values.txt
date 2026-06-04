@@ -1,0 +1,32 @@
+
+Total bytes used: 1677723136 (1.56GiB)
+
+Used values:
+<0 psum_invariant.0 @0>
+ positions:
+  psum_invariant.0
+ uses:
+  add.0, operand 0
+ from instruction: %psum_invariant.0 = bf16[]{:T(256)} parameter(0), metadata={op_name="psum_invariant"}
+<1 psum_invariant.1 @0>
+ positions:
+  psum_invariant.1
+ uses:
+  add.0, operand 1
+ from instruction: %psum_invariant.1 = bf16[]{:T(256)} parameter(1), metadata={op_name="psum_invariant"}
+<2 add.0 @0>
+ positions:
+  add.0
+ uses:
+ from instruction: %add.0 = bf16[]{:T(256)} add(%psum_invariant.0, %psum_invariant.1), metadata={op_name="add" stack_frame_id=8}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<3 param.1 @0>
+ positions:
+  param.1
+ uses:
+  psum_invariant.7, operand 0
+ from instruction: %param.1 = bf16[20480,20480]{1,0:T(8,128)(2,1)} parameter(0), sharding={replicated}, metadata={op_name="x"}
+<4 psum_invariant.7 @0>
+ positions:
+  psum_invariant.7
+ uses:
+ from instruction: %psum_invariant.7 = bf16[20480,20480]{1,0:T(8,128)(2,1)} all-reduce(%param.1), channel_id=1, replica_groups={{0,1,2,3}}, use_global_device_ids=true, to_apply=%region_0.0, metadata={op_name="jit(f)/shard_map/psum_invariant" stack_frame_id=9}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[{"memory_space":"0","offset":"0","size":"67108864"}],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

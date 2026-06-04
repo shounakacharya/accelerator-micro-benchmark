@@ -1,0 +1,23 @@
+BufferAssignment:
+allocation 0: size 4194304, parameter 1, shape |f32[2,512,1,1024]| at ShapeIndex {}:
+ value: <16 k.1 @0> (size=4194304,offset=0): f32[2,512,1,1024]{3,2,1,0:T(1,128)}
+allocation 1: size 4194304, output shape is |f32[2,512,1,1024]|, maybe-live-out:
+ value: <24 copy.1 @0> (size=4194304,offset=0): f32[2,512,1,1024]{3,2,1,0:T(1,128)}
+allocation 2: size 4194304, parameter 0, shape |f32[2,512,1,1024]| at ShapeIndex {}:
+ value: <10 q.1 @0> (size=4194304,offset=0): f32[2,512,1,1024]{3,2,1,0:T(1,128)}
+allocation 3: size 4194304, parameter 2, shape |f32[2,512,1,1024]| at ShapeIndex {}:
+ value: <12 v.1 @0> (size=4194304,offset=0): f32[2,512,1,1024]{3,2,1,0:T(1,128)}
+allocation 4: size 20971520, color 1, preallocated-temp:
+ value: <11 fusion @1> (size=4194304,offset=0): f32[2,512,1024]{2,1,0:T(8,128)S(1)}
+ value: <14 copy-start{0} @1> (size=4194304,offset=12582912): f32[2,512,1,1024]{3,2,1,0:T(1,128)S(1)}
+ value: <18 copy-start.1{0} @1> (size=4194304,offset=16777216): f32[2,512,1,1024]{3,2,1,0:T(1,128)S(1)}
+ value: <21 copy_bitcast_fusion{0} @1> (size=4194304,offset=4194304): f32[2,512,1024]{2,1,0:T(8,128)S(1)}
+ value: <22 copy_bitcast_fusion{1} @1> (size=4194304,offset=8388608): f32[2,512,1024]{2,1,0:T(8,128)S(1)}
+ value: <23 dot_general @1> (size=4194304,offset=12582912): f32[2,512,1024]{2,1,0:T(8,128)S(1)}
+allocation 5: size 32800, preallocated-temp:
+ value: <13 copy-start{} @0> (size=32,offset=0): (f32[2,512,1,1024]{3,2,1,0:T(1,128)S(1)}, f32[2,512,1,1024]{3,2,1,0:T(1,128)}, u32[]{:S(2)})
+ value: <17 copy-start.1{} @0> (size=32,offset=16384): (f32[2,512,1,1024]{3,2,1,0:T(1,128)S(1)}, f32[2,512,1,1024]{3,2,1,0:T(1,128)}, u32[]{:S(2)})
+ value: <20 copy_bitcast_fusion{} @0> (size=32,offset=32768): (f32[2,512,1024]{2,1,0:T(8,128)S(1)}, f32[2,512,1024]{2,1,0:T(8,128)S(1)})
+allocation 6: size 8, color 2, preallocated-temp:
+ value: <15 copy-start{2} @2> (size=4,offset=0): u32[]{:S(2)}
+ value: <19 copy-start.1{2} @2> (size=4,offset=4): u32[]{:S(2)}

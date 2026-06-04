@@ -1,0 +1,63 @@
+HloLiveRange (max 21):
+  InstructionSequence:
+    0:constant
+    1:constant.4
+    2:copy-start
+    3:kernel.1
+    4:x.1
+    5:rev.0
+    6:bitcast.15
+    7:copy.4
+    8:bitcast.14
+    9:copy.9
+    10:pad.clone
+    11:reshape.2
+    12:slice.2
+    13:fusion.2
+    14:copy.3
+    15:copy-done
+    16:broadcast_select_fusion
+    17:copy.5
+    18:reshape.6
+    19:slice_bitcast_fusion
+    20:copy.6
+  BufferLiveRange:
+    constant.4{}:1-15
+    copy-start{}:2-15
+    copy-start{0}:2-16
+    copy-start{2}:2-15
+    x.1{}:0-21
+    copy.9{}:9-10
+    constant{}:0-10
+    pad.clone{}:10-11
+    reshape.2{}:11-13
+    slice.2{}:12-13
+    fusion.2{}:13-14
+    copy.3{}:14-16
+    kernel.1{}:0-21
+    rev.0{}:5-7
+    copy.4{}:7-16
+    broadcast_select_fusion{}:16-17
+    copy.5{}:17-18
+    reshape.6{}:18-19
+    slice_bitcast_fusion{}:19-20
+    copy.6{}:20-21
+  Live ranges at 14 (peak):
+    copy.3{}: 548864 bytes (cumulative: 548864 bytes)
+    fusion.2{}: 548864 bytes (cumulative: 1097728 bytes)
+    x.1{}: 524288 bytes (cumulative: 1622016 bytes)
+    constant.4{}: 520 bytes (cumulative: 1622536 bytes)
+    copy-start{0}: 520 bytes (cumulative: 1623056 bytes)
+    copy-start{}: 24 bytes (cumulative: 1623080 bytes)
+    copy.4{}: 18 bytes (cumulative: 1623098 bytes)
+    kernel.1{}: 18 bytes (cumulative: 1623116 bytes)
+    copy-start{2}: 4 bytes (cumulative: 1623120 bytes)
+  Stack trace breakdown for peak usage: 1 623 120 bytes
+    main.2 (100.0%, total: 1 623 120 bytes, current: 0 bytes, remaining: 1 623 120 bytes)
+      ├── jit(f)/conv_general_dilated (67.7%, total: 1 098 248 bytes, current: 1 098 248 bytes, remaining: 524 872 bytes)
+      ├── x (32.3%, total: 524 288 bytes, current: 524 288 bytes, remaining: 584 bytes)
+      ├── copy-start{0} (0.0%, total: 520 bytes, current: 520 bytes, remaining: 64 bytes)
+      ├── copy-start (0.0%, total: 24 bytes, current: 24 bytes, remaining: 40 bytes)
+      ├── jit(f)/broadcast_in_dim (0.0%, total: 18 bytes, current: 18 bytes, remaining: 22 bytes)
+      ├── kernel (0.0%, total: 18 bytes, current: 18 bytes, remaining: 4 bytes)
+      └── copy-start{2} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 0 bytes)

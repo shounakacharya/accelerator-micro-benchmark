@@ -1,0 +1,42 @@
+Memory Space: default (color=0)
+Total bytes: 258359296 (246.39MiB)
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+  240.50MiB( 99%);  240.50MiB;      2064384;                2; bf16[1,1024,8,190], bf16[962,8,128,1]
+  242.44MiB(100%);    1.94MiB;        16384;                1; bf16[1,1,63,63]
+  242.44MiB(100%);        32B;            0;                1; (pred[8,128], pred[8,128], u32[])
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+    2.00MiB(100%);    2.00MiB;            0;                1; bf16[1024,1024]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+    1.89MiB(100%);    1.89MiB;            0;                1; bf16[962,962]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+    16.0KiB(100%);    16.0KiB;            0;                1; bf16[63,63]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+    16.0KiB(100%);    16.0KiB;            0;                1; pred[8,128]
+
+
+Memory Space: vmem (color=1)
+Total bytes: 99631104 (95.02MiB)
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+   95.00MiB( 97%);   95.00MiB;            0;                4; bf16[1,1024,8,190], bf16[1024,1024], bf16[63,63], bf16[962,1,1024,1]
+   96.88MiB( 99%);    1.88MiB;      1982464;                1; bf16[962,8,128,1]
+   97.75MiB(100%);   896.0KiB;      2097152;                1; bf16[1,1024,1,7,62]
+   97.77MiB(100%);    16.0KiB;     99614720;                1; pred[8,128]
+
+
+Memory Space: smem (color=2)
+Total bytes: 4 (4B)
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+         4B(100%);         4B;            0;                1; u32[]
+
+

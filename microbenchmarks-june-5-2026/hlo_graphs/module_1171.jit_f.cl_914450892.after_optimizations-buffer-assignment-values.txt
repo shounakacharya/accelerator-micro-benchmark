@@ -1,0 +1,27 @@
+
+Total bytes used: 1533542400 (1.43GiB)
+
+Used values:
+<7 param.2 @0>
+ positions:
+  param.2
+ uses:
+  all-gather.5, operand 0
+ from instruction: %param.2 = bf16[3840,15360]{1,0:T(8,128)(2,1)} parameter(0), sharding={devices=[4,1]<=[4]}, metadata={op_name="x"}
+<8 all-gather.5 @0>
+ positions:
+  all-gather.5
+ uses:
+  fusion, operand 0
+ from instruction: %all-gather.5 = bf16[15360,15360]{1,0:T(8,128)(2,1)} all-gather(%param.2), channel_id=1, replica_groups=mesh['axis_0'=4,'axis_1'=1] {'axis_0'}, dimensions={0}, use_global_device_ids=true, frontend_attributes={async_collective_name="all-gather-start"}, metadata={op_name="jit(f)/shard_map" stack_frame_id=4}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<9 param.3 @0>
+ positions:
+  param.3
+ uses:
+  fusion, operand 1
+ from instruction: %param.3 = bf16[15360,15360]{1,0:T(8,128)(2,1)} parameter(1), sharding={replicated}, metadata={op_name="y"}
+<10 fusion @0>
+ positions:
+  fusion
+ uses:
+ from instruction: %fusion = bf16[15360,15360]{1,0:T(8,128)(2,1)} fusion(%all-gather.5, %param.3), kind=kOutput, calls=%fused_computation, metadata={op_name="jit(f)/shard_map/ij,jk->ik/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

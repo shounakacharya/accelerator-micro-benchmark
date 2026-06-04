@@ -1,0 +1,6 @@
+BufferAssignment:
+allocation 0: size 104857600, parameter 0, shape |s32[26214400]| at ShapeIndex {}:
+ value: <0 args_0_.1 @0> (size=104857600,offset=0): s32[26214400]{0:T(1024)}
+allocation 1: size 104857600, output shape is |s32[5120,5120]|, maybe-live-out:
+ value: <1 reshape.1 @0> (size=104857600,offset=0): s32[5120,5120]{1,0:T(8,128)}
+allocation 2: size 0, color 1, preallocated-temp:

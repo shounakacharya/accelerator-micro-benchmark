@@ -1,0 +1,15 @@
+
+Total bytes used: 25165824 (24.00MiB)
+
+Used values:
+<0 args_0_.1 @0>
+ positions:
+  args_0_.1
+ uses:
+  convert_element_type.1, operand 0
+ from instruction: %args_0_.1 = s32[16,128,128,16]{2,3,1,0:T(8,128)} parameter(0), metadata={op_name="args[0]"}
+<1 convert_element_type.1 @0>
+ positions:
+  convert_element_type.1
+ uses:
+ from instruction: %convert_element_type.1 = bf16[16,128,128,16]{2,3,1,0:T(8,128)(2,1)} convert(%args_0_.1), metadata={op_name="jit(convert_element_type)/convert_element_type" stack_frame_id=4}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

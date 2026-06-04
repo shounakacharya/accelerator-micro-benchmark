@@ -1,0 +1,355 @@
+HloModule jit__normal, is_scheduled=true, entry_computation_layout={(u32[2]{0:T(128)})->f32[4,1,512,1024]{3,2,1,0:T(8,128)}}, allow_spmd_sharding_propagation_to_parameters={true}, allow_spmd_sharding_propagation_to_output={true}, frontend_attributes={xla.sdy.meshes={empty_mesh = #sdy.mesh<[]>}}
+
+%fused_computation.34 (param_0.164: u32[2]) -> (u32[1], u32[1]) {
+  %param_0.164 = u32[2]{0:T(128)} parameter(0)
+  %slice.0 = u32[1]{0:T(128)} slice(%param_0.164), slice={[1:2]}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/slice"}
+  %slice.1 = u32[1]{0:T(128)} slice(%param_0.164), slice={[0:1]}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/slice"}
+  ROOT %tuple.20 = (u32[1]{0:T(128)}, u32[1]{0:T(128)}) tuple(%slice.0, %slice.1)
+}
+
+%fused_computation.20 () -> (u32[512], u32[512]) {
+  %iota.22 = u32[512]{0:T(512)} iota(), iota_dimension=0, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %constant.189 = u32[]{:T(128)} constant(65535), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %broadcast.1003 = u32[512]{0:T(512)} broadcast(%constant.189), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %and.34 = u32[512]{0:T(512)} and(%iota.22, %broadcast.1003), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %constant.140 = u32[]{:T(128)} constant(1024), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %broadcast.999 = u32[512]{0:T(512)} broadcast(%constant.140), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %multiply.30 = u32[512]{0:T(512)} multiply(%and.34, %broadcast.999), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %and.33 = u32[512]{0:T(512)} and(%multiply.30, %broadcast.1003), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %iota.46 = u32[512]{0:T(512)} iota(), iota_dimension=0, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %constant.184 = u32[]{:T(128)} constant(16), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %broadcast.1001 = u32[512]{0:T(512)} broadcast(%constant.184), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %shift-right-logical.79 = u32[512]{0:T(512)} shift-right-logical(%iota.46, %broadcast.1001), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %multiply.53 = u32[512]{0:T(512)} multiply(%shift-right-logical.79, %broadcast.999), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %shift-right-logical.78 = u32[512]{0:T(512)} shift-right-logical(%multiply.30, %broadcast.1001), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %add.566 = u32[512]{0:T(512)} add(%multiply.53, %shift-right-logical.78), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %and.50 = u32[512]{0:T(512)} and(%add.566, %broadcast.1003), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %shift-left.13 = u32[512]{0:T(512)} shift-left(%and.50, %broadcast.1001), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %or.222 = u32[512]{0:T(512)} or(%and.33, %shift-left.13), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %shift-right-logical.89.clone.1 = u32[512]{0:T(512)} shift-right-logical(%add.566, %broadcast.1001), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %shift-right-logical.83.clone.1 = u32[512]{0:T(512)} shift-right-logical(%and.50, %broadcast.1001), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %add.567.clone.1 = u32[512]{0:T(512)} add(%shift-right-logical.89.clone.1, %shift-right-logical.83.clone.1), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  ROOT %tuple.21 = (u32[512]{0:T(512)}, u32[512]{0:T(512)}) tuple(%or.222, %add.567.clone.1)
+}
+
+%fused_computation.31 () -> (u32[4], u32[4]) {
+  %iota.62 = u32[4]{0:T(128)} iota(), iota_dimension=0, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %constant.190 = u32[]{:T(128)} constant(65535), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %broadcast.1010 = u32[4]{0:T(128)} broadcast(%constant.190), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %and.64 = u32[4]{0:T(128)} and(%iota.62, %broadcast.1010), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %constant.172 = u32[]{:T(128)} constant(8), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %broadcast.1006 = u32[4]{0:T(128)} broadcast(%constant.172), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %multiply.66 = u32[4]{0:T(128)} multiply(%and.64, %broadcast.1006), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %constant.186 = u32[]{:T(128)} constant(16), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %broadcast.1008 = u32[4]{0:T(128)} broadcast(%constant.186), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %shift-left.14 = u32[4]{0:T(128)} shift-left(%multiply.66, %broadcast.1008), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %iota.68.clone.1 = u32[4]{0:T(128)} iota(), iota_dimension=0, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %shift-right-logical.99.clone.1 = u32[4]{0:T(128)} shift-right-logical(%iota.68.clone.1, %broadcast.1008), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %multiply.71.clone.1 = u32[4]{0:T(128)} multiply(%shift-right-logical.99.clone.1, %broadcast.1006), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %shift-right-logical.95.clone.1 = u32[4]{0:T(128)} shift-right-logical(%multiply.66, %broadcast.1008), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %add.572.clone.1 = u32[4]{0:T(128)} add(%multiply.71.clone.1, %shift-right-logical.95.clone.1), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  ROOT %tuple.22 = (u32[4]{0:T(128)}, u32[4]{0:T(128)}) tuple(%shift-left.14, %add.572.clone.1)
+}
+
+%fused_computation.11 (param_0.163: u32[], param_1.199: u32[], param_2.176: u32[], param_3.153: u32[512], param_4.127: u32[4], param_5.105: u32[512], param_6.99: u32[4]) -> f32[4,1,512,1024] {
+  %constant.192 = f32[]{:T(128)} constant(-0.99999994), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.998 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.192), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/max"}
+  %param_6.99 = u32[4]{0:T(128)} parameter(6)
+  %broadcast.997 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%param_6.99), dimensions={0}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %param_5.105 = u32[512]{0:T(512)} parameter(5)
+  %broadcast.996 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%param_5.105), dimensions={2}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %add.553 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%broadcast.997, %broadcast.996), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %iota.10 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} iota(), iota_dimension=3, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %add.552 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.553, %iota.10), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %compare.25 = pred[4,1,512,1024]{3,2,1,0:T(8,128)(4,1)} compare(%add.552, %add.553), direction=LT, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %compare.27 = pred[4,1,512,1024]{3,2,1,0:T(8,128)(4,1)} compare(%add.553, %broadcast.997), direction=LT, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %param_4.127 = u32[4]{0:T(128)} parameter(4)
+  %broadcast.995 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%param_4.127), dimensions={0}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %param_3.153 = u32[512]{0:T(512)} parameter(3)
+  %broadcast.994 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%param_3.153), dimensions={2}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %add.541 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%broadcast.995, %broadcast.994), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %constant.182 = u32[]{:T(128)} constant(1), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %broadcast.993 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.182), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %add.539 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.541, %broadcast.993), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %select.43 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} select(%compare.27, %add.539, %add.541), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %add.538 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%select.43, %broadcast.993), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %select.42 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} select(%compare.25, %add.538, %select.43), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %constant.142 = u32[]{:T(128)} constant(0), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %broadcast.992 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.142), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %shift-right-logical.49 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%select.42, %broadcast.992), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %param_2.176 = u32[]{:T(128)} parameter(2)
+  %broadcast.991 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%param_2.176), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %add.537 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%shift-right-logical.49, %broadcast.991), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %param_1.199 = u32[]{:T(128)} parameter(1)
+  %broadcast.990 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%param_1.199), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %add.540 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.552, %broadcast.990), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %add.536 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.537, %add.540), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %constant.181 = u32[]{:T(128)} constant(13), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %broadcast.989 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.181), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %shift_left.199 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%add.540, %broadcast.989), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %constant.180 = u32[]{:T(128)} constant(19), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %broadcast.988 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.180), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %shift_right_logical.210 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%add.540, %broadcast.988), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.221 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.199, %shift_right_logical.210), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.211 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.536, %or.221), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.531 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.536, %xor.211), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %constant.179 = u32[]{:T(128)} constant(15), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %broadcast.987 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.179), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %shift_left.198 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%xor.211, %broadcast.987), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %constant.178 = u32[]{:T(128)} constant(17), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %broadcast.986 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.178), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %shift_right_logical.209 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%xor.211, %broadcast.986), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.220 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.198, %shift_right_logical.209), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.210 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.531, %or.220), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.530 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.531, %xor.210), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %constant.177 = u32[]{:T(128)} constant(26), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %broadcast.985 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.177), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %shift_left.197 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%xor.210, %broadcast.985), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %constant.176 = u32[]{:T(128)} constant(6), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %broadcast.984 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.176), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %shift_right_logical.208 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%xor.210, %broadcast.984), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.219 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.197, %shift_right_logical.208), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.209 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.530, %or.219), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.529 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.530, %xor.209), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %add.528 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.529, %broadcast.990), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %shift_left.196 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%xor.209, %broadcast.984), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %shift_right_logical.207 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%xor.209, %broadcast.985), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.218 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.196, %shift_right_logical.207), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.208 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.529, %or.218), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %param_0.163 = u32[]{:T(128)} parameter(0)
+  %broadcast.983 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%param_0.163), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %add.527 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%xor.208, %broadcast.983), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %add.526 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.527, %broadcast.993), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %add.525 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.528, %add.526), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %shift_left.195 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%add.526, %broadcast.986), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %shift_right_logical.206 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%add.526, %broadcast.987), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.217 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.195, %shift_right_logical.206), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.207 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.525, %or.217), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.524 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.525, %xor.207), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %constant.175 = u32[]{:T(128)} constant(29), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %broadcast.982 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.175), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %shift_left.194 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%xor.207, %broadcast.982), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %constant.174 = u32[]{:T(128)} constant(3), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %broadcast.981 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.174), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %shift_right_logical.205 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%xor.207, %broadcast.981), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.216 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.194, %shift_right_logical.205), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.206 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.524, %or.216), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.523 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.524, %xor.206), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %constant.187 = u32[]{:T(128)} constant(16), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %broadcast.980 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.187), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %shift_left.193 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%xor.206, %broadcast.980), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %shift_right_logical.204 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%xor.206, %broadcast.980), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.215 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.193, %shift_right_logical.204), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.205 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.523, %or.215), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.522 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.523, %xor.205), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %add.521 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.522, %broadcast.983), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %constant.173 = u32[]{:T(128)} constant(24), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %broadcast.979 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.173), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %shift_left.192 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%xor.205, %broadcast.979), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %constant.171 = u32[]{:T(128)} constant(8), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %broadcast.978 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.171), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %shift_right_logical.203 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%xor.205, %broadcast.978), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.214 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.192, %shift_right_logical.203), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.204 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.522, %or.214), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.520 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%xor.204, %broadcast.991), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %constant.169 = u32[]{:T(128)} constant(2), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %broadcast.977 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.169), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %add.519 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.520, %broadcast.977), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %add.518 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.521, %add.519), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %shift_left.191 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%add.519, %broadcast.989), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %shift_right_logical.202 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%add.519, %broadcast.988), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.213 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.191, %shift_right_logical.202), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.203 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.518, %or.213), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.517 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.518, %xor.203), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %shift_left.190 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%xor.203, %broadcast.987), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %shift_right_logical.201 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%xor.203, %broadcast.986), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.212 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.190, %shift_right_logical.201), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.202 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.517, %or.212), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.516 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.517, %xor.202), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %shift_left.189 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%xor.202, %broadcast.985), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %shift_right_logical.200 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%xor.202, %broadcast.984), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.211 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.189, %shift_right_logical.200), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.201 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.516, %or.211), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.515 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.516, %xor.201), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %add.514 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.515, %broadcast.991), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %shift_left.188 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%xor.201, %broadcast.984), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %shift_right_logical.199 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%xor.201, %broadcast.985), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.210 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.188, %shift_right_logical.199), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.200 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.515, %or.210), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.513 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%xor.200, %broadcast.990), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %add.512 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.513, %broadcast.981), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %add.511 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.514, %add.512), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %shift_left.187 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%add.512, %broadcast.986), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %shift_right_logical.198 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%add.512, %broadcast.987), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.209 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.187, %shift_right_logical.198), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.199 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.511, %or.209), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.510 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.511, %xor.199), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %shift_left.186 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%xor.199, %broadcast.982), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %shift_right_logical.197 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%xor.199, %broadcast.981), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.208 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.186, %shift_right_logical.197), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.198 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.510, %or.208), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.509 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.510, %xor.198), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %shift_left.185 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%xor.198, %broadcast.980), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %shift_right_logical.196 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%xor.198, %broadcast.980), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.207 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.185, %shift_right_logical.196), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.197 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.509, %or.207), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.508 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.509, %xor.197), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %add.507 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.508, %broadcast.990), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %shift_left.184 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%xor.197, %broadcast.979), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %shift_right_logical.195 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%xor.197, %broadcast.978), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.206 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.184, %shift_right_logical.195), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.196 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.508, %or.206), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.506 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%xor.196, %broadcast.983), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %constant.168 = u32[]{:T(128)} constant(4), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %broadcast.976 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.168), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %add.505 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.506, %broadcast.976), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %add.504 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.507, %add.505), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %shift_left.183 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%add.505, %broadcast.989), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %shift_right_logical.194 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%add.505, %broadcast.988), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.205 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.183, %shift_right_logical.194), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.195 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.504, %or.205), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.503 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.504, %xor.195), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %shift_left.182 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%xor.195, %broadcast.987), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %shift_right_logical.193 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%xor.195, %broadcast.986), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.204 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.182, %shift_right_logical.193), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.194 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.503, %or.204), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.502 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.503, %xor.194), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %shift_left.181 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%xor.194, %broadcast.985), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %shift_right_logical.192 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%xor.194, %broadcast.984), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.203 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.181, %shift_right_logical.192), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.193 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.502, %or.203), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.501 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.502, %xor.193), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %add.500 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.501, %broadcast.983), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %shift_left.180 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-left(%xor.193, %broadcast.984), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_left"}
+  %shift_right_logical.191 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%xor.193, %broadcast.985), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %or.202 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_left.180, %shift_right_logical.191), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %xor.192 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.501, %or.202), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %add.499 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%xor.192, %broadcast.991), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %constant.167 = u32[]{:T(128)} constant(5), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %broadcast.975 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.167), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %add.498 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%add.499, %broadcast.975), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %xor.191 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} xor(%add.500, %add.498), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %constant.166 = u32[]{:T(128)} constant(9), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %broadcast.974 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.166), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %shift_right_logical.190 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} shift-right-logical(%xor.191, %broadcast.974), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/shift_right_logical"}
+  %constant.165 = u32[]{:T(128)} constant(1065353216), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %broadcast.973 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.165), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %or.201 = u32[4,1,512,1024]{3,2,1,0:T(8,128)} or(%shift_right_logical.190, %broadcast.973), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/or"}
+  %bitcast_convert_type.9 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} bitcast-convert(%or.201), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/bitcast_convert_type"}
+  %constant.139 = f32[]{:T(128)} constant(-1), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %broadcast.972 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.139), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %add.497 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%bitcast_convert_type.9, %broadcast.972), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/sub"}
+  %constant.138 = f32[]{:T(128)} constant(2), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/mul"}
+  %broadcast.971 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.138), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/mul"}
+  %mul.23 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} multiply(%add.497, %broadcast.971), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/mul"}
+  %add.496 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%mul.23, %broadcast.998), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/add"}
+  %max.12 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} maximum(%broadcast.998, %add.496), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/max"}
+  %erf_inv.434 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} abs(%max.12), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.164 = f32[]{:T(128)} constant(1), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %broadcast.970 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.164), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/sub"}
+  %erf_inv.433 = pred[4,1,512,1024]{3,2,1,0:T(8,128)(4,1)} compare(%erf_inv.434, %broadcast.970), direction=EQ, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.163 = f32[]{:T(128)} constant(inf), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.969 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.163), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.428 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} multiply(%max.12, %broadcast.969), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.427 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} negate(%max.12), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.426 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} multiply(%max.12, %erf_inv.427), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.425 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} log-plus-one(%erf_inv.426), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.424 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} negate(%erf_inv.425), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.162 = f32[]{:T(128)} constant(5), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.968 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.162), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.423 = pred[4,1,512,1024]{3,2,1,0:T(8,128)(4,1)} compare(%erf_inv.424, %broadcast.968), direction=LT, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.161 = f32[]{:T(128)} constant(1.50140941), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.967 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.161), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.160 = f32[]{:T(128)} constant(2.83297682), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.966 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.160), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.417 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} select(%erf_inv.423, %broadcast.967, %broadcast.966), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.159 = f32[]{:T(128)} constant(0.246640727), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.965 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.159), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.158 = f32[]{:T(128)} constant(1.00167406), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.964 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.158), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.416 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} select(%erf_inv.423, %broadcast.965, %broadcast.964), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.157 = f32[]{:T(128)} constant(-0.00417768164), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.963 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.157), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.156 = f32[]{:T(128)} constant(0.00943887047), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.962 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.156), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.415 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} select(%erf_inv.423, %broadcast.963, %broadcast.962), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.155 = f32[]{:T(128)} constant(-0.00125372503), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.961 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.155), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.154 = f32[]{:T(128)} constant(-0.0076224613), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.960 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.154), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.414 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} select(%erf_inv.423, %broadcast.961, %broadcast.960), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.153 = f32[]{:T(128)} constant(0.00021858087), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.959 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.153), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.152 = f32[]{:T(128)} constant(0.00573950773), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.958 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.152), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.413 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} select(%erf_inv.423, %broadcast.959, %broadcast.958), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.151 = f32[]{:T(128)} constant(-4.39150654e-06), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.957 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.151), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.150 = f32[]{:T(128)} constant(-0.00367342844), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.956 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.150), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.412 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} select(%erf_inv.423, %broadcast.957, %broadcast.956), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.149 = f32[]{:T(128)} constant(-3.5233877e-06), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.955 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.149), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.148 = f32[]{:T(128)} constant(0.00134934322), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.954 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.148), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.411 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} select(%erf_inv.423, %broadcast.955, %broadcast.954), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.147 = f32[]{:T(128)} constant(3.43273939e-07), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.953 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.147), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.146 = f32[]{:T(128)} constant(0.000100950558), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.952 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.146), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.410 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} select(%erf_inv.423, %broadcast.953, %broadcast.952), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.145 = f32[]{:T(128)} constant(2.81022636e-08), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.951 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.145), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.144 = f32[]{:T(128)} constant(-0.000200214257), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.950 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.144), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.409 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} select(%erf_inv.423, %broadcast.951, %broadcast.950), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.137 = f32[]{:T(128)} constant(-2.5), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.949 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.137), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %add.495 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%erf_inv.424, %broadcast.949), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.391 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} sqrt(%erf_inv.424), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.136 = f32[]{:T(128)} constant(-3), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.948 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.136), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %add.494 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%erf_inv.391, %broadcast.948), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.390 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} select(%erf_inv.423, %add.495, %add.494), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.389 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} multiply(%erf_inv.409, %erf_inv.390), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.388 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%erf_inv.410, %erf_inv.389), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.387 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} multiply(%erf_inv.388, %erf_inv.390), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.386 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%erf_inv.411, %erf_inv.387), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.385 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} multiply(%erf_inv.386, %erf_inv.390), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.384 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%erf_inv.412, %erf_inv.385), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.383 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} multiply(%erf_inv.384, %erf_inv.390), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.382 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%erf_inv.413, %erf_inv.383), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.381 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} multiply(%erf_inv.382, %erf_inv.390), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.380 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%erf_inv.414, %erf_inv.381), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.379 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} multiply(%erf_inv.380, %erf_inv.390), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.378 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%erf_inv.415, %erf_inv.379), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.377 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} multiply(%erf_inv.378, %erf_inv.390), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.376 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%erf_inv.416, %erf_inv.377), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.375 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} multiply(%erf_inv.376, %erf_inv.390), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.374 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} add(%erf_inv.417, %erf_inv.375), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.373 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} multiply(%erf_inv.374, %max.12), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %erf_inv.372 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} select(%erf_inv.433, %erf_inv.428, %erf_inv.373), metadata={op_name="jit(_normal)/jit(_normal_real)/erf_inv"}
+  %constant.143 = f32[]{:T(128)} constant(1.41421354), metadata={op_name="jit(_normal)/jit(_normal_real)"}
+  %broadcast.947 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} broadcast(%constant.143), dimensions={}, metadata={op_name="jit(_normal)/jit(_normal_real)/mul"}
+  ROOT %mul.22 = f32[4,1,512,1024]{3,2,1,0:T(8,128)} multiply(%erf_inv.372, %broadcast.947), metadata={op_name="jit(_normal)/jit(_normal_real)/mul"}
+}
+
+ENTRY %main.4 (key.1: u32[2]) -> f32[4,1,512,1024] {
+  %constant.96 = u32[]{:T(128)} constant(466688986), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+  %key.1 = u32[2]{0:T(128)} parameter(0), metadata={op_name="key"}
+  %fusion.22 = (u32[1]{0:T(128)}, u32[1]{0:T(128)}) fusion(%key.1), kind=kLoop, calls=%fused_computation.34, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/slice"}
+  %get-tuple-element.1 = u32[1]{0:T(128)} get-tuple-element(%fusion.22), index=1, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/slice"}
+  %bitcast = u32[]{:T(128)} bitcast(%get-tuple-element.1), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/squeeze"}
+  %get-tuple-element = u32[1]{0:T(128)} get-tuple-element(%fusion.22), index=0, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/slice"}
+  %bitcast.1 = u32[]{:T(128)} bitcast(%get-tuple-element), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/squeeze"}
+  %xor.72 = u32[]{:T(128)} xor(%bitcast, %bitcast.1), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %xor.73 = u32[]{:T(128)} xor(%xor.72, %constant.96), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}
+  %fusion.19 = (u32[4]{0:T(128)}, u32[4]{0:T(128)}) fusion(), kind=kLoop, calls=%fused_computation.31, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"fusion_formation_source":{"fusion_creating_compiler_pass":"TpuAdvancedMOF","fusion_id":"42"}}
+  %get-tuple-element.7 = u32[4]{0:T(128)} get-tuple-element(%fusion.19), index=1, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %get-tuple-element.6 = u32[4]{0:T(128)} get-tuple-element(%fusion.19), index=0, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %fusion.10 = (u32[512]{0:T(512)}, u32[512]{0:T(512)}) fusion(), kind=kLoop, calls=%fused_computation.20, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"fusion_formation_source":{"fusion_creating_compiler_pass":"TpuAdvancedMOF","fusion_id":"42"}}
+  %get-tuple-element.3 = u32[512]{0:T(512)} get-tuple-element(%fusion.10), index=1, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  %get-tuple-element.2 = u32[512]{0:T(512)} get-tuple-element(%fusion.10), index=0, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}
+  ROOT %select_multiply_fusion = f32[4,1,512,1024]{3,2,1,0:T(8,128)} fusion(%xor.73, %bitcast.1, %bitcast, %get-tuple-element.3, %get-tuple-element.7, /*index=5*/%get-tuple-element.2, %get-tuple-element.6), kind=kLoop, calls=%fused_computation.11, metadata={op_name="jit(_normal)/jit(_normal_real)/mul"}
+}
+

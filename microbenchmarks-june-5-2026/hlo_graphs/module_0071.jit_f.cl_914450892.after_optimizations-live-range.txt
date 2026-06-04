@@ -1,0 +1,22 @@
+HloLiveRange (max 4):
+  InstructionSequence:
+    0:param.1
+    1:collective-permute-start
+    2:collective-permute-done
+    3:copy.3
+  BufferLiveRange:
+    param.1{}:0-4
+    collective-permute-start{}:1-2
+    collective-permute-start{1}:1-3
+    collective-permute-start{2}:1-2
+    collective-permute-start{3}:1-2
+    copy.3{}:3-4
+  Live ranges at 3 (peak):
+    collective-permute-start{1}: 169869312 bytes (cumulative: 169869312 bytes)
+    copy.3{}: 169869312 bytes (cumulative: 339738624 bytes)
+    param.1{}: 169869312 bytes (cumulative: 509607936 bytes)
+  Stack trace breakdown for peak usage: 509 607 936 bytes
+    main.0_spmd (100.0%, total: 509 607 936 bytes, current: 0 bytes, remaining: 509 607 936 bytes)
+      ├── copy.3 (33.3%, total: 169 869 312 bytes, current: 169 869 312 bytes, remaining: 339 738 624 bytes)
+      ├── jit(f)/shard_map/ppermute{1} (33.3%, total: 169 869 312 bytes, current: 169 869 312 bytes, remaining: 169 869 312 bytes)
+      └── x (33.3%, total: 169 869 312 bytes, current: 169 869 312 bytes, remaining: 0 bytes)

@@ -1,0 +1,24 @@
+BufferAssignment:
+allocation 0: size 2048, constant:
+ value: <30 constant.3 @0> (size=2048,offset=0): pred[8,16]{0,1:T(8,128)(4,1)}
+allocation 1: size 4194304, parameter 0, shape |bf16[128,128,128]| at ShapeIndex {}:
+ value: <34 x.1 @0> (size=4194304,offset=0): bf16[128,128,128]{2,1,0:T(8,128)(2,1)}
+allocation 2: size 4128768, output shape is |bf16[126,126,126]|, maybe-live-out:
+ value: <45 copy.6 @0> (size=4128768,offset=0): bf16[126,126,126]{2,1,0:T(8,128)(2,1)}
+allocation 3: size 3072, parameter 1, shape |bf16[3,3,3]| at ShapeIndex {}:
+ value: <39 kernel.1 @0> (size=3072,offset=0): bf16[3,3,3]{2,1,0:T(4,128)(2,1)}
+allocation 4: size 10958336, color 1, preallocated-temp:
+ value: <32 copy-start{0} @1> (size=2048,offset=6291456): pred[8,16]{0,1:T(8,128)(4,1)S(1)}
+ value: <35 copy.1 @1> (size=4194304,offset=6291456): bf16[128,128,128]{1,2,0:T(8,128)(2,1)S(1)}
+ value: <36 slice.2 @1> (size=458752,offset=10485760): bf16[1,128,128,1,7,2]{2,5,4,1,3,0:T(2,128)(2,1)S(1)}
+ value: <37 fusion.2 @1> (size=6291456,offset=0): bf16[1,128,128,8,18]{2,4,3,1,0:T(8,128)(2,1)S(1)}
+ value: <40 rev.0 @1> (size=3072,offset=0): bf16[3,3,3]{2,1,0:T(4,128)(2,1)S(1)}
+ value: <41 copy.4 @1> (size=13824,offset=10944512): bf16[1,1,3,3,3]{1,0,4,3,2:T(2,128)(2,1)S(1)}
+ value: <43 copy.5 @1> (size=4128768,offset=0): bf16[126,126,8,16,1]{1,3,2,0,4:T(8,128)(2,1)S(1)}
+ value: <44 slice_bitcast_fusion @1> (size=4128768,offset=4128768): bf16[126,126,126]{1,2,0:T(8,128)(2,1)S(1)}
+allocation 5: size 671236096, preallocated-temp:
+ value: <31 copy-start{} @0> (size=32,offset=0): (pred[8,16]{0,1:T(8,128)(4,1)S(1)}, pred[8,16]{0,1:T(8,128)(4,1)}, u32[]{:S(2)})
+ value: <38 copy.3 @0> (size=150994944,offset=16384): bf16[1,128,128,8,18]{3,0,4,2,1:T(2,128)(2,1)}
+ value: <42 broadcast_select_fusion @0> (size=520224768,offset=151011328): bf16[126,126,8,16,1]{4,2,3,1,0:T(8,128)(2,1)}
+allocation 6: size 4, color 2, preallocated-temp:
+ value: <33 copy-start{2} @2> (size=4,offset=0): u32[]{:S(2)}

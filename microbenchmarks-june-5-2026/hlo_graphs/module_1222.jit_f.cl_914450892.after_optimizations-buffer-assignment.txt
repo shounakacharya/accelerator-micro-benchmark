@@ -1,0 +1,10 @@
+BufferAssignment:
+allocation 0: size 169869312, parameter 0, shape |bf16[4608,18432]| at ShapeIndex {}:
+ value: <7 param.2 @0> (size=169869312,offset=0): bf16[4608,18432]{1,0:T(8,128)(2,1)}
+allocation 1: size 679477248, output shape is |bf16[18432,18432]|, maybe-live-out:
+ value: <10 fusion @0> (size=679477248,offset=0): bf16[18432,18432]{1,0:T(8,128)(2,1)}
+allocation 2: size 679477248, parameter 1, shape |bf16[18432,18432]| at ShapeIndex {}:
+ value: <9 param.3 @0> (size=679477248,offset=0): bf16[18432,18432]{1,0:T(8,128)(2,1)}
+allocation 3: size 0, color 1, preallocated-temp:
+allocation 4: size 679477248, preallocated-temp:
+ value: <8 all-gather.5 @0> (size=679477248,offset=0): bf16[18432,18432]{1,0:T(8,128)(2,1)}

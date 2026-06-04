@@ -1,0 +1,198 @@
+
+Total bytes used: 67195432 (64.08MiB)
+
+Used values:
+<0 reduce_max.3 @0>
+ positions:
+  reduce_max.3
+ uses:
+  reduce_max.5, operand 0
+ from instruction: %reduce_max.3 = f32[]{:T(128)} parameter(0), metadata={op_name="reduce_max"}
+<1 reduce_max.4 @0>
+ positions:
+  reduce_max.4
+ uses:
+  reduce_max.5, operand 1
+ from instruction: %reduce_max.4 = f32[]{:T(128)} parameter(1), metadata={op_name="reduce_max"}
+<2 reduce_max.5 @0>
+ positions:
+  reduce_max.5
+ uses:
+ from instruction: %reduce_max.5 = f32[]{:T(128)} maximum(%reduce_max.3, %reduce_max.4), metadata={op_name="jit(f)/reduce_max" stack_frame_id=7}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<3 reduce_sum.3 @0>
+ positions:
+  reduce_sum.3
+ uses:
+  reduce_sum.5, operand 0
+ from instruction: %reduce_sum.3 = f32[]{:T(128)} parameter(0), metadata={op_name="reduce_sum"}
+<4 reduce_sum.4 @0>
+ positions:
+  reduce_sum.4
+ uses:
+  reduce_sum.5, operand 1
+ from instruction: %reduce_sum.4 = f32[]{:T(128)} parameter(1), metadata={op_name="reduce_sum"}
+<5 reduce_sum.5 @0>
+ positions:
+  reduce_sum.5
+ uses:
+ from instruction: %reduce_sum.5 = f32[]{:T(128)} add(%reduce_sum.3, %reduce_sum.4), metadata={op_name="jit(f)/reduce_sum" stack_frame_id=7}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<39 reduce_max.0 @0>
+ positions:
+  reduce_max.0
+ uses:
+  reduce_max.2, operand 0
+ from instruction: %reduce_max.0 = f32[]{:T(128)} parameter(0), metadata={op_name="reduce_max"}
+<40 reduce_max.1 @0>
+ positions:
+  reduce_max.1
+ uses:
+  reduce_max.2, operand 1
+ from instruction: %reduce_max.1 = f32[]{:T(128)} parameter(1), metadata={op_name="reduce_max"}
+<41 reduce_max.2 @0>
+ positions:
+  reduce_max.2
+ uses:
+ from instruction: %reduce_max.2 = f32[]{:T(128)} maximum(%reduce_max.0, %reduce_max.1), metadata={op_name="jit(f)/reduce_max" stack_frame_id=7}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<50 slice.1 @1>
+ positions:
+  slice.1
+  slice-start {1}
+  slice-done
+ uses:
+  slice-done, operand 0 {1}
+  custom-call, operand 0
+ from instruction: %slice.1 = s8[4194304]{0:T(1024)(128)(4,1)S(1)} slice(%param_0.30), slice={[0:4194304]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<51 slice.3 @1>
+ positions:
+  slice.3
+  slice-start.1 {1}
+  slice-done.1
+ uses:
+  slice-done.1, operand 0 {1}
+  custom-call, operand 1
+ from instruction: %slice.3 = s8[4194304]{0:T(1024)(128)(4,1)S(1)} slice(%param_0.31), slice={[4194304:8388608]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<52 v.1 @0>
+ positions:
+  v.1
+  bitcast.4
+  slice-start {0,0}
+  slice-start.1 {0,0}
+  param_0.30
+  param_0.31
+ uses:
+  bitcast.4, operand 0
+  slice-start, operand 0
+  slice-start.1, operand 0
+  slice-done, operand 0 {0,0}
+  slice-done.1, operand 0 {0,0}
+  slice.1, operand 0
+  slice.3, operand 0
+ from instruction: %v.1 = f32[2,512,4,512]{3,2,1,0:T(4,128)} parameter(2), metadata={op_name="v"}
+<53 slice-start{} @0>
+ positions:
+  slice-start {}
+ uses:
+  slice-done, operand 0 {}
+ from instruction: %slice-start = ((s8[8388608]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.4), slice={[0:4194304]}
+<54 slice-start{0} @0>
+ positions:
+  slice-start {0}
+ uses:
+  slice-done, operand 0 {0}
+ from instruction: %slice-start = ((s8[8388608]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.4), slice={[0:4194304]}
+<55 slice-start{2} @2>
+ positions:
+  slice-start {2}
+ uses:
+  slice-done, operand 0 {2}
+ from instruction: %slice-start = ((s8[8388608]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.4), slice={[0:4194304]}
+<56 slice-start.1{} @0>
+ positions:
+  slice-start.1 {}
+ uses:
+  slice-done.1, operand 0 {}
+ from instruction: %slice-start.1 = ((s8[8388608]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.4), slice={[4194304:8388608]}
+<57 slice-start.1{0} @0>
+ positions:
+  slice-start.1 {0}
+ uses:
+  slice-done.1, operand 0 {0}
+ from instruction: %slice-start.1 = ((s8[8388608]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.4), slice={[4194304:8388608]}
+<58 slice-start.1{2} @2>
+ positions:
+  slice-start.1 {2}
+ uses:
+  slice-done.1, operand 0 {2}
+ from instruction: %slice-start.1 = ((s8[8388608]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.4), slice={[4194304:8388608]}
+<59 custom-call @1>
+ positions:
+  custom-call
+  bitcast.5
+ uses:
+  bitcast.5, operand 0
+  fusion.8, operand 0
+ from instruction: %custom-call = f32[2,512,4,512]{3,2,1,0:T(4,128)S(1)} custom-call(%slice-done, %slice-done.1), custom_call_target="ConcatBitcast", backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<60 k.1 @0>
+ positions:
+  k.1
+  copy-start {1}
+ uses:
+  copy-start, operand 0
+  copy-done, operand 0 {1}
+ from instruction: %k.1 = f32[2,512,4,512]{3,2,1,0:T(4,128)} parameter(1), metadata={op_name="k"}
+<61 copy-start{} @0>
+ positions:
+  copy-start {}
+ uses:
+  copy-done, operand 0 {}
+ from instruction: %copy-start = (f32[2,512,4,512]{3,2,1,0:T(4,128)S(1)}, f32[2,512,4,512]{3,2,1,0:T(4,128)}, u32[]{:S(2)}) copy-start(%k.1), cross_program_prefetch_index=0
+<62 copy-start{0} @1>
+ positions:
+  copy-start {0}
+  copy-done
+ uses:
+  copy-done, operand 0 {0}
+  fusion.3, operand 0
+ from instruction: %copy-start = (f32[2,512,4,512]{3,2,1,0:T(4,128)S(1)}, f32[2,512,4,512]{3,2,1,0:T(4,128)}, u32[]{:S(2)}) copy-start(%k.1), cross_program_prefetch_index=0
+<63 copy-start{2} @2>
+ positions:
+  copy-start {2}
+ uses:
+  copy-done, operand 0 {2}
+ from instruction: %copy-start = (f32[2,512,4,512]{3,2,1,0:T(4,128)S(1)}, f32[2,512,4,512]{3,2,1,0:T(4,128)}, u32[]{:S(2)}) copy-start(%k.1), cross_program_prefetch_index=0
+<64 q.1 @0>
+ positions:
+  q.1
+ uses:
+  broadcast_multiply_fusion, operand 0
+ from instruction: %q.1 = f32[2,512,4,512]{3,2,1,0:T(4,128)} parameter(0), metadata={op_name="q"}
+<65 broadcast_multiply_fusion @1>
+ positions:
+  broadcast_multiply_fusion
+ uses:
+  fusion.3, operand 1
+ from instruction: %broadcast_multiply_fusion = bf16[2,512,4,512]{3,2,1,0:T(4,128)(2,1)S(1)} fusion(%q.1), kind=kLoop, calls=%fused_computation.9, metadata={op_name="jit(f)/div" stack_frame_id=8}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<66 fusion.3 @1>
+ positions:
+  fusion.3
+ uses:
+  fusion.8, operand 2
+  fusion.14, operand 0
+ from instruction: %fusion.3 = f32[2,4,512,512]{2,3,1,0:T(8,128)S(1)} fusion(%copy-done, %broadcast_multiply_fusion), kind=kOutput, calls=%fused_computation.3, metadata={op_name="jit(f)/...qhd,...khd->...hqk/dot_general" stack_frame_id=9}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<67 fusion.14 @1>
+ positions:
+  fusion.14
+ uses:
+  fusion.8, operand 1
+ from instruction: %fusion.14 = f32[2,4,512]{2,1,0:T(4,128)S(1)} fusion(%fusion.3), kind=kOutput, calls=%fused_computation.12, metadata={op_name="jit(f)/sub" stack_frame_id=7}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<68 fusion.8 @1>
+ positions:
+  fusion.8
+ uses:
+  copy.4, operand 0
+ from instruction: %fusion.8 = f32[2,512,4,512]{3,1,2,0:T(8,128)S(1)} fusion(%bitcast.5, %fusion.14, %fusion.3), kind=kOutput, calls=%fused_computation.10, metadata={op_name="jit(f)/...hqk,...khd->...qhd/dot_general" stack_frame_id=10}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<69 copy.4 @0>
+ positions:
+  copy.4
+ uses:
+ from instruction: %copy.4 = f32[2,512,4,512]{3,2,1,0:T(4,128)} copy(%fusion.8), metadata={op_name="jit(f)/...hqk,...khd->...qhd/transpose" stack_frame_id=10}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

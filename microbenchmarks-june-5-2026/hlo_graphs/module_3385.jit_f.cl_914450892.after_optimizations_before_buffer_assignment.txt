@@ -1,0 +1,106 @@
+HloModule jit_f, is_scheduled=true, entry_computation_layout={(bf16[512]{0:T(512)(128)(2,1)}, bf16[3]{0:T(256)(128)(2,1)})->bf16[512]{0:T(512)(128)(2,1)}}, allow_spmd_sharding_propagation_to_parameters={true,true}, allow_spmd_sharding_propagation_to_output={true}
+
+FileNames
+1 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_convolution.py"
+
+FunctionNames
+1 "convolve_common.<locals>.f"
+2 "numpy_convolve.<locals>.convolve_fn"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=46 end_line=46 column=15 end_column=48}
+2 {file_name_id=1 function_name_id=2 line=155 end_line=155 column=15 end_column=49}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+
+
+%pad.reduce_sub_computation (lhs: bf16[], rhs: bf16[]) -> bf16[] {
+  %rhs = bf16[] parameter(1)
+  %lhs = bf16[] parameter(0)
+  ROOT %add = bf16[] add(%lhs, %rhs)
+}
+
+%fused_computation.3 (param_0.19: bf16[1,1,512]) -> bf16[520] {
+  %param_0.19 = bf16[1,1,512]{2,1,0:T(2,128)(2,1)} parameter(0)
+  %constant.19 = bf16[]{:T(256)} constant(0), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/broadcast_in_dim" stack_frame_id=2}
+  %pad.5 = bf16[1,1,520]{2,1,0:T(2,128)(2,1)} pad(%param_0.19, %constant.19), padding=0_0x0_0x1_7, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/broadcast_in_dim" stack_frame_id=2}
+  %constant.16 = bf16[]{:T(256)} constant(-0), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/broadcast_in_dim" stack_frame_id=2}
+  ROOT %reduce.2 = bf16[520]{0:T(1024)(128)(2,1)} reduce(%pad.5, %constant.16), dimensions={0,1}, to_apply=%pad.reduce_sub_computation, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/broadcast_in_dim" stack_frame_id=2}
+}
+
+%fused_computation.5 (param_0.17: bf16[1,1,7,2], param_1.23: bf16[1,1,8,65]) -> bf16[1,8,67] {
+  %param_1.23 = bf16[1,1,8,65]{3,2,1,0:T(8,128)(2,1)} parameter(1)
+  %constant.14 = bf16[]{:T(256)} constant(-inf)
+  %pad.7 = bf16[1,1,8,67]{3,2,1,0:T(8,128)(2,1)} pad(%param_1.23, %constant.14), padding=0_0x0_0x0_0x0_2, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  %convert = f32[1,1,8,67]{3,2,1,0:T(8,128)} convert(%pad.7)
+  %iota.7 = s32[1,1,8,67]{3,2,1,0:T(8,128)} iota(), iota_dimension=3, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  %constant.13 = s32[] constant(65), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  %broadcast.7 = s32[1,1,8,67]{3,2,1,0:T(8,128)} broadcast(%constant.13), dimensions={}, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  %compare.7 = pred[1,1,8,67]{3,2,1,0:T(8,128)(4,1)} compare(%iota.7, %broadcast.7), direction=GE, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  %param_0.17 = bf16[1,1,7,2]{3,2,1,0:T(8,128)(2,1)} parameter(0)
+  %constant.18 = bf16[]{:T(256)} constant(0), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/broadcast_in_dim" stack_frame_id=2}
+  %pad.6 = bf16[1,1,8,67]{3,2,1,0:T(8,128)(2,1)} pad(%param_0.17, %constant.18), padding=0_0x0_0x0_1x65_0, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  %broadcast.8 = bf16[1,1,8,67]{3,2,1,0:T(8,128)(2,1)} broadcast(%constant.14), dimensions={}, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  %select.7 = bf16[1,1,8,67]{3,2,1,0:T(8,128)(2,1)} select(%compare.7, %pad.6, %broadcast.8), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  %convert.1 = f32[1,1,8,67]{3,2,1,0:T(8,128)} convert(%select.7)
+  %maximum.3 = f32[1,1,8,67]{3,2,1,0:T(8,128)} maximum(%convert, %convert.1), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"float_type_correction_info":{"original_type":"BF16","original_shape":{"element_type":"BF16","dimensions":["1","1","8","67"],"tuple_shapes":[],"layout":{"minor_to_major":["3","2","1","0"],"tiles":[{"dimensions":["8","128"]},{"dimensions":["2","1"]}],"element_size_in_bits":"0","memory_space":"0","dim_level_types":[],"index_primitive_type":"PRIMITIVE_TYPE_INVALID","pointer_primitive_type":"PRIMITIVE_TYPE_INVALID","dim_unique":[],"dim_ordered":[],"dynamic_shape_metadata_prefix_bytes":"0","tail_padding_alignment_in_elements":"1","split_configs":[]},"is_dynamic_dimension":[false,false,false,false]}}}
+  %convert.2 = bf16[1,1,8,67]{3,2,1,0:T(8,128)(2,1)} convert(%maximum.3)
+  ROOT %bitcast.3 = bf16[1,8,67]{2,1,0:T(8,128)(2,1)} bitcast(%convert.2), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+}
+
+%bitcast_fusion (bitcast_input: bf16[1,8,67]) -> bf16[1,8,67] {
+  %bitcast_input = bf16[1,8,67]{1,0,2:T(2,128)(2,1)} parameter(0)
+  ROOT %bitcast.5 = bf16[1,8,67]{1,0,2:T(2,128)(2,1)} bitcast(%bitcast_input)
+}
+
+%bitcast_fusion.1 (bitcast_input.1: bf16[1,1,3]) -> bf16[1,1,3] {
+  %bitcast_input.1 = bf16[1,1,3]{1,0,2:T(2,128)(2,1)} parameter(0)
+  ROOT %bitcast.6 = bf16[1,1,3]{1,0,2:T(2,128)(2,1)} bitcast(%bitcast_input.1)
+}
+
+%fused_computation (param_0: pred[8,65,1], param_1.2: bf16[1,8,67], param_2.2: bf16[1,1,3]) -> bf16[8,65,1] {
+  %param_0 = pred[8,65,1]{2,0,1:T(8,128)(4,1)} parameter(0)
+  %param_1.2 = bf16[1,8,67]{1,0,2:T(2,128)(2,1)} parameter(1)
+  %fusion.3 = bf16[1,8,67]{1,0,2:T(2,128)(2,1)} fusion(%param_1.2), kind=kLoop, calls=%bitcast_fusion
+  %param_2.2 = bf16[1,1,3]{1,0,2:T(2,128)(2,1)} parameter(2)
+  %fusion.4 = bf16[1,1,3]{1,0,2:T(2,128)(2,1)} fusion(%param_2.2), kind=kLoop, calls=%bitcast_fusion.1
+  %convolution.1 = bf16[8,65,1]{2,0,1:T(8,128)(2,1)} convolution(%fusion.3, %fusion.4), window={size=3}, dim_labels=fb0_oi0->b0f, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  %constant.17 = bf16[]{:T(256)} constant(0), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/broadcast_in_dim" stack_frame_id=2}
+  %broadcast.6 = bf16[8,65,1]{2,0,1:T(8,128)(2,1)} broadcast(%constant.17), dimensions={}, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  ROOT %select.2 = bf16[8,65,1]{2,0,1:T(8,128)(2,1)} select(%param_0, %convolution.1, %broadcast.6), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+}
+
+%slice.1.reduce_sub_computation (lhs.1: bf16[], rhs.1: bf16[]) -> bf16[] {
+  %rhs.1 = bf16[] parameter(1)
+  %lhs.1 = bf16[] parameter(0)
+  ROOT %add.1 = bf16[] add(%lhs.1, %rhs.1)
+}
+
+%fused_computation.6 (param_0.18: bf16[1,520,1]) -> bf16[512] {
+  %param_0.18 = bf16[1,520,1]{1,2,0:T(2,128)(2,1)} parameter(0)
+  %slice.3 = bf16[1,512,1]{1,2,0:T(2,128)(2,1)} slice(%param_0.18), slice={[0:1], [0:512], [0:1]}, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  %constant.15 = bf16[]{:T(256)} constant(-0), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/broadcast_in_dim" stack_frame_id=2}
+  ROOT %reduce.3 = bf16[512]{0:T(512)(128)(2,1)} reduce(%slice.3, %constant.15), dimensions={0,2}, to_apply=%slice.1.reduce_sub_computation, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+}
+
+ENTRY %main.4 (x.1: bf16[512], kernel.1: bf16[3]) -> bf16[512] {
+  %constant.5 = pred[8,65,1]{2,0,1:T(8,128)(4,1)} constant({...}), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  %kernel.1 = bf16[3]{0:T(256)(128)(2,1)} parameter(1), metadata={op_name="kernel"}
+  %x.1 = bf16[512]{0:T(512)(128)(2,1)} parameter(0), metadata={op_name="x"}
+  %rev.3 = bf16[3]{0:T(256)(128)(2,1)} reverse(%kernel.1), dimensions={0}, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/jit(_flip)/rev" stack_frame_id=2}
+  %bitcast.1 = bf16[1,1,3]{2,1,0:T(2,128)(2,1)} bitcast(%rev.3), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/broadcast_in_dim" stack_frame_id=2}
+  %copy.2 = bf16[1,1,3]{1,0,2:T(2,128)(2,1)} copy(%bitcast.1), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/broadcast_in_dim" stack_frame_id=2}
+  %reshape.8 = bf16[1,1,512]{2,1,0:T(2,128)(2,1)} reshape(%x.1), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/broadcast_in_dim" stack_frame_id=2}
+  %pad_reduce_fusion = bf16[520]{0:T(1024)(128)(2,1)} fusion(%reshape.8), kind=kLoop, calls=%fused_computation.3, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/broadcast_in_dim" stack_frame_id=2}
+  %reshape.2 = bf16[1,1,8,65]{3,2,1,0:T(8,128)(2,1)} reshape(%pad_reduce_fusion), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  %slice = bf16[1,1,7,2]{3,2,1,0:T(8,128)(2,1)} slice(%reshape.2), slice={[0:1], [0:1], [1:8], [0:2]}, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  %fusion.2 = bf16[1,8,67]{2,1,0:T(8,128)(2,1)} fusion(%slice, %reshape.2), kind=kLoop, calls=%fused_computation.5, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  %copy.1 = bf16[1,8,67]{1,0,2:T(2,128)(2,1)} copy(%fusion.2), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  %convolution_select_fusion = bf16[8,65,1]{2,0,1:T(8,128)(2,1)} fusion(%constant.5, %copy.1, %copy.2), kind=kOutput, calls=%fused_computation, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  %copy.3 = bf16[8,65,1]{1,0,2:T(8,128)(2,1)} copy(%convolution_select_fusion), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  %reshape.6 = bf16[1,520,1]{1,2,0:T(2,128)(2,1)} reshape(%copy.3), metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+  ROOT %slice_reduce_fusion = bf16[512]{0:T(512)(128)(2,1)} fusion(%reshape.6), kind=kLoop, calls=%fused_computation.6, metadata={op_name="jit(f)/jit(convolve)/jit(_conv)/conv_general_dilated" stack_frame_id=2}
+}
+

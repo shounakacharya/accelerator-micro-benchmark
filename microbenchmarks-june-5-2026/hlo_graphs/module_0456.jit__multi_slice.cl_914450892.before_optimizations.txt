@@ -1,0 +1,41 @@
+HloModule jit__multi_slice, entry_computation_layout={(bf16[25600,25600]{1,0:T(8,128)(2,1)})->(bf16[6400,25600]{1,0:T(8,128)(2,1)}, bf16[6400,25600]{1,0:T(8,128)(2,1)}, bf16[6400,25600]{1,0:T(8,128)(2,1)}, bf16[6400,25600]{1,0:T(8,128)(2,1)})}, allow_spmd_sharding_propagation_to_parameters={true}, allow_spmd_sharding_propagation_to_output={true,true,true,true}
+
+FileNames
+1 "/home/shounaka_google_com/accelerator-microbenchmarks/src/run_benchmark.py"
+2 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_collectives.py"
+3 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_utils.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "run_single_benchmark"
+4 "all_gather_benchmark"
+5 "benchmark_collective"
+6 "simple_timeit"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=527 end_line=527 column=4 end_column=41}
+2 {file_name_id=1 function_name_id=2 line=422 end_line=422 column=12 end_column=50}
+3 {file_name_id=1 function_name_id=3 line=328 end_line=330 column=28 end_column=9}
+4 {file_name_id=2 function_name_id=4 line=495 end_line=509 column=38 end_column=9}
+5 {file_name_id=2 function_name_id=5 line=139 end_line=147 column=19 end_column=5}
+6 {file_name_id=3 function_name_id=6 line=50 end_line=50 column=17 end_column=25}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+5 {file_location_id=5 parent_frame_id=5}
+6 {file_location_id=6 parent_frame_id=6}
+
+
+ENTRY %main.1 (self.1: bf16[25600,25600]) -> (bf16[6400,25600], bf16[6400,25600], bf16[6400,25600], bf16[6400,25600]) {
+  %self.1 = bf16[25600,25600]{1,0} parameter(0), metadata={op_name="self"}
+  %slice.4 = bf16[6400,25600]{1,0} slice(%self.1), slice={[0:6400], [0:25600]}, metadata={op_name="jit(_multi_slice)/slice" stack_frame_id=6}
+  %slice.5 = bf16[6400,25600]{1,0} slice(%self.1), slice={[6400:12800], [0:25600]}, metadata={op_name="jit(_multi_slice)/slice" stack_frame_id=6}
+  %slice.6 = bf16[6400,25600]{1,0} slice(%self.1), slice={[12800:19200], [0:25600]}, metadata={op_name="jit(_multi_slice)/slice" stack_frame_id=6}
+  %slice.7 = bf16[6400,25600]{1,0} slice(%self.1), slice={[19200:25600], [0:25600]}, metadata={op_name="jit(_multi_slice)/slice" stack_frame_id=6}
+  ROOT %tuple.1 = (bf16[6400,25600]{1,0}, bf16[6400,25600]{1,0}, bf16[6400,25600]{1,0}, bf16[6400,25600]{1,0}) tuple(%slice.4, %slice.5, %slice.6, %slice.7)
+}
+

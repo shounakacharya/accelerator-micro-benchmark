@@ -1,0 +1,48 @@
+HloLiveRange (max 14):
+  InstructionSequence:
+    0:constant.46
+    1:key.1
+    2:fusion.15
+    3:get-tuple-element.1
+    4:get-tuple-element
+    5:bitcast
+    6:bitcast.1
+    7:xor.72
+    8:xor.73
+    9:broadcast_add_fusion
+    10:fusion.8
+    11:get-tuple-element.3
+    12:get-tuple-element.2
+    13:select_multiply_fusion
+  BufferLiveRange:
+    fusion.8{}:10-12
+    fusion.8{0}:10-13
+    fusion.8{1}:10-13
+    broadcast_add_fusion{}:9-13
+    key.1{}:0-14
+    fusion.15{}:2-4
+    fusion.15{0}:2-13
+    fusion.15{1}:2-13
+    xor.72{}:7-8
+    constant.46{}:0-8
+    xor.73{}:8-13
+    select_multiply_fusion{}:13-14
+  Live ranges at 13 (peak):
+    select_multiply_fusion{}: 2097152 bytes (cumulative: 2097152 bytes)
+    broadcast_add_fusion{}: 2048 bytes (cumulative: 2099200 bytes)
+    fusion.8{0}: 2048 bytes (cumulative: 2101248 bytes)
+    fusion.8{1}: 2048 bytes (cumulative: 2103296 bytes)
+    key.1{}: 8 bytes (cumulative: 2103304 bytes)
+    fusion.15{0}: 4 bytes (cumulative: 2103308 bytes)
+    fusion.15{1}: 4 bytes (cumulative: 2103312 bytes)
+    xor.73{}: 4 bytes (cumulative: 2103316 bytes)
+  Stack trace breakdown for peak usage: 2 103 316 bytes
+    main.4 (100.0%, total: 2 103 316 bytes, current: 0 bytes, remaining: 2 103 316 bytes)
+      ├── jit(_normal)/jit(_normal_real)/mul (99.7%, total: 2 097 152 bytes, current: 2 097 152 bytes, remaining: 6 164 bytes)
+      ├── jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape (0.1%, total: 2 048 bytes, current: 2 048 bytes, remaining: 4 116 bytes)
+      ├── jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape{0} (0.1%, total: 2 048 bytes, current: 2 048 bytes, remaining: 2 068 bytes)
+      ├── jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape{1} (0.1%, total: 2 048 bytes, current: 2 048 bytes, remaining: 20 bytes)
+      ├── key (0.0%, total: 8 bytes, current: 8 bytes, remaining: 12 bytes)
+      ├── jit(_normal)/jit(_normal_real)/jit(_uniform)/slice{0} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 8 bytes)
+      ├── jit(_normal)/jit(_normal_real)/jit(_uniform)/slice{1} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 4 bytes)
+      └── jit(_normal)/jit(_normal_real)/jit(_uniform)/xor (0.0%, total: 4 bytes, current: 4 bytes, remaining: 0 bytes)

@@ -1,0 +1,29 @@
+BufferAssignment:
+allocation 0: size 512, constant:
+ value: <36 constant @0> (size=512,offset=0): bf16[]{:T(256)}
+allocation 1: size 524288, output shape is |bf16[512,512]|, maybe-live-out:
+ value: <49 copy.6 @0> (size=524288,offset=0): bf16[512,512]{1,0:T(8,128)(2,1)}
+allocation 2: size 524288, parameter 0, shape |bf16[512,512]| at ShapeIndex {}:
+ value: <34 x.1 @0> (size=524288,offset=0): bf16[512,512]{1,0:T(8,128)(2,1)}
+allocation 3: size 9216, constant:
+ value: <30 constant.4 @0> (size=9216,offset=0): pred[8,65]{0,1:T(8,128)(4,1)}
+allocation 4: size 1024, parameter 1, shape |bf16[3,3]| at ShapeIndex {}:
+ value: <42 kernel.1 @0> (size=1024,offset=0): bf16[3,3]{1,0:T(4,128)(2,1)}
+allocation 5: size 85738496, color 1, preallocated-temp:
+ value: <32 copy-start{0} @1> (size=9216,offset=85729280): pred[8,65]{0,1:T(8,128)(4,1)S(1)}
+ value: <35 copy.9 @1> (size=524288,offset=0): bf16[1,512,1,512]{1,3,2,0:T(8,128)(2,1)S(1)}
+ value: <37 pad.clone @1> (size=532480,offset=589824): bf16[1,512,1,520]{1,3,2,0:T(8,128)(2,1)S(1)}
+ value: <38 reshape.2 @1> (size=589824,offset=0): bf16[1,512,1,8,65]{1,4,3,2,0:T(8,128)(2,1)S(1)}
+ value: <39 slice.2 @1> (size=14336,offset=1179648): bf16[1,512,1,7,2]{1,4,3,2,0:T(2,128)(2,1)S(1)}
+ value: <40 fusion.2 @1> (size=589824,offset=589824): bf16[1,512,8,67]{1,3,2,0:T(8,128)(2,1)S(1)}
+ value: <41 copy.3 @1> (size=17563648,offset=68157440): bf16[1,512,8,67]{2,0,3,1:T(2,128)(2,1)S(1)}
+ value: <43 rev.0 @1> (size=1024,offset=0): bf16[3,3]{1,0:T(4,128)(2,1)S(1)}
+ value: <44 copy.4 @1> (size=4608,offset=85721088): bf16[1,1,3,3]{1,0,3,2:T(2,128)(2,1)S(1)}
+ value: <45 broadcast_select_fusion @1> (size=68157440,offset=0): bf16[512,8,65,1]{3,1,2,0:T(8,128)(2,1)S(1)}
+ value: <46 copy.5 @1> (size=589824,offset=68157440): bf16[512,8,65,1]{0,2,1,3:T(8,128)(2,1)S(1)}
+ value: <47 reshape.6 @1> (size=532480,offset=0): bf16[512,1,520,1]{0,2,3,1:T(8,128)(2,1)S(1)}
+ value: <48 slice_bitcast_fusion @1> (size=524288,offset=532480): bf16[512,512]{0,1:T(8,128)(2,1)S(1)}
+allocation 6: size 32, preallocated-temp:
+ value: <31 copy-start{} @0> (size=32,offset=0): (pred[8,65]{0,1:T(8,128)(4,1)S(1)}, pred[8,65]{0,1:T(8,128)(4,1)}, u32[]{:S(2)})
+allocation 7: size 4, color 2, preallocated-temp:
+ value: <33 copy-start{2} @2> (size=4,offset=0): u32[]{:S(2)}

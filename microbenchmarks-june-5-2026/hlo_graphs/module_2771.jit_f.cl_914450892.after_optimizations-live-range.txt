@@ -1,0 +1,114 @@
+HloLiveRange (max 31):
+  InstructionSequence:
+    0:q.1
+    1:copy-start
+    2:v.1
+    3:k.1
+    4:bitcast.26
+    5:param_0.21
+    6:slice.1
+    7:slice-start
+    8:fusion.3
+    9:copy-done
+    10:param_0.22
+    11:slice.3
+    12:slice-start.1
+    13:param_0.23
+    14:slice.5
+    15:slice-start.2
+    16:param_0.24
+    17:slice.7
+    18:slice-start.3
+    19:broadcast_add_fusion
+    20:slice-done
+    21:slice-done.1
+    22:slice-done.2
+    23:slice-done.3
+    24:custom-call.1
+    25:bitcast.27
+    26:copy-start.1
+    27:bitcast.28
+    28:online-softmax
+    29:copy-done.1
+    30:bitcast.4
+  BufferLiveRange:
+    slice.1{}:6-24
+    slice.3{}:11-24
+    slice.5{}:14-24
+    slice.7{}:17-24
+    fusion.3{}:8-19
+    k.1{}:0-31
+    q.1{}:0-31
+    copy-start{}:1-9
+    copy-start{0}:1-19
+    copy-start{2}:1-9
+    broadcast_add_fusion{}:19-28
+    v.1{}:0-31
+    slice-start{}:7-20
+    slice-start{0}:7-20
+    slice-start{2}:7-20
+    slice-start.1{}:12-21
+    slice-start.1{0}:12-21
+    slice-start.1{2}:12-21
+    slice-start.2{}:15-22
+    slice-start.2{0}:15-22
+    slice-start.2{2}:15-22
+    slice-start.3{}:18-23
+    slice-start.3{0}:18-23
+    slice-start.3{2}:18-23
+    custom-call.1{}:24-28
+    online-softmax{}:28-31
+    copy-start.1{}:26-29
+    copy-start.1{0}:26-29
+    copy-start.1{2}:26-29
+  Live ranges at 19 (peak):
+    broadcast_add_fusion{}: 33554432 bytes (cumulative: 33554432 bytes)
+    copy-start{0}: 16777216 bytes (cumulative: 50331648 bytes)
+    fusion.3{}: 16777216 bytes (cumulative: 67108864 bytes)
+    k.1{}: 16777216 bytes (cumulative: 83886080 bytes)
+    q.1{}: 16777216 bytes (cumulative: 100663296 bytes)
+    v.1{}: 16777216 bytes (cumulative: 117440512 bytes)
+    slice.1{}: 4194304 bytes (cumulative: 121634816 bytes)
+    slice.3{}: 4194304 bytes (cumulative: 125829120 bytes)
+    slice.5{}: 4194304 bytes (cumulative: 130023424 bytes)
+    slice.7{}: 4194304 bytes (cumulative: 134217728 bytes)
+    slice-start{}: 24 bytes (cumulative: 134217752 bytes)
+    slice-start.1{}: 24 bytes (cumulative: 134217776 bytes)
+    slice-start.2{}: 24 bytes (cumulative: 134217800 bytes)
+    slice-start.3{}: 24 bytes (cumulative: 134217824 bytes)
+    slice-start{0}: 8 bytes (cumulative: 134217832 bytes)
+    slice-start.1{0}: 8 bytes (cumulative: 134217840 bytes)
+    slice-start.2{0}: 8 bytes (cumulative: 134217848 bytes)
+    slice-start.3{0}: 8 bytes (cumulative: 134217856 bytes)
+    slice-start{2}: 4 bytes (cumulative: 134217860 bytes)
+    slice-start.1{2}: 4 bytes (cumulative: 134217864 bytes)
+    slice-start.2{2}: 4 bytes (cumulative: 134217868 bytes)
+    slice-start.3{2}: 4 bytes (cumulative: 134217872 bytes)
+  Stack trace breakdown for peak usage: 134 217 872 bytes
+    main.5 (100.0%, total: 134 217 872 bytes, current: 0 bytes, remaining: 134 217 872 bytes)
+      ├── jit(f)/jit(mha_reference)/bhqc,bhkc->bhqk/dot_general (25.0%, total: 33 554 432 bytes, current: 33 554 432 bytes, remaining: 100 663 440 bytes)
+      ├── copy-start{0} (12.5%, total: 16 777 216 bytes, current: 16 777 216 bytes, remaining: 83 886 224 bytes)
+      ├── jit(f)/jit(mha_reference)/jit(_where)/select_n (12.5%, total: 16 777 216 bytes, current: 16 777 216 bytes, remaining: 67 109 008 bytes)
+      ├── k (12.5%, total: 16 777 216 bytes, current: 16 777 216 bytes, remaining: 50 331 792 bytes)
+      ├── q (12.5%, total: 16 777 216 bytes, current: 16 777 216 bytes, remaining: 33 554 576 bytes)
+      ├── v (12.5%, total: 16 777 216 bytes, current: 16 777 216 bytes, remaining: 16 777 360 bytes)
+      ├── slice-start (3.1%, total: 4 194 328 bytes, current: 24 bytes, remaining: 16 777 336 bytes)
+      │   └── async_computation (3.1%, total: 4 194 304 bytes, current: 0 bytes, remaining: 16 777 336 bytes)
+      │       └── slice.1 (3.1%, total: 4 194 304 bytes, current: 4 194 304 bytes, remaining: 12 583 032 bytes)
+      ├── slice-start.1 (3.1%, total: 4 194 328 bytes, current: 24 bytes, remaining: 12 583 008 bytes)
+      │   └── async_computation.1 (3.1%, total: 4 194 304 bytes, current: 0 bytes, remaining: 12 583 008 bytes)
+      │       └── slice.3 (3.1%, total: 4 194 304 bytes, current: 4 194 304 bytes, remaining: 8 388 704 bytes)
+      ├── slice-start.2 (3.1%, total: 4 194 328 bytes, current: 24 bytes, remaining: 8 388 680 bytes)
+      │   └── async_computation.2 (3.1%, total: 4 194 304 bytes, current: 0 bytes, remaining: 8 388 680 bytes)
+      │       └── slice.5 (3.1%, total: 4 194 304 bytes, current: 4 194 304 bytes, remaining: 4 194 376 bytes)
+      ├── slice-start.3 (3.1%, total: 4 194 328 bytes, current: 24 bytes, remaining: 4 194 352 bytes)
+      │   └── async_computation.3 (3.1%, total: 4 194 304 bytes, current: 0 bytes, remaining: 4 194 352 bytes)
+      │       └── slice.7 (3.1%, total: 4 194 304 bytes, current: 4 194 304 bytes, remaining: 48 bytes)
+      ├── slice-start.1{0} (0.0%, total: 8 bytes, current: 8 bytes, remaining: 40 bytes)
+      ├── slice-start.2{0} (0.0%, total: 8 bytes, current: 8 bytes, remaining: 32 bytes)
+      ├── slice-start.3{0} (0.0%, total: 8 bytes, current: 8 bytes, remaining: 24 bytes)
+      ├── slice-start{0} (0.0%, total: 8 bytes, current: 8 bytes, remaining: 16 bytes)
+      ├── slice-start.1{2} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 12 bytes)
+      ├── slice-start.2{2} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 8 bytes)
+      ├── slice-start.3{2} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 4 bytes)
+      └── slice-start{2} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 0 bytes)

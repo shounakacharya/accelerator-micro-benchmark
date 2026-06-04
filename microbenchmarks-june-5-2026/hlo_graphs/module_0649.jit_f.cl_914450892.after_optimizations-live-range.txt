@@ -1,0 +1,40 @@
+HloLiveRange (max 12):
+  InstructionSequence:
+    0:constant.7
+    1:constant.8
+    2:param.1
+    3:fusion
+    4:slice
+    5:collective-permute-start
+    6:partition-id.2
+    7:multiply.3
+    8:subtract
+    9:collective-permute-done
+    10:concatenate
+    11:constant_dynamic-slice_fusion
+  BufferLiveRange:
+    param.1{}:0-12
+    fusion{}:3-10
+    slice{}:4-9
+    collective-permute-start{}:5-9
+    collective-permute-start{1}:5-10
+    collective-permute-start{2}:5-9
+    collective-permute-start{3}:5-9
+    concatenate{}:10-11
+    constant.8{}:1-8
+    constant.7{}:0-7
+    partition-id.2{}:6-7
+    multiply.3{}:7-8
+    subtract{}:8-11
+    constant_dynamic-slice_fusion{}:11-12
+  Live ranges at 11 (peak):
+    param.1{}: 134217728 bytes (cumulative: 134217728 bytes)
+    concatenate{}: 38797312 bytes (cumulative: 173015040 bytes)
+    constant_dynamic-slice_fusion{}: 33554432 bytes (cumulative: 206569472 bytes)
+    subtract{}: 4 bytes (cumulative: 206569476 bytes)
+  Stack trace breakdown for peak usage: 206 569 476 bytes
+    main.0_spmd (100.0%, total: 206 569 476 bytes, current: 0 bytes, remaining: 206 569 476 bytes)
+      ├── x (65.0%, total: 134 217 728 bytes, current: 134 217 728 bytes, remaining: 72 351 748 bytes)
+      ├── concatenate (18.8%, total: 38 797 312 bytes, current: 38 797 312 bytes, remaining: 33 554 436 bytes)
+      ├── constant_dynamic-slice_fusion (16.2%, total: 33 554 432 bytes, current: 33 554 432 bytes, remaining: 4 bytes)
+      └── subtract (0.0%, total: 4 bytes, current: 4 bytes, remaining: 0 bytes)

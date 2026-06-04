@@ -1,0 +1,22 @@
+HloLiveRange (max 4):
+  InstructionSequence:
+    0:param.2
+    1:param.3
+    2:all-gather.5
+    3:fusion
+  BufferLiveRange:
+    param.2{}:0-4
+    all-gather.5{}:2-3
+    param.3{}:0-4
+    fusion{}:3-4
+  Live ranges at 3 (peak):
+    all-gather.5{}: 354418688 bytes (cumulative: 354418688 bytes)
+    fusion{}: 354418688 bytes (cumulative: 708837376 bytes)
+    param.3{}: 354418688 bytes (cumulative: 1063256064 bytes)
+    param.2{}: 88604672 bytes (cumulative: 1151860736 bytes)
+  Stack trace breakdown for peak usage: 1 151 860 736 bytes
+    main.0_spmd (100.0%, total: 1 151 860 736 bytes, current: 0 bytes, remaining: 1 151 860 736 bytes)
+      ├── jit(f)/shard_map (30.8%, total: 354 418 688 bytes, current: 354 418 688 bytes, remaining: 797 442 048 bytes)
+      ├── jit(f)/shard_map/ij,jk->ik/dot_general (30.8%, total: 354 418 688 bytes, current: 354 418 688 bytes, remaining: 443 023 360 bytes)
+      ├── y (30.8%, total: 354 418 688 bytes, current: 354 418 688 bytes, remaining: 88 604 672 bytes)
+      └── x (7.7%, total: 88 604 672 bytes, current: 88 604 672 bytes, remaining: 0 bytes)

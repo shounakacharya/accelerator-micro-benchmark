@@ -1,0 +1,41 @@
+Memory Space: default (color=0)
+Total bytes: 71582720 (68.27MiB)
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+   16.00MiB(100%);   16.00MiB;            0;                1; f32[2,1,512,4096]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+   16.00MiB(100%);   16.00MiB;            0;                1; f32[2,1,512,4096]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+   16.00MiB(100%);   16.00MiB;            0;                1; f32[2,1,512,4096]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+   16.00MiB(100%);   16.00MiB;            0;                1; f32[2,1,512,4096]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+    4.00MiB( 94%);    4.00MiB;       278528;                1; f32[2,128,4096]
+    4.12MiB( 97%);   128.0KiB;        16384;                1; f32[2,128,128]
+    4.25MiB(100%);   128.0KiB;       147456;                1; f32[2,128,128]
+    4.25MiB(100%);        32B;            0;                1; (f32[2,128,128], f32[2,128,128], f32[2,128,4096], f32[2,1,512,4096])
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+       512B(100%);       512B;            0;                1; s8[1,4,4]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+       512B(100%);       512B;            0;                1; s8[1,4,4]
+
+
+Memory Space: vmem (color=1)
+Total bytes: 262144 (256.0KiB)
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+   256.0KiB(100%);   256.0KiB;            0;                1; s32[512,128]
+
+

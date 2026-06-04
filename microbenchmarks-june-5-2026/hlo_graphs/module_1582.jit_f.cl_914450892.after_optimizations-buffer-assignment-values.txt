@@ -1,0 +1,89 @@
+
+Total bytes used: 10502184 (10.02MiB)
+
+Used values:
+<14 param.5 @0>
+ positions:
+  param.5
+  copy-start.1 {1}
+ uses:
+  copy-start.1, operand 0
+  copy-done.1, operand 0 {1}
+ from instruction: %param.5 = bf16[1024,256]{1,0:T(8,128)(2,1)} parameter(2), sharding={devices=[1,4]<=[4]}, metadata={op_name="weights[1]"}
+<15 copy-start.1{} @0>
+ positions:
+  copy-start.1 {}
+ uses:
+  copy-done.1, operand 0 {}
+ from instruction: %copy-start.1 = (bf16[1024,256]{1,0:T(8,128)(2,1)S(1)}, bf16[1024,256]{1,0:T(8,128)(2,1)}, u32[]{:S(2)}) copy-start(%param.5)
+<16 copy-start.1{0} @1>
+ positions:
+  copy-start.1 {0}
+  copy-done.1
+ uses:
+  copy-done.1, operand 0 {0}
+  all-gather.17, operand 0
+ from instruction: %copy-start.1 = (bf16[1024,256]{1,0:T(8,128)(2,1)S(1)}, bf16[1024,256]{1,0:T(8,128)(2,1)}, u32[]{:S(2)}) copy-start(%param.5)
+<17 copy-start.1{2} @2>
+ positions:
+  copy-start.1 {2}
+ uses:
+  copy-done.1, operand 0 {2}
+ from instruction: %copy-start.1 = (bf16[1024,256]{1,0:T(8,128)(2,1)S(1)}, bf16[1024,256]{1,0:T(8,128)(2,1)}, u32[]{:S(2)}) copy-start(%param.5)
+<18 all-gather.17 @1>
+ positions:
+  all-gather.17
+ uses:
+  fusion, operand 0
+ from instruction: %all-gather.17 = bf16[1024,1024]{1,0:T(8,128)(2,1)S(1)} all-gather(%copy-done.1), channel_id=3, replica_groups=mesh['axis_0'=1,'axis_1'=4] {'axis_1'}, dimensions={1}, use_global_device_ids=true, frontend_attributes={async_collective_name="all-gather-start.2"}, metadata={op_name="jit(f)/shard_map" stack_frame_id=4}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<19 param.3 @0>
+ positions:
+  param.3
+ uses:
+  all-gather.15, operand 0
+ from instruction: %param.3 = bf16[256,1024]{1,0:T(8,128)(2,1)} parameter(0), sharding={devices=[4,1]<=[4]}, metadata={op_name="act"}
+<20 all-gather.15 @1>
+ positions:
+  all-gather.15
+ uses:
+  fusion, operand 1
+ from instruction: %all-gather.15 = bf16[1024,1024]{1,0:T(8,128)(2,1)S(1)} all-gather(%param.3), channel_id=1, replica_groups=mesh['axis_0'=4,'axis_1'=1] {'axis_0'}, dimensions={0}, use_global_device_ids=true, frontend_attributes={async_collective_name="all-gather-start"}, metadata={op_name="jit(f)/shard_map" stack_frame_id=4}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<21 param.4 @0>
+ positions:
+  param.4
+  copy-start {1}
+ uses:
+  copy-start, operand 0
+  copy-done, operand 0 {1}
+ from instruction: %param.4 = bf16[1024,256]{1,0:T(8,128)(2,1)} parameter(1), sharding={devices=[1,4]<=[4]}, metadata={op_name="weights[0]"}
+<22 copy-start{} @0>
+ positions:
+  copy-start {}
+ uses:
+  copy-done, operand 0 {}
+ from instruction: %copy-start = (bf16[1024,256]{1,0:T(8,128)(2,1)S(1)}, bf16[1024,256]{1,0:T(8,128)(2,1)}, u32[]{:S(2)}) copy-start(%param.4)
+<23 copy-start{0} @1>
+ positions:
+  copy-start {0}
+  copy-done
+ uses:
+  copy-done, operand 0 {0}
+  all-gather.16, operand 0
+ from instruction: %copy-start = (bf16[1024,256]{1,0:T(8,128)(2,1)S(1)}, bf16[1024,256]{1,0:T(8,128)(2,1)}, u32[]{:S(2)}) copy-start(%param.4)
+<24 copy-start{2} @2>
+ positions:
+  copy-start {2}
+ uses:
+  copy-done, operand 0 {2}
+ from instruction: %copy-start = (bf16[1024,256]{1,0:T(8,128)(2,1)S(1)}, bf16[1024,256]{1,0:T(8,128)(2,1)}, u32[]{:S(2)}) copy-start(%param.4)
+<25 all-gather.16 @1>
+ positions:
+  all-gather.16
+ uses:
+  fusion, operand 2
+ from instruction: %all-gather.16 = bf16[1024,1024]{1,0:T(8,128)(2,1)S(1)} all-gather(%copy-done), channel_id=2, replica_groups=mesh['axis_0'=1,'axis_1'=4] {'axis_1'}, dimensions={1}, use_global_device_ids=true, frontend_attributes={async_collective_name="all-gather-start.1"}, metadata={op_name="jit(f)/shard_map" stack_frame_id=4}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<26 fusion @0>
+ positions:
+  fusion
+ uses:
+ from instruction: %fusion = bf16[1024,1024]{1,0:T(8,128)(2,1)} fusion(%all-gather.17, %all-gather.15, %all-gather.16), kind=kOutput, calls=%fused_computation, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

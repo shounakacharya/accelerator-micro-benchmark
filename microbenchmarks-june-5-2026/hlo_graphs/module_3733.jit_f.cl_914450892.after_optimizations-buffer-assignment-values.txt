@@ -1,0 +1,112 @@
+
+Total bytes used: 387174404 (369.24MiB)
+
+Used values:
+<30 constant.3 @0>
+ positions:
+  constant.3
+  copy-start {1}
+ uses:
+  copy-start, operand 0
+  copy-done, operand 0 {1}
+ from instruction: %constant.3 = pred[8,128]{0,1:T(32,128)(4,1)} constant({...}), metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+<31 copy-start{} @0>
+ positions:
+  copy-start {}
+ uses:
+  copy-done, operand 0 {}
+ from instruction: %copy-start = (pred[8,128]{0,1:T(32,128)(4,1)S(1)}, pred[8,128]{0,1:T(32,128)(4,1)}, u32[]{:S(2)}) copy-start(%constant.3)
+<32 copy-start{0} @1>
+ positions:
+  copy-start {0}
+  copy-done
+  bitcast.16
+ uses:
+  copy-done, operand 0 {0}
+  bitcast.16, operand 0
+  broadcast_select_fusion, operand 0
+ from instruction: %copy-start = (pred[8,128]{0,1:T(32,128)(4,1)S(1)}, pred[8,128]{0,1:T(32,128)(4,1)}, u32[]{:S(2)}) copy-start(%constant.3)
+<33 copy-start{2} @2>
+ positions:
+  copy-start {2}
+ uses:
+  copy-done, operand 0 {2}
+ from instruction: %copy-start = (pred[8,128]{0,1:T(32,128)(4,1)S(1)}, pred[8,128]{0,1:T(32,128)(4,1)}, u32[]{:S(2)}) copy-start(%constant.3)
+<34 x.1 @0>
+ positions:
+  x.1
+ uses:
+  copy.1, operand 0
+ from instruction: %x.1 = bf16[1024,1024]{1,0:T(8,128)(2,1)} parameter(0), metadata={op_name="x"}
+<35 copy.1 @1>
+ positions:
+  copy.1
+  bitcast.13
+  bitcast.14
+ uses:
+  bitcast.14, operand 0
+  bitcast.13, operand 0
+  slice.2, operand 0
+  fusion.2, operand 1
+ from instruction: %copy.1 = bf16[1024,1024]{0,1:T(8,128)(2,1)S(1)} copy(%x.1), metadata={op_name="x"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<36 slice.2 @1>
+ positions:
+  slice.2
+ uses:
+  fusion.2, operand 0
+ from instruction: %slice.2 = bf16[1,1024,1,7,126]{1,4,3,2,0:T(8,128)(2,1)S(1)} slice(%bitcast.13), slice={[0:1], [0:1024], [0:1], [1:8], [0:126]}, metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<37 fusion.2 @1>
+ positions:
+  fusion.2
+ uses:
+  copy.3, operand 0
+ from instruction: %fusion.2 = bf16[1,1024,8,254]{1,3,2,0:T(8,128)(2,1)S(1)} fusion(%slice.2, %bitcast.14), kind=kLoop, calls=%fused_computation.4, metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<38 copy.3 @0>
+ positions:
+  copy.3
+ uses:
+  broadcast_select_fusion, operand 1
+ from instruction: %copy.3 = bf16[1,1024,8,254]{2,0,3,1:T(2,128)(2,1)} copy(%fusion.2), metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<39 kernel.1 @0>
+ positions:
+  kernel.1
+ uses:
+  rev.0, operand 0
+ from instruction: %kernel.1 = bf16[127,127]{1,0:T(8,128)(2,1)} parameter(1), metadata={op_name="kernel"}
+<40 rev.0 @1>
+ positions:
+  rev.0
+  bitcast.15
+ uses:
+  bitcast.15, operand 0
+  copy.4, operand 0
+ from instruction: %rev.0 = bf16[127,127]{1,0:T(8,128)(2,1)S(1)} reverse(%kernel.1), dimensions={0,1}, metadata={op_name="jit(f)/jit(_flip)/rev" stack_frame_id=2}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<41 copy.4 @1>
+ positions:
+  copy.4
+ uses:
+  broadcast_select_fusion, operand 2
+ from instruction: %copy.4 = bf16[1,1,127,127]{1,0,3,2:T(2,128)(2,1)S(1)} copy(%bitcast.15), metadata={op_name="jit(f)/broadcast_in_dim" stack_frame_id=9}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<42 broadcast_select_fusion @0>
+ positions:
+  broadcast_select_fusion
+ uses:
+  copy.5, operand 0
+ from instruction: %broadcast_select_fusion = bf16[898,8,128,1]{3,1,2,0:T(8,128)(2,1)} fusion(%bitcast.16, %copy.3, %copy.4), kind=kOutput, calls=%fused_computation, metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<43 copy.5 @1>
+ positions:
+  copy.5
+ uses:
+  reshape.6, operand 0
+ from instruction: %copy.5 = bf16[898,8,128,1]{2,1,0,3:T(8,128)(2,1)S(1)} copy(%broadcast_select_fusion), metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<44 reshape.6 @1>
+ positions:
+  reshape.6
+ uses:
+  slice_bitcast_fusion, operand 0
+ from instruction: %reshape.6 = bf16[898,1,1024,1]{2,0,3,1:T(8,128)(2,1)S(1)} reshape(%copy.5), metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<45 slice_bitcast_fusion @0>
+ positions:
+  slice_bitcast_fusion
+ uses:
+ from instruction: %slice_bitcast_fusion = bf16[898,898]{1,0:T(8,128)(2,1)} fusion(%reshape.6), kind=kLoop, calls=%fused_computation.5, metadata={op_name="jit(f)/squeeze" stack_frame_id=9}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

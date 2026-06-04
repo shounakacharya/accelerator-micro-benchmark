@@ -1,0 +1,15 @@
+
+Total bytes used: 4194304 (4.00MiB)
+
+Used values:
+<0 args_0_.1 @0>
+ positions:
+  args_0_.1
+ uses:
+  transpose.1, operand 0
+ from instruction: %args_0_.1 = f32[1,1,512,1024]{3,2,1,0:T(8,128)} parameter(0), metadata={op_name="args[0]"}
+<1 transpose.1 @0>
+ positions:
+  transpose.1
+ uses:
+ from instruction: %transpose.1 = f32[1,512,1,1024]{3,2,1,0:T(1,128)} reshape(%args_0_.1), metadata={op_name="jit(transpose)/transpose" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

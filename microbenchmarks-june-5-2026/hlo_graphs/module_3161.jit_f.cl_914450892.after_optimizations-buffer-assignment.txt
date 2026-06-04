@@ -1,0 +1,41 @@
+BufferAssignment:
+allocation 0: size 512, thread-local:
+ value: <2 reduce_max.5 @0> (size=512,offset=0): f32[]{:T(128)}
+allocation 1: size 8388608, output shape is |f32[2,512,4,512]|, maybe-live-out:
+ value: <71 copy.4 @0> (size=8388608,offset=0): f32[2,512,4,512]{3,2,1,0:T(4,128)}
+allocation 2: size 8388608, parameter 2, shape |f32[2,512,4,512]| at ShapeIndex {}:
+ value: <53 v.1 @0> (size=8388608,offset=0): f32[2,512,4,512]{3,2,1,0:T(4,128)}
+allocation 3: size 8388608, parameter 1, shape |f32[2,512,4,512]| at ShapeIndex {}:
+ value: <61 k.1 @0> (size=8388608,offset=0): f32[2,512,4,512]{3,2,1,0:T(4,128)}
+allocation 4: size 8388608, parameter 0, shape |f32[2,512,4,512]| at ShapeIndex {}:
+ value: <65 q.1 @0> (size=8388608,offset=0): f32[2,512,4,512]{3,2,1,0:T(4,128)}
+allocation 5: size 512, thread-local:
+ value: <1 reduce_max.4 @0> (size=512,offset=0): f32[]{:T(128)}
+allocation 6: size 512, thread-local:
+ value: <0 reduce_max.3 @0> (size=512,offset=0): f32[]{:T(128)}
+allocation 7: size 512, thread-local:
+ value: <5 reduce_sum.5 @0> (size=512,offset=0): f32[]{:T(128)}
+allocation 8: size 512, thread-local:
+ value: <4 reduce_sum.4 @0> (size=512,offset=0): f32[]{:T(128)}
+allocation 9: size 512, thread-local:
+ value: <3 reduce_sum.3 @0> (size=512,offset=0): f32[]{:T(128)}
+allocation 10: size 81952, preallocated-temp:
+ value: <54 slice-start{} @0> (size=32,offset=81920): ((s8[8388608]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)})
+ value: <55 slice-start{0} @0> (size=32,offset=65536): (s8[8388608]{0:T(1024)(128)(4,1)})
+ value: <57 slice-start.1{} @0> (size=32,offset=49152): ((s8[8388608]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)})
+ value: <58 slice-start.1{0} @0> (size=32,offset=32768): (s8[8388608]{0:T(1024)(128)(4,1)})
+ value: <62 copy-start{} @0> (size=32,offset=16384): (f32[2,512,4,512]{3,2,1,0:T(4,128)S(1)}, f32[2,512,4,512]{3,2,1,0:T(4,128)}, u32[]{:S(2)})
+ value: <66 multiply_reduce_fusion{} @0> (size=32,offset=0): (f32[2,4,512]{2,1,0:T(4,128)S(1)}, f32[2,4,512,512]{2,3,1,0:T(8,128)S(1)})
+allocation 11: size 8, color 2, preallocated-temp:
+ value: <56 slice-start{2} @2> (size=4,offset=4): s32[]{:S(2)}
+ value: <59 slice-start.1{2} @2> (size=4,offset=0): s32[]{:S(2)}
+ value: <64 copy-start{2} @2> (size=4,offset=0): u32[]{:S(2)}
+allocation 12: size 33587200, color 1, preallocated-temp:
+ value: <51 slice.1 @1> (size=4194304,offset=25198592): s8[4194304]{0:T(1024)(128)(4,1)S(1)}
+ value: <52 slice.3 @1> (size=4194304,offset=29392896): s8[4194304]{0:T(1024)(128)(4,1)S(1)}
+ value: <60 custom-call @1> (size=8388608,offset=25198592): f32[2,512,4,512]{3,2,1,0:T(4,128)S(1)}
+ value: <63 copy-start{0} @1> (size=8388608,offset=0): f32[2,512,4,512]{3,2,1,0:T(4,128)S(1)}
+ value: <67 multiply_reduce_fusion{0} @1> (size=16384,offset=25165824): f32[2,4,512]{2,1,0:T(4,128)S(1)}
+ value: <68 multiply_reduce_fusion{1} @1> (size=8388608,offset=8388608): f32[2,4,512,512]{2,3,1,0:T(8,128)S(1)}
+ value: <69 fusion.6 @1> (size=16384,offset=25182208): f32[2,4,512]{2,1,0:T(4,128)S(1)}
+ value: <70 fusion.10 @1> (size=8388608,offset=16777216): f32[2,512,4,512]{3,1,2,0:T(8,128)S(1)}

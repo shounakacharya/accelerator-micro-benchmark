@@ -1,0 +1,118 @@
+
+Total bytes used: 5460004 (5.21MiB)
+
+Used values:
+<0 reduce_max.3 @0>
+ positions:
+  reduce_max.3
+ uses:
+  reduce_max.5, operand 0
+ from instruction: %reduce_max.3 = f32[]{:T(128)} parameter(0), metadata={op_name="reduce_max"}
+<1 reduce_max.4 @0>
+ positions:
+  reduce_max.4
+ uses:
+  reduce_max.5, operand 1
+ from instruction: %reduce_max.4 = f32[]{:T(128)} parameter(1), metadata={op_name="reduce_max"}
+<2 reduce_max.5 @0>
+ positions:
+  reduce_max.5
+ uses:
+ from instruction: %reduce_max.5 = f32[]{:T(128)} maximum(%reduce_max.3, %reduce_max.4), metadata={op_name="jit(f)/reduce_max" stack_frame_id=5}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<3 reduce_sum.3 @0>
+ positions:
+  reduce_sum.3
+ uses:
+  reduce_sum.5, operand 0
+ from instruction: %reduce_sum.3 = f32[]{:T(128)} parameter(0), metadata={op_name="reduce_sum"}
+<4 reduce_sum.4 @0>
+ positions:
+  reduce_sum.4
+ uses:
+  reduce_sum.5, operand 1
+ from instruction: %reduce_sum.4 = f32[]{:T(128)} parameter(1), metadata={op_name="reduce_sum"}
+<5 reduce_sum.5 @0>
+ positions:
+  reduce_sum.5
+ uses:
+ from instruction: %reduce_sum.5 = f32[]{:T(128)} add(%reduce_sum.3, %reduce_sum.4), metadata={op_name="jit(f)/reduce_sum" stack_frame_id=5}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<57 fusion.19 @1>
+ positions:
+  fusion.19
+ uses:
+  fusion.23, operand 0
+ from instruction: %fusion.19 = f32[128,128]{0,1:T(8,128)S(1)} fusion(), kind=kLoop, calls=%fused_computation.15, metadata={op_name="jit(f)/convert_element_type" stack_frame_id=10}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<58 k.1 @0>
+ positions:
+  k.1
+ uses:
+  fusion.23, operand 1
+ from instruction: %k.1 = f32[2,1,128,1024]{3,2,1,0:T(8,128)} parameter(1), metadata={op_name="k"}
+<59 q.1 @0>
+ positions:
+  q.1
+ uses:
+  fusion.23, operand 2
+ from instruction: %q.1 = f32[2,1,128,1024]{3,2,1,0:T(8,128)} parameter(0), metadata={op_name="q"}
+<60 fusion.23{} @0>
+ positions:
+  fusion.23 {}
+ uses:
+  get-tuple-element, operand 0 {}
+  get-tuple-element.1, operand 0 {}
+ from instruction: %fusion.23 = (f32[2,128]{1,0:T(2,128)S(1)}, f32[2,128,128]{1,2,0:T(8,128)S(1)}) fusion(%fusion.19, %k.1, %q.1), kind=kOutput, calls=%fused_computation.16, metadata={op_name="jit(f)/BHSD,BHTD->BHST/dot_general" stack_frame_id=8}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<61 fusion.23{0} @1>
+ positions:
+  fusion.23 {0}
+  get-tuple-element
+ uses:
+  fusion.14, operand 1
+  fusion.5, operand 2
+ from instruction: %fusion.23 = (f32[2,128]{1,0:T(2,128)S(1)}, f32[2,128,128]{1,2,0:T(8,128)S(1)}) fusion(%fusion.19, %k.1, %q.1), kind=kOutput, calls=%fused_computation.16, metadata={op_name="jit(f)/BHSD,BHTD->BHST/dot_general" stack_frame_id=8}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<62 fusion.23{1} @1>
+ positions:
+  fusion.23 {1}
+  get-tuple-element.1
+ uses:
+  fusion.5, operand 0
+  fusion.14, operand 0
+ from instruction: %fusion.23 = (f32[2,128]{1,0:T(2,128)S(1)}, f32[2,128,128]{1,2,0:T(8,128)S(1)}) fusion(%fusion.19, %k.1, %q.1), kind=kOutput, calls=%fused_computation.16, metadata={op_name="jit(f)/BHSD,BHTD->BHST/dot_general" stack_frame_id=8}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<63 fusion.14 @1>
+ positions:
+  fusion.14
+ uses:
+  fusion.5, operand 1
+ from instruction: %fusion.14 = f32[2,128]{1,0:T(2,128)S(1)} fusion(%get-tuple-element.1, %get-tuple-element), kind=kLoop, calls=%fused_computation.9, metadata={op_name="jit(f)/reduce_sum" stack_frame_id=5}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<64 v.1 @0>
+ positions:
+  v.1
+  copy-start {1}
+ uses:
+  copy-start, operand 0
+  copy-done, operand 0 {1}
+ from instruction: %v.1 = f32[2,1,128,1024]{3,2,1,0:T(8,128)} parameter(2), metadata={op_name="v"}
+<65 copy-start{} @0>
+ positions:
+  copy-start {}
+ uses:
+  copy-done, operand 0 {}
+ from instruction: %copy-start = (f32[2,1,128,1024]{3,2,1,0:T(8,128)S(1)}, f32[2,1,128,1024]{3,2,1,0:T(8,128)}, u32[]{:S(2)}) copy-start(%v.1), cross_program_prefetch_index=0
+<66 copy-start{0} @1>
+ positions:
+  copy-start {0}
+  copy-done
+ uses:
+  copy-done, operand 0 {0}
+  fusion.5, operand 3
+ from instruction: %copy-start = (f32[2,1,128,1024]{3,2,1,0:T(8,128)S(1)}, f32[2,1,128,1024]{3,2,1,0:T(8,128)}, u32[]{:S(2)}) copy-start(%v.1), cross_program_prefetch_index=0
+<67 copy-start{2} @2>
+ positions:
+  copy-start {2}
+ uses:
+  copy-done, operand 0 {2}
+ from instruction: %copy-start = (f32[2,1,128,1024]{3,2,1,0:T(8,128)S(1)}, f32[2,1,128,1024]{3,2,1,0:T(8,128)}, u32[]{:S(2)}) copy-start(%v.1), cross_program_prefetch_index=0
+<68 fusion.5 @0>
+ positions:
+  fusion.5
+ uses:
+ from instruction: %fusion.5 = f32[2,1,128,1024]{3,2,1,0:T(8,128)} fusion(%get-tuple-element.1, %fusion.14, %get-tuple-element, %copy-done), kind=kOutput, calls=%fused_computation.5, metadata={op_name="jit(f)/BHST,BHTD->BHSD/dot_general" stack_frame_id=11}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

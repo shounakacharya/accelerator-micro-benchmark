@@ -1,0 +1,14 @@
+HloLiveRange (max 2):
+  InstructionSequence:
+    0:args_0_.1
+    1:transpose.1
+  BufferLiveRange:
+    args_0_.1{}:0-2
+    transpose.1{}:1-2
+  Live ranges at 1 (peak):
+    args_0_.1{}: 16777216 bytes (cumulative: 16777216 bytes)
+    transpose.1{}: 16777216 bytes (cumulative: 33554432 bytes)
+  Stack trace breakdown for peak usage: 33 554 432 bytes
+    main.1 (100.0%, total: 33 554 432 bytes, current: 0 bytes, remaining: 33 554 432 bytes)
+      ├── args[0] (50.0%, total: 16 777 216 bytes, current: 16 777 216 bytes, remaining: 16 777 216 bytes)
+      └── jit(transpose)/transpose (50.0%, total: 16 777 216 bytes, current: 16 777 216 bytes, remaining: 0 bytes)

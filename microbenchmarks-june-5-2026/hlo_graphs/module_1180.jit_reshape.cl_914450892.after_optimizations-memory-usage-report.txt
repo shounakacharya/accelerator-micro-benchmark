@@ -1,0 +1,17 @@
+Memory Space: default (color=0)
+Total bytes: 2147483648 (2.00GiB)
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+    1.00GiB(100%);    1.00GiB;            0;                1; s32[268435456]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+    1.00GiB(100%);    1.00GiB;            0;                1; s32[16384,16384]
+
+
+Memory Space: vmem (color=1)
+Total bytes: 0 (0B)
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+
+

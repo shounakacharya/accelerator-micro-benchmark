@@ -1,0 +1,21 @@
+
+Total bytes used: 42467328 (40.50MiB)
+
+Used values:
+<0 param.1 @0>
+ positions:
+  param.1
+ uses:
+  all-gather.4, operand 0
+ from instruction: %param.1 = bf16[768,3072]{1,0:T(8,128)(2,1)} parameter(0), sharding={devices=[4,1]<=[4]}, metadata={op_name="x"}
+<1 all-gather.4 @1>
+ positions:
+  all-gather.4
+ uses:
+  copy.3, operand 0
+ from instruction: %all-gather.4 = bf16[3072,3072]{1,0:T(8,128)(2,1)S(1)} all-gather(%param.1), channel_id=1, replica_groups={{0,1,2,3}}, dimensions={0}, use_global_device_ids=true, frontend_attributes={async_collective_name="all-gather-start"}, metadata={op_name="jit(f)/shard_map/all_gather" stack_frame_id=8}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<2 copy.3 @0>
+ positions:
+  copy.3
+ uses:
+ from instruction: %copy.3 = bf16[3072,3072]{1,0:T(8,128)(2,1)} copy(%all-gather.4), backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

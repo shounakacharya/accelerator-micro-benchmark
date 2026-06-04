@@ -1,0 +1,236 @@
+HloModule jit_f, is_scheduled=true, entry_computation_layout={(bf16[2816,11264]{1,0:T(8,128)(2,1)}, bf16[11264,11264]{1,0:T(8,128)(2,1)})->bf16[11264,11264]{1,0:T(8,128)(2,1)}}, allow_spmd_sharding_propagation_to_parameters={false,false}, allow_spmd_sharding_propagation_to_output={true}, num_partitions=4
+
+FileNames
+1 "/home/shounaka_google_com/accelerator-microbenchmarks/src/run_benchmark.py"
+2 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_matmul.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "run_single_benchmark"
+4 "collective_matmul_one_direction"
+5 "collective_matmul_one_direction.<locals>.f"
+6 "collective_matmul_one_direction.<locals>.f.<locals>.scanned_call"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=527 end_line=527 column=4 end_column=4}
+2 {file_name_id=1 function_name_id=2 line=422 end_line=422 column=12 end_column=12}
+3 {file_name_id=1 function_name_id=3 line=328 end_line=328 column=28 end_column=28}
+4 {file_name_id=2 function_name_id=4 line=317 end_line=317 column=13 end_column=13}
+5 {file_name_id=2 function_name_id=5 line=290 end_line=290 column=16 end_column=16}
+6 {file_name_id=2 function_name_id=5 line=294 end_line=294 column=25 end_column=25}
+7 {file_name_id=2 function_name_id=6 line=277 end_line=277 column=21 end_column=21}
+8 {file_name_id=2 function_name_id=5 line=271 end_line=271 column=21 end_column=21}
+9 {file_name_id=2 function_name_id=6 line=286 end_line=286 column=29 end_column=29}
+10 {file_name_id=2 function_name_id=6 line=286 end_line=286 column=28 end_column=28}
+11 {file_name_id=2 function_name_id=6 line=287 end_line=287 column=20 end_column=20}
+12 {file_name_id=2 function_name_id=6 line=279 end_line=279 column=18 end_column=18}
+13 {file_name_id=2 function_name_id=6 line=286 end_line=286 column=30 end_column=30}
+14 {file_name_id=2 function_name_id=5 line=296 end_line=296 column=17 end_column=17}
+15 {file_name_id=2 function_name_id=5 line=298 end_line=298 column=26 end_column=26}
+16 {file_name_id=2 function_name_id=5 line=298 end_line=298 column=25 end_column=25}
+17 {file_name_id=2 function_name_id=5 line=298 end_line=298 column=24 end_column=24}
+18 {file_name_id=2 function_name_id=5 line=299 end_line=299 column=16 end_column=16}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+5 {file_location_id=5 parent_frame_id=1}
+6 {file_location_id=6 parent_frame_id=1}
+7 {file_location_id=7 parent_frame_id=7}
+8 {file_location_id=8 parent_frame_id=1}
+9 {file_location_id=9 parent_frame_id=7}
+10 {file_location_id=10 parent_frame_id=7}
+11 {file_location_id=11 parent_frame_id=7}
+12 {file_location_id=12 parent_frame_id=7}
+13 {file_location_id=13 parent_frame_id=7}
+14 {file_location_id=14 parent_frame_id=1}
+15 {file_location_id=15 parent_frame_id=1}
+16 {file_location_id=16 parent_frame_id=1}
+17 {file_location_id=17 parent_frame_id=1}
+18 {file_location_id=18 parent_frame_id=1}
+19 {file_location_id=5 parent_frame_id=5}
+20 {file_location_id=6 parent_frame_id=5}
+21 {file_location_id=7 parent_frame_id=21}
+22 {file_location_id=8 parent_frame_id=5}
+23 {file_location_id=9 parent_frame_id=21}
+24 {file_location_id=10 parent_frame_id=21}
+25 {file_location_id=11 parent_frame_id=21}
+26 {file_location_id=12 parent_frame_id=21}
+27 {file_location_id=13 parent_frame_id=21}
+28 {file_location_id=14 parent_frame_id=5}
+29 {file_location_id=15 parent_frame_id=5}
+30 {file_location_id=16 parent_frame_id=5}
+31 {file_location_id=17 parent_frame_id=5}
+32 {file_location_id=18 parent_frame_id=5}
+
+
+%bitcast_fusion (bitcast_input: bf16[2816,11264]) -> bf16[2816,11264] {
+  %bitcast_input = bf16[2816,11264]{1,0:T(8,128)(2,1)} parameter(0)
+  ROOT %bitcast = bf16[2816,11264]{1,0:T(8,128)(2,1)} bitcast(%bitcast_input)
+}
+
+%bitcast_fusion.4 (bitcast_input.4: bf16[11264,11264]) -> bf16[11264,11264] {
+  %bitcast_input.4 = bf16[11264,11264]{1,0:T(8,128)(2,1)} parameter(0)
+  ROOT %bitcast.4 = bf16[11264,11264]{1,0:T(8,128)(2,1)} bitcast(%bitcast_input.4)
+}
+
+%fused_computation (param_0: bf16[2816,11264], param_1: bf16[11264,11264]) -> bf16[2816,11264] {
+  %param_0 = bf16[2816,11264]{1,0:T(8,128)(2,1)} parameter(0)
+  %fusion.4 = bf16[2816,11264]{1,0:T(8,128)(2,1)} fusion(%param_0), kind=kLoop, calls=%bitcast_fusion
+  %param_1 = bf16[11264,11264]{1,0:T(8,128)(2,1)} parameter(1)
+  %fusion.8 = bf16[11264,11264]{1,0:T(8,128)(2,1)} fusion(%param_1), kind=kLoop, calls=%bitcast_fusion.4
+  ROOT %convolution.4 = bf16[2816,11264]{1,0:T(8,128)(2,1)S(1)} convolution(%fusion.4, %fusion.8), dim_labels=bf_io->bf, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=21}
+}
+
+%bitcast_fusion.1 (bitcast_input.1: bf16[2816,11264]) -> bf16[2816,11264] {
+  %bitcast_input.1 = bf16[2816,11264]{1,0:T(8,128)(2,1)} parameter(0)
+  ROOT %bitcast.1 = bf16[2816,11264]{1,0:T(8,128)(2,1)} bitcast(%bitcast_input.1)
+}
+
+%bitcast_fusion.5 (bitcast_input.5: bf16[11264,11264]) -> bf16[11264,11264] {
+  %bitcast_input.5 = bf16[11264,11264]{1,0:T(8,128)(2,1)} parameter(0)
+  ROOT %bitcast.5 = bf16[11264,11264]{1,0:T(8,128)(2,1)} bitcast(%bitcast_input.5)
+}
+
+%fused_computation.1 (param_0.1: bf16[2816,11264], param_1.1: bf16[11264,11264]) -> bf16[2816,11264] {
+  %param_0.1 = bf16[2816,11264]{1,0:T(8,128)(2,1)} parameter(0)
+  %fusion.5 = bf16[2816,11264]{1,0:T(8,128)(2,1)} fusion(%param_0.1), kind=kLoop, calls=%bitcast_fusion.1
+  %param_1.1 = bf16[11264,11264]{1,0:T(8,128)(2,1)} parameter(1)
+  %fusion.9 = bf16[11264,11264]{1,0:T(8,128)(2,1)} fusion(%param_1.1), kind=kLoop, calls=%bitcast_fusion.5
+  ROOT %convolution.5 = bf16[2816,11264]{1,0:T(8,128)(2,1)S(1)} convolution(%fusion.5, %fusion.9), dim_labels=bf_io->bf, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=21}
+}
+
+%bitcast_fusion.2 (bitcast_input.2: bf16[2816,11264]) -> bf16[2816,11264] {
+  %bitcast_input.2 = bf16[2816,11264]{1,0:T(8,128)(2,1)} parameter(0)
+  ROOT %bitcast.2 = bf16[2816,11264]{1,0:T(8,128)(2,1)} bitcast(%bitcast_input.2)
+}
+
+%bitcast_fusion.6 (bitcast_input.6: bf16[11264,11264]) -> bf16[11264,11264] {
+  %bitcast_input.6 = bf16[11264,11264]{1,0:T(8,128)(2,1)} parameter(0)
+  ROOT %bitcast.6 = bf16[11264,11264]{1,0:T(8,128)(2,1)} bitcast(%bitcast_input.6)
+}
+
+%fused_computation.2 (param_0.2: bf16[2816,11264], param_1.2: bf16[11264,11264]) -> bf16[2816,11264] {
+  %param_0.2 = bf16[2816,11264]{1,0:T(8,128)(2,1)} parameter(0)
+  %fusion.6 = bf16[2816,11264]{1,0:T(8,128)(2,1)} fusion(%param_0.2), kind=kLoop, calls=%bitcast_fusion.2
+  %param_1.2 = bf16[11264,11264]{1,0:T(8,128)(2,1)} parameter(1)
+  %fusion.10 = bf16[11264,11264]{1,0:T(8,128)(2,1)} fusion(%param_1.2), kind=kLoop, calls=%bitcast_fusion.6
+  ROOT %convolution.6 = bf16[2816,11264]{1,0:T(8,128)(2,1)S(1)} convolution(%fusion.6, %fusion.10), dim_labels=bf_io->bf, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=21}
+}
+
+%bitcast_fusion.3 (bitcast_input.3: bf16[2816,11264]) -> bf16[2816,11264] {
+  %bitcast_input.3 = bf16[2816,11264]{1,0:T(8,128)(2,1)} parameter(0)
+  ROOT %bitcast.3 = bf16[2816,11264]{1,0:T(8,128)(2,1)} bitcast(%bitcast_input.3)
+}
+
+%bitcast_fusion.7 (bitcast_input.7: bf16[11264,11264]) -> bf16[11264,11264] {
+  %bitcast_input.7 = bf16[11264,11264]{1,0:T(8,128)(2,1)} parameter(0)
+  ROOT %bitcast.7 = bf16[11264,11264]{1,0:T(8,128)(2,1)} bitcast(%bitcast_input.7)
+}
+
+%fused_computation.3 (param_0.3: bf16[2816,11264], param_1.3: bf16[11264,11264]) -> bf16[2816,11264] {
+  %param_0.3 = bf16[2816,11264]{1,0:T(8,128)(2,1)} parameter(0)
+  %fusion.7 = bf16[2816,11264]{1,0:T(8,128)(2,1)} fusion(%param_0.3), kind=kLoop, calls=%bitcast_fusion.3
+  %param_1.3 = bf16[11264,11264]{1,0:T(8,128)(2,1)} parameter(1)
+  %fusion.11 = bf16[11264,11264]{1,0:T(8,128)(2,1)} fusion(%param_1.3), kind=kLoop, calls=%bitcast_fusion.7
+  ROOT %convolution.7 = bf16[2816,11264]{1,0:T(8,128)(2,1)S(1)} convolution(%fusion.7, %fusion.11), dim_labels=bf_io->bf, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=28}
+}
+
+ENTRY %main.2_spmd (param.2: bf16[2816,11264], param.3: bf16[11264,11264]) -> bf16[11264,11264] {
+  %constant.33.clone.1 = u32[]{:T(128)} constant(3), metadata={op_name="jit(f)/shard_map" stack_frame_id=4}
+  %constant.34.clone.1 = s32[]{:T(128)} constant(0), metadata={op_name="jit(f)/shard_map" stack_frame_id=4}
+  %constant.35.clone.1 = s32[]{:T(128)} constant(3), metadata={op_name="jit(f)/shard_map" stack_frame_id=4}
+  %constant.39.clone.1 = s32[]{:T(128)} constant(1), metadata={op_name="jit(f)/shard_map" stack_frame_id=4}
+  %constant.36.clone.1 = s32[]{:T(128)} constant(4), metadata={op_name="jit(f)/shard_map" stack_frame_id=4}
+  %constant.37.clone.1 = s32[]{:T(128)} constant(2816), metadata={op_name="jit(f)/shard_map" stack_frame_id=4}
+  %constant.38.clone.1 = s32[]{:T(128)} constant(11264), metadata={op_name="jit(f)/shard_map" stack_frame_id=4}
+  %constant.40.clone.1 = s32[]{:T(128)} constant(2), metadata={op_name="jit(f)/shard_map" stack_frame_id=4}
+  %constant.32.clone.1 = bf16[]{:T(256)} constant(0), metadata={op_name="jit(f)/shard_map" stack_frame_id=4}
+  %param.2 = bf16[2816,11264]{1,0:T(8,128)(2,1)} parameter(0), sharding={devices=[4,1]<=[4]}, metadata={op_name="lhs"}
+  %param.3 = bf16[11264,11264]{1,0:T(8,128)(2,1)} parameter(1), sharding={replicated}, metadata={op_name="rhs"}
+  %collective-permute-start = (bf16[2816,11264]{1,0:T(8,128)(2,1)}, bf16[2816,11264]{1,0:T(8,128)(2,1)}, u32[]{:S(2)}, u32[]{:S(2)}) collective-permute-start(%param.2), channel_id=1, source_target_pairs={{0,3},{1,0},{2,1},{3,2}}, metadata={op_name="jit(f)/shard_map/ppermute" stack_frame_id=26}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[],"used_scoped_memory_configs":[]}
+  %fusion = bf16[2816,11264]{1,0:T(8,128)(2,1)S(1)} fusion(%param.2, %param.3), kind=kOutput, calls=%fused_computation, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=21}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %axis_index.10 = u32[]{:T(128)S(6)} partition-id(), metadata={op_name="jit(f)/shard_map/axis_index" stack_frame_id=22}
+  %axis_index.11 = u32[]{:T(128)S(6)} and(%axis_index.10, %constant.33.clone.1), metadata={op_name="jit(f)/shard_map/axis_index" stack_frame_id=22}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %axis_index.12 = s32[]{:T(128)S(6)} convert(%axis_index.11), metadata={op_name="jit(f)/shard_map/axis_index" stack_frame_id=22}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %rem.54 = s32[]{:T(128)S(6)} negate(%axis_index.12), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %rem.53 = pred[]{:T(512)S(6)} compare(%axis_index.12, %constant.34.clone.1), direction=LT, metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %rem.55 = s32[]{:T(128)S(6)} select(%rem.53, %rem.54, %axis_index.12), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+  %rem.56 = s32[]{:T(128)S(6)} and(%rem.55, %constant.35.clone.1), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %rem.57 = s32[]{:T(128)S(6)} negate(%rem.56), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %rem.58 = s32[]{:T(128)S(6)} select(%rem.53, %rem.57, %rem.56), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+  %lt.30 = pred[]{:T(512)S(6)} compare(%rem.58, %constant.34.clone.1), direction=LT, metadata={op_name="jit(f)/shard_map/jit(remainder)/lt" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %ne.18 = pred[]{:T(512)S(6)} compare(%rem.58, %constant.34.clone.1), direction=NE, metadata={op_name="jit(f)/shard_map/jit(remainder)/ne" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %add.36 = s32[]{:T(128)S(6)} add(%axis_index.12, %constant.39.clone.1), metadata={op_name="jit(f)/shard_map/add" stack_frame_id=27}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %rem.59 = pred[]{:T(512)S(6)} compare(%add.36, %constant.34.clone.1), direction=LT, metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %rem.60 = s32[]{:T(128)S(6)} negate(%add.36), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %rem.61 = s32[]{:T(128)S(6)} select(%rem.59, %rem.60, %add.36), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+  %rem.62 = s32[]{:T(128)S(6)} and(%rem.61, %constant.35.clone.1), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %rem.63 = s32[]{:T(128)S(6)} negate(%rem.62), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %rem.64 = s32[]{:T(128)S(6)} select(%rem.59, %rem.63, %rem.62), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+  %lt.32 = pred[]{:T(512)S(6)} compare(%rem.64, %constant.34.clone.1), direction=LT, metadata={op_name="jit(f)/shard_map/jit(remainder)/lt" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %ne.19 = pred[]{:T(512)S(6)} compare(%rem.64, %constant.34.clone.1), direction=NE, metadata={op_name="jit(f)/shard_map/jit(remainder)/ne" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %add.34 = s32[]{:T(128)S(6)} add(%rem.58, %constant.36.clone.1), metadata={op_name="jit(f)/shard_map/jit(remainder)/add" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %add.37 = s32[]{:T(128)S(6)} add(%rem.64, %constant.36.clone.1), metadata={op_name="jit(f)/shard_map/jit(remainder)/add" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %and.18 = pred[]{:T(512)S(6)} and(%lt.30, %ne.18), metadata={op_name="jit(f)/shard_map/jit(remainder)/and" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %select_n.31 = s32[]{:T(128)S(6)} select(%and.18, %add.34, %rem.58), metadata={op_name="jit(f)/shard_map/jit(remainder)/select_n" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+  %mul.12 = s32[]{:T(128)S(6)} multiply(%select_n.31, %constant.37.clone.1), metadata={op_name="jit(f)/shard_map/mul" stack_frame_id=24}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %lt.31 = pred[]{:T(512)S(6)} compare(%mul.12, %constant.34.clone.1), direction=LT, metadata={op_name="jit(f)/shard_map/lt" stack_frame_id=25}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %add.35 = s32[]{:T(128)S(6)} add(%mul.12, %constant.38.clone.1), metadata={op_name="jit(f)/shard_map/add" stack_frame_id=25}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %and.19 = pred[]{:T(512)S(6)} and(%lt.32, %ne.19), metadata={op_name="jit(f)/shard_map/jit(remainder)/and" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %select_n.33 = s32[]{:T(128)S(6)} select(%and.19, %add.37, %rem.64), metadata={op_name="jit(f)/shard_map/jit(remainder)/select_n" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+  %mul.13 = s32[]{:T(128)S(6)} multiply(%select_n.33, %constant.37.clone.1), metadata={op_name="jit(f)/shard_map/mul" stack_frame_id=24}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %add.38 = s32[]{:T(128)S(6)} add(%mul.13, %constant.38.clone.1), metadata={op_name="jit(f)/shard_map/add" stack_frame_id=25}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %lt.33 = pred[]{:T(512)S(6)} compare(%mul.13, %constant.34.clone.1), direction=LT, metadata={op_name="jit(f)/shard_map/lt" stack_frame_id=25}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %add.39 = s32[]{:T(128)S(6)} add(%axis_index.12, %constant.40.clone.1), metadata={op_name="jit(f)/shard_map/add" stack_frame_id=27}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %rem.65 = pred[]{:T(512)S(6)} compare(%add.39, %constant.34.clone.1), direction=LT, metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %rem.66 = s32[]{:T(128)S(6)} negate(%add.39), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %rem.67 = s32[]{:T(128)S(6)} select(%rem.65, %rem.66, %add.39), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+  %rem.68 = s32[]{:T(128)S(6)} and(%rem.67, %constant.35.clone.1), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %rem.69 = s32[]{:T(128)S(6)} negate(%rem.68), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %rem.70 = s32[]{:T(128)S(6)} select(%rem.65, %rem.69, %rem.68), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+  %lt.34 = pred[]{:T(512)S(6)} compare(%rem.70, %constant.34.clone.1), direction=LT, metadata={op_name="jit(f)/shard_map/jit(remainder)/lt" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %ne.20 = pred[]{:T(512)S(6)} compare(%rem.70, %constant.34.clone.1), direction=NE, metadata={op_name="jit(f)/shard_map/jit(remainder)/ne" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %add.40 = s32[]{:T(128)S(6)} add(%rem.70, %constant.36.clone.1), metadata={op_name="jit(f)/shard_map/jit(remainder)/add" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %and.20 = pred[]{:T(512)S(6)} and(%lt.34, %ne.20), metadata={op_name="jit(f)/shard_map/jit(remainder)/and" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %select_n.35 = s32[]{:T(128)S(6)} select(%and.20, %add.40, %rem.70), metadata={op_name="jit(f)/shard_map/jit(remainder)/select_n" stack_frame_id=23}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+  %mul.14 = s32[]{:T(128)S(6)} multiply(%select_n.35, %constant.37.clone.1), metadata={op_name="jit(f)/shard_map/mul" stack_frame_id=24}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %add.41 = s32[]{:T(128)S(6)} add(%mul.14, %constant.38.clone.1), metadata={op_name="jit(f)/shard_map/add" stack_frame_id=25}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %lt.35 = pred[]{:T(512)S(6)} compare(%mul.14, %constant.34.clone.1), direction=LT, metadata={op_name="jit(f)/shard_map/lt" stack_frame_id=25}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %add.42 = s32[]{:T(128)S(6)} add(%axis_index.12, %constant.35.clone.1), metadata={op_name="jit(f)/shard_map/add" stack_frame_id=29}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %rem.71 = pred[]{:T(512)S(6)} compare(%add.42, %constant.34.clone.1), direction=LT, metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=30}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %rem.72 = s32[]{:T(128)S(6)} negate(%add.42), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=30}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %rem.73 = s32[]{:T(128)S(6)} select(%rem.71, %rem.72, %add.42), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=30}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+  %rem.74 = s32[]{:T(128)S(6)} and(%rem.73, %constant.35.clone.1), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=30}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %rem.75 = s32[]{:T(128)S(6)} negate(%rem.74), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=30}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %rem.76 = s32[]{:T(128)S(6)} select(%rem.71, %rem.75, %rem.74), metadata={op_name="jit(f)/shard_map/jit(remainder)/rem" stack_frame_id=30}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+  %lt.36 = pred[]{:T(512)S(6)} compare(%rem.76, %constant.34.clone.1), direction=LT, metadata={op_name="jit(f)/shard_map/jit(remainder)/lt" stack_frame_id=30}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %ne.21 = pred[]{:T(512)S(6)} compare(%rem.76, %constant.34.clone.1), direction=NE, metadata={op_name="jit(f)/shard_map/jit(remainder)/ne" stack_frame_id=30}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %add.43 = s32[]{:T(128)S(6)} add(%rem.76, %constant.36.clone.1), metadata={op_name="jit(f)/shard_map/jit(remainder)/add" stack_frame_id=30}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %and.21 = pred[]{:T(512)S(6)} and(%lt.36, %ne.21), metadata={op_name="jit(f)/shard_map/jit(remainder)/and" stack_frame_id=30}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %select_n.37 = s32[]{:T(128)S(6)} select(%and.21, %add.43, %rem.76), metadata={op_name="jit(f)/shard_map/jit(remainder)/select_n" stack_frame_id=30}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+  %mul.15 = s32[]{:T(128)S(6)} multiply(%select_n.37, %constant.37.clone.1), metadata={op_name="jit(f)/shard_map/mul" stack_frame_id=31}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %add.44 = s32[]{:T(128)S(6)} add(%mul.15, %constant.38.clone.1), metadata={op_name="jit(f)/shard_map/add" stack_frame_id=32}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+  %lt.37 = pred[]{:T(512)S(6)} compare(%mul.15, %constant.34.clone.1), direction=LT, metadata={op_name="jit(f)/shard_map/lt" stack_frame_id=32}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %select_n.32 = s32[]{:T(128)S(6)} select(%lt.31, %add.35, %mul.12), metadata={op_name="jit(f)/shard_map/select_n" stack_frame_id=25}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+  %select_n.34 = s32[]{:T(128)S(6)} select(%lt.33, %add.38, %mul.13), metadata={op_name="jit(f)/shard_map/select_n" stack_frame_id=25}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+  %select_n.36 = s32[]{:T(128)S(6)} select(%lt.35, %add.41, %mul.14), metadata={op_name="jit(f)/shard_map/select_n" stack_frame_id=25}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+  %select_n.38 = s32[]{:T(128)S(6)} select(%lt.37, %add.44, %mul.15), metadata={op_name="jit(f)/shard_map/select_n" stack_frame_id=32}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+  %broadcast_in_dim.3 = bf16[11264,11264]{1,0:T(8,128)(2,1)} broadcast(%constant.32.clone.1), dimensions={}, metadata={op_name="jit(f)/shard_map/broadcast_in_dim" stack_frame_id=19}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"output_chunk_bound_config":{"output_chunk_bound":[]},"aliasing_operands":{"lists":[]}}
+  %dynamic_update_slice.12 = bf16[11264,11264]{1,0:T(8,128)(2,1)} dynamic-update-slice(%broadcast_in_dim.3, %fusion, %select_n.32, %constant.34.clone.1), metadata={op_name="jit(f)/shard_map/dynamic_update_slice" stack_frame_id=25}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"indices_config":{"index_known_bits":[{"zeroes":"4294950912","ones":"0","bitwidth":"32"},{"zeroes":"4294967295","ones":"0","bitwidth":"32"}],"is_index_aligned":[]},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","4"]}]}}
+  %collective-permute-done = bf16[2816,11264]{1,0:T(8,128)(2,1)} collective-permute-done(%collective-permute-start), metadata={op_name="jit(f)/shard_map/ppermute" stack_frame_id=26}
+  %collective-permute-start.1 = (bf16[2816,11264]{1,0:T(8,128)(2,1)}, bf16[2816,11264]{1,0:T(8,128)(2,1)}, u32[]{:S(2)}, u32[]{:S(2)}) collective-permute-start(%collective-permute-done), channel_id=1, source_target_pairs={{0,3},{1,0},{2,1},{3,2}}, metadata={op_name="jit(f)/shard_map/ppermute" stack_frame_id=26}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[],"used_scoped_memory_configs":[]}
+  %fusion.1 = bf16[2816,11264]{1,0:T(8,128)(2,1)S(1)} fusion(%collective-permute-done, %param.3), kind=kOutput, calls=%fused_computation.1, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=21}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %dynamic_update_slice.13 = bf16[11264,11264]{1,0:T(8,128)(2,1)} dynamic-update-slice(%dynamic_update_slice.12, %fusion.1, %select_n.34, %constant.34.clone.1), metadata={op_name="jit(f)/shard_map/dynamic_update_slice" stack_frame_id=25}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"indices_config":{"index_known_bits":[{"zeroes":"4294950912","ones":"0","bitwidth":"32"},{"zeroes":"4294967295","ones":"0","bitwidth":"32"}],"is_index_aligned":[]},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","4"]}]}}
+  %collective-permute-done.1 = bf16[2816,11264]{1,0:T(8,128)(2,1)} collective-permute-done(%collective-permute-start.1), metadata={op_name="jit(f)/shard_map/ppermute" stack_frame_id=26}
+  %collective-permute-start.2 = (bf16[2816,11264]{1,0:T(8,128)(2,1)}, bf16[2816,11264]{1,0:T(8,128)(2,1)}, u32[]{:S(2)}, u32[]{:S(2)}) collective-permute-start(%collective-permute-done.1), channel_id=1, source_target_pairs={{0,3},{1,0},{2,1},{3,2}}, metadata={op_name="jit(f)/shard_map/ppermute" stack_frame_id=26}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[],"used_scoped_memory_configs":[]}
+  %fusion.2 = bf16[2816,11264]{1,0:T(8,128)(2,1)S(1)} fusion(%collective-permute-done.1, %param.3), kind=kOutput, calls=%fused_computation.2, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=21}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  %dynamic_update_slice.14 = bf16[11264,11264]{1,0:T(8,128)(2,1)} dynamic-update-slice(%dynamic_update_slice.13, %fusion.2, %select_n.36, %constant.34.clone.1), metadata={op_name="jit(f)/shard_map/dynamic_update_slice" stack_frame_id=25}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"indices_config":{"index_known_bits":[{"zeroes":"4294950912","ones":"0","bitwidth":"32"},{"zeroes":"4294967295","ones":"0","bitwidth":"32"}],"is_index_aligned":[]},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","4"]}]}}
+  %collective-permute-done.2 = bf16[2816,11264]{1,0:T(8,128)(2,1)} collective-permute-done(%collective-permute-start.2), metadata={op_name="jit(f)/shard_map/ppermute" stack_frame_id=26}
+  %fusion.3 = bf16[2816,11264]{1,0:T(8,128)(2,1)S(1)} fusion(%collective-permute-done.2, %param.3), kind=kOutput, calls=%fused_computation.3, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=28}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  ROOT %dynamic_update_slice.15 = bf16[11264,11264]{1,0:T(8,128)(2,1)} dynamic-update-slice(%dynamic_update_slice.14, %fusion.3, %select_n.38, %constant.34.clone.1), metadata={op_name="jit(f)/shard_map/dynamic_update_slice" stack_frame_id=32}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"indices_config":{"index_known_bits":[{"zeroes":"4294950912","ones":"0","bitwidth":"32"},{"zeroes":"4294967295","ones":"0","bitwidth":"32"}],"is_index_aligned":[]},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","4"]}]}}
+}
+

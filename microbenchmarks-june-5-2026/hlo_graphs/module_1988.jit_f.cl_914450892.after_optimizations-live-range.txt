@@ -1,0 +1,220 @@
+HloLiveRange (max 92):
+  InstructionSequence:
+    0:constant.33.clone.1
+    1:constant.34.clone.1
+    2:constant.35.clone.1
+    3:constant.39.clone.1
+    4:constant.36.clone.1
+    5:constant.37.clone.1
+    6:constant.38.clone.1
+    7:constant.40.clone.1
+    8:constant.32.clone.1
+    9:param.2
+    10:param.3
+    11:collective-permute-start
+    12:fusion
+    13:axis_index.10
+    14:axis_index.11
+    15:axis_index.12
+    16:rem.54
+    17:rem.53
+    18:rem.55
+    19:rem.56
+    20:rem.57
+    21:rem.58
+    22:lt.30
+    23:ne.18
+    24:add.36
+    25:rem.59
+    26:rem.60
+    27:rem.61
+    28:rem.62
+    29:rem.63
+    30:rem.64
+    31:lt.32
+    32:ne.19
+    33:add.34
+    34:add.37
+    35:and.18
+    36:select_n.31
+    37:mul.12
+    38:lt.31
+    39:add.35
+    40:and.19
+    41:select_n.33
+    42:mul.13
+    43:add.38
+    44:lt.33
+    45:add.39
+    46:rem.65
+    47:rem.66
+    48:rem.67
+    49:rem.68
+    50:rem.69
+    51:rem.70
+    52:lt.34
+    53:ne.20
+    54:add.40
+    55:and.20
+    56:select_n.35
+    57:mul.14
+    58:add.41
+    59:lt.35
+    60:add.42
+    61:rem.71
+    62:rem.72
+    63:rem.73
+    64:rem.74
+    65:rem.75
+    66:rem.76
+    67:lt.36
+    68:ne.21
+    69:add.43
+    70:and.21
+    71:select_n.37
+    72:mul.15
+    73:add.44
+    74:lt.37
+    75:select_n.32
+    76:select_n.34
+    77:select_n.36
+    78:select_n.38
+    79:broadcast_in_dim.3
+    80:dynamic_update_slice.12
+    81:collective-permute-done
+    82:collective-permute-start.1
+    83:fusion.1
+    84:dynamic_update_slice.13
+    85:collective-permute-done.1
+    86:collective-permute-start.2
+    87:fusion.2
+    88:dynamic_update_slice.14
+    89:collective-permute-done.2
+    90:fusion.3
+    91:dynamic_update_slice.15
+  BufferLiveRange:
+    constant.32.clone.1{}:8-79
+    broadcast_in_dim.3{}:79-80
+    param.2{}:0-92
+    param.3{}:0-92
+    fusion{}:12-80
+    axis_index.10{}:13-14
+    constant.33.clone.1{}:0-14
+    axis_index.11{}:14-15
+    axis_index.12{}:15-60
+    constant.34.clone.1{}:1-91
+    rem.53{}:17-21
+    rem.54{}:16-18
+    rem.55{}:18-19
+    constant.35.clone.1{}:2-64
+    rem.56{}:19-21
+    rem.57{}:20-21
+    rem.58{}:21-36
+    lt.30{}:22-35
+    ne.18{}:23-35
+    and.18{}:35-36
+    constant.36.clone.1{}:4-69
+    add.34{}:33-36
+    select_n.31{}:36-37
+    constant.37.clone.1{}:5-72
+    mul.12{}:37-75
+    lt.31{}:38-75
+    constant.38.clone.1{}:6-73
+    add.35{}:39-75
+    select_n.32{}:75-80
+    dynamic_update_slice.12{}:80-84
+    collective-permute-start{}:11-81
+    collective-permute-start{1}:11-85
+    collective-permute-start{2}:11-81
+    collective-permute-start{3}:11-81
+    fusion.1{}:83-84
+    constant.39.clone.1{}:3-24
+    add.36{}:24-27
+    rem.59{}:25-30
+    rem.60{}:26-27
+    rem.61{}:27-28
+    rem.62{}:28-30
+    rem.63{}:29-30
+    rem.64{}:30-41
+    lt.32{}:31-40
+    ne.19{}:32-40
+    and.19{}:40-41
+    add.37{}:34-41
+    select_n.33{}:41-42
+    mul.13{}:42-76
+    lt.33{}:44-76
+    add.38{}:43-76
+    select_n.34{}:76-84
+    dynamic_update_slice.13{}:84-88
+    collective-permute-start.1{}:82-85
+    collective-permute-start.1{1}:82-89
+    collective-permute-start.1{2}:82-85
+    collective-permute-start.1{3}:82-85
+    fusion.2{}:87-88
+    constant.40.clone.1{}:7-45
+    add.39{}:45-48
+    rem.65{}:46-51
+    rem.66{}:47-48
+    rem.67{}:48-49
+    rem.68{}:49-51
+    rem.69{}:50-51
+    rem.70{}:51-56
+    lt.34{}:52-55
+    ne.20{}:53-55
+    and.20{}:55-56
+    add.40{}:54-56
+    select_n.35{}:56-57
+    mul.14{}:57-77
+    lt.35{}:59-77
+    add.41{}:58-77
+    select_n.36{}:77-88
+    dynamic_update_slice.14{}:88-91
+    collective-permute-start.2{}:86-89
+    collective-permute-start.2{1}:86-90
+    collective-permute-start.2{2}:86-89
+    collective-permute-start.2{3}:86-89
+    fusion.3{}:90-91
+    add.42{}:60-63
+    rem.71{}:61-66
+    rem.72{}:62-63
+    rem.73{}:63-64
+    rem.74{}:64-66
+    rem.75{}:65-66
+    rem.76{}:66-71
+    lt.36{}:67-70
+    ne.21{}:68-70
+    and.21{}:70-71
+    add.43{}:69-71
+    select_n.37{}:71-72
+    mul.15{}:72-78
+    lt.37{}:74-78
+    add.44{}:73-78
+    select_n.38{}:78-91
+    dynamic_update_slice.15{}:91-92
+  Live ranges at 84 (peak):
+    dynamic_update_slice.12{}: 209715200 bytes (cumulative: 209715200 bytes)
+    dynamic_update_slice.13{}: 209715200 bytes (cumulative: 419430400 bytes)
+    param.3{}: 209715200 bytes (cumulative: 629145600 bytes)
+    collective-permute-start{1}: 52428800 bytes (cumulative: 681574400 bytes)
+    collective-permute-start.1{1}: 52428800 bytes (cumulative: 734003200 bytes)
+    fusion.1{}: 52428800 bytes (cumulative: 786432000 bytes)
+    param.2{}: 52428800 bytes (cumulative: 838860800 bytes)
+    collective-permute-start.1{}: 32 bytes (cumulative: 838860832 bytes)
+    collective-permute-start.1{2}: 4 bytes (cumulative: 838860836 bytes)
+    collective-permute-start.1{3}: 4 bytes (cumulative: 838860840 bytes)
+    constant.34.clone.1{}: 4 bytes (cumulative: 838860844 bytes)
+    select_n.34{}: 4 bytes (cumulative: 838860848 bytes)
+    select_n.36{}: 4 bytes (cumulative: 838860852 bytes)
+    select_n.38{}: 4 bytes (cumulative: 838860856 bytes)
+  Stack trace breakdown for peak usage: 838 860 856 bytes
+    main.2_spmd (100.0%, total: 838 860 856 bytes, current: 0 bytes, remaining: 838 860 856 bytes)
+      ├── jit(f)/shard_map/dynamic_update_slice (50.0%, total: 419 430 400 bytes, current: 419 430 400 bytes, remaining: 419 430 456 bytes)
+      ├── rhs (25.0%, total: 209 715 200 bytes, current: 209 715 200 bytes, remaining: 209 715 256 bytes)
+      ├── jit(f)/shard_map/ppermute{1} (12.5%, total: 104 857 600 bytes, current: 104 857 600 bytes, remaining: 104 857 656 bytes)
+      ├── jit(f)/shard_map/dot_general (6.2%, total: 52 428 800 bytes, current: 52 428 800 bytes, remaining: 52 428 856 bytes)
+      ├── lhs (6.2%, total: 52 428 800 bytes, current: 52 428 800 bytes, remaining: 56 bytes)
+      ├── jit(f)/shard_map/ppermute (0.0%, total: 32 bytes, current: 32 bytes, remaining: 24 bytes)
+      ├── jit(f)/shard_map/select_n (0.0%, total: 12 bytes, current: 12 bytes, remaining: 12 bytes)
+      ├── jit(f)/shard_map (0.0%, total: 4 bytes, current: 4 bytes, remaining: 8 bytes)
+      ├── jit(f)/shard_map/ppermute{2} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 4 bytes)
+      └── jit(f)/shard_map/ppermute{3} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 0 bytes)

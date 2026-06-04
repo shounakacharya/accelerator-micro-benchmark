@@ -1,0 +1,14 @@
+HloLiveRange (max 2):
+  InstructionSequence:
+    0:args_0_.1
+    1:reshape.1
+  BufferLiveRange:
+    args_0_.1{}:0-2
+    reshape.1{}:1-2
+  Live ranges at 1 (peak):
+    args_0_.1{}: 339738624 bytes (cumulative: 339738624 bytes)
+    reshape.1{}: 339738624 bytes (cumulative: 679477248 bytes)
+  Stack trace breakdown for peak usage: 679 477 248 bytes
+    main.1 (100.0%, total: 679 477 248 bytes, current: 0 bytes, remaining: 679 477 248 bytes)
+      ├── args[0] (50.0%, total: 339 738 624 bytes, current: 339 738 624 bytes, remaining: 339 738 624 bytes)
+      └── jit(reshape)/reshape (50.0%, total: 339 738 624 bytes, current: 339 738 624 bytes, remaining: 0 bytes)

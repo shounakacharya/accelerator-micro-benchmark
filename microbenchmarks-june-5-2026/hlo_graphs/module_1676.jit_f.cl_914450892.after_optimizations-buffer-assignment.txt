@@ -1,0 +1,98 @@
+BufferAssignment:
+allocation 0: size 42467328, parameter 0, shape |bf16[2304,9216]| at ShapeIndex {}:
+ value: <135 param.3 @0> (size=42467328,offset=0): bf16[2304,9216]{1,0:T(8,128)(2,1)}
+allocation 1: size 169869312, output shape is |bf16[9216,9216]|, maybe-live-out:
+ value: <157 fusion.1 @0> (size=169869312,offset=0): bf16[9216,9216]{1,0:T(8,128)(2,1)}
+allocation 2: size 42467328, parameter 2, shape |bf16[9216,2304]| at ShapeIndex {}:
+ value: <80 param.5 @0> (size=42467328,offset=0): bf16[9216,2304]{1,0:T(8,128)(2,1)}
+allocation 3: size 42467328, parameter 1, shape |bf16[9216,2304]| at ShapeIndex {}:
+ value: <99 param.4 @0> (size=42467328,offset=0): bf16[9216,2304]{1,0:T(8,128)(2,1)}
+allocation 4: size 84934656, color 1, preallocated-temp:
+ value: <69 slice.1 @1> (size=4194304,offset=42467328): s8[4194304]{0:T(1024)(128)(4,1)S(1)}
+ value: <70 slice.3 @1> (size=4194304,offset=46661632): s8[4194304]{0:T(1024)(128)(4,1)S(1)}
+ value: <71 slice.5 @1> (size=4194304,offset=50855936): s8[4194304]{0:T(1024)(128)(4,1)S(1)}
+ value: <72 slice.7 @1> (size=4194304,offset=55050240): s8[4194304]{0:T(1024)(128)(4,1)S(1)}
+ value: <73 slice.9 @1> (size=4194304,offset=59244544): s8[4194304]{0:T(1024)(128)(4,1)S(1)}
+ value: <74 slice.11 @1> (size=4194304,offset=63438848): s8[4194304]{0:T(1024)(128)(4,1)S(1)}
+ value: <75 slice.13 @1> (size=4194304,offset=67633152): s8[4194304]{0:T(1024)(128)(4,1)S(1)}
+ value: <76 slice.15 @1> (size=4194304,offset=71827456): s8[4194304]{0:T(1024)(128)(4,1)S(1)}
+ value: <77 slice.17 @1> (size=4194304,offset=76021760): s8[4194304]{0:T(1024)(128)(4,1)S(1)}
+ value: <78 slice.19 @1> (size=4194304,offset=80216064): s8[4194304]{0:T(1024)(128)(4,1)S(1)}
+ value: <79 slice.21 @1> (size=524288,offset=84410368): s8[524288]{0:T(1024)(128)(4,1)S(1)}
+ value: <81 copy.4 @1> (size=42467328,offset=0): bf16[9216,2304]{1,0:T(8,128)(2,1)S(1)}
+ value: <83 async-collective-start{0} @1> (size=42467328,offset=0): bf16[9216,2304]{1,0:T(8,128)(2,1)S(1)}
+ value: <133 custom-call.4 @1> (size=42467328,offset=42467328): bf16[9216,2304]{1,0:T(8,128)(2,1)S(1)}
+ value: <139 fusion.7{1} @1> (size=42467328,offset=0): bf16[9216,2304]{1,0:T(8,128)(2,1)S(1)}
+allocation 5: size 679870464, preallocated-temp:
+ value: <82 async-collective-start{} @0> (size=64,offset=16384): (bf16[9216,2304]{1,0:T(8,128)(2,1)S(1)}, bf16[9216,9216]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)})
+ value: <84 async-collective-start{1} @0> (size=169869312,offset=340131840): bf16[9216,9216]{1,0:T(8,128)(2,1)}
+ value: <100 slice-start{} @0> (size=32,offset=32768): ((s8[42467328]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)})
+ value: <101 slice-start{0} @0> (size=32,offset=49152): (s8[42467328]{0:T(1024)(128)(4,1)})
+ value: <103 slice-start.1{} @0> (size=32,offset=65536): ((s8[42467328]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)})
+ value: <104 slice-start.1{0} @0> (size=32,offset=81920): (s8[42467328]{0:T(1024)(128)(4,1)})
+ value: <106 slice-start.2{} @0> (size=32,offset=98304): ((s8[42467328]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)})
+ value: <107 slice-start.2{0} @0> (size=32,offset=114688): (s8[42467328]{0:T(1024)(128)(4,1)})
+ value: <109 slice-start.3{} @0> (size=32,offset=131072): ((s8[42467328]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)})
+ value: <110 slice-start.3{0} @0> (size=32,offset=147456): (s8[42467328]{0:T(1024)(128)(4,1)})
+ value: <112 slice-start.4{} @0> (size=32,offset=163840): ((s8[42467328]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)})
+ value: <113 slice-start.4{0} @0> (size=32,offset=180224): (s8[42467328]{0:T(1024)(128)(4,1)})
+ value: <115 slice-start.5{} @0> (size=32,offset=196608): ((s8[42467328]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)})
+ value: <116 slice-start.5{0} @0> (size=32,offset=212992): (s8[42467328]{0:T(1024)(128)(4,1)})
+ value: <118 slice-start.6{} @0> (size=32,offset=229376): ((s8[42467328]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)})
+ value: <119 slice-start.6{0} @0> (size=32,offset=245760): (s8[42467328]{0:T(1024)(128)(4,1)})
+ value: <121 slice-start.7{} @0> (size=32,offset=262144): ((s8[42467328]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)})
+ value: <122 slice-start.7{0} @0> (size=32,offset=278528): (s8[42467328]{0:T(1024)(128)(4,1)})
+ value: <124 slice-start.8{} @0> (size=32,offset=294912): ((s8[42467328]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)})
+ value: <125 slice-start.8{0} @0> (size=32,offset=311296): (s8[42467328]{0:T(1024)(128)(4,1)})
+ value: <127 slice-start.9{} @0> (size=32,offset=327680): ((s8[42467328]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)})
+ value: <128 slice-start.9{0} @0> (size=32,offset=344064): (s8[42467328]{0:T(1024)(128)(4,1)})
+ value: <130 slice-start.10{} @0> (size=32,offset=360448): ((s8[42467328]{0:T(1024)(128)(4,1)}), s8[524288]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)})
+ value: <131 slice-start.10{0} @0> (size=32,offset=376832): (s8[42467328]{0:T(1024)(128)(4,1)})
+ value: <134 all-gather.22 @0> (size=169869312,offset=170262528): bf16[9216,9216]{1,0:T(8,128)(2,1)}
+ value: <136 all-gather.21 @0> (size=169869312,offset=393216): bf16[9216,9216]{1,0:T(8,128)(2,1)}
+ value: <137 fusion.7{} @0> (size=96,offset=0): (bf16[9216,9216]{1,0:T(8,128)(2,1)}, bf16[9216,2304]{1,0:T(8,128)(2,1)S(1)}, bf16[9216,9216]{1,0:T(8,128)(2,1)}, bf16[9216,9216]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)})
+ value: <138 fusion.7{0} @0> (size=169869312,offset=510001152): bf16[9216,9216]{1,0:T(8,128)(2,1)}
+ value: <140 fusion.7{2} @0> (size=169869312,offset=340131840): bf16[9216,9216]{1,0:T(8,128)(2,1)}
+ value: <141 fusion.7{3} @0> (size=169869312,offset=340131840): bf16[9216,9216]{1,0:T(8,128)(2,1)}
+ value: <156 async-collective-done @0> (size=169869312,offset=340131840): bf16[9216,9216]{1,0:T(8,128)(2,1)}
+allocation 6: size 52, color 2, preallocated-temp:
+ value: <86 async-collective-start{3} @2> (size=4,offset=0): u32[]{:S(2)}
+ value: <87 async-collective-start{4} @2> (size=4,offset=4): u32[]{:S(2)}
+ value: <88 async-collective-start{5} @2> (size=4,offset=8): u32[]{:S(2)}
+ value: <89 async-collective-start{6} @2> (size=4,offset=12): u32[]{:S(2)}
+ value: <90 async-collective-start{7} @2> (size=4,offset=16): u32[]{:S(2)}
+ value: <91 async-collective-start{8} @2> (size=4,offset=20): u32[]{:S(2)}
+ value: <92 async-collective-start{9} @2> (size=4,offset=24): u32[]{:S(2)}
+ value: <93 async-collective-start{10} @2> (size=4,offset=28): u32[]{:S(2)}
+ value: <94 async-collective-start{11} @2> (size=4,offset=32): u32[]{:S(2)}
+ value: <95 async-collective-start{12} @2> (size=4,offset=36): u32[]{:S(2)}
+ value: <96 async-collective-start{13} @2> (size=4,offset=40): u32[]{:S(2)}
+ value: <97 async-collective-start{14} @2> (size=4,offset=44): u32[]{:S(2)}
+ value: <98 async-collective-start{15} @2> (size=4,offset=48): u32[]{:S(2)}
+ value: <102 slice-start{2} @2> (size=4,offset=0): s32[]{:S(2)}
+ value: <105 slice-start.1{2} @2> (size=4,offset=4): s32[]{:S(2)}
+ value: <108 slice-start.2{2} @2> (size=4,offset=8): s32[]{:S(2)}
+ value: <111 slice-start.3{2} @2> (size=4,offset=12): s32[]{:S(2)}
+ value: <114 slice-start.4{2} @2> (size=4,offset=16): s32[]{:S(2)}
+ value: <117 slice-start.5{2} @2> (size=4,offset=20): s32[]{:S(2)}
+ value: <120 slice-start.6{2} @2> (size=4,offset=24): s32[]{:S(2)}
+ value: <123 slice-start.7{2} @2> (size=4,offset=28): s32[]{:S(2)}
+ value: <126 slice-start.8{2} @2> (size=4,offset=32): s32[]{:S(2)}
+ value: <129 slice-start.9{2} @2> (size=4,offset=36): s32[]{:S(2)}
+ value: <132 slice-start.10{2} @2> (size=4,offset=40): s32[]{:S(2)}
+ value: <143 fusion.7{5} @2> (size=4,offset=0): u32[]{:S(2)}
+ value: <144 fusion.7{6} @2> (size=4,offset=4): u32[]{:S(2)}
+ value: <145 fusion.7{7} @2> (size=4,offset=8): u32[]{:S(2)}
+ value: <146 fusion.7{8} @2> (size=4,offset=12): u32[]{:S(2)}
+ value: <147 fusion.7{9} @2> (size=4,offset=16): u32[]{:S(2)}
+ value: <148 fusion.7{10} @2> (size=4,offset=20): u32[]{:S(2)}
+ value: <149 fusion.7{11} @2> (size=4,offset=24): u32[]{:S(2)}
+ value: <150 fusion.7{12} @2> (size=4,offset=28): u32[]{:S(2)}
+ value: <151 fusion.7{13} @2> (size=4,offset=32): u32[]{:S(2)}
+ value: <152 fusion.7{14} @2> (size=4,offset=36): u32[]{:S(2)}
+ value: <153 fusion.7{15} @2> (size=4,offset=40): u32[]{:S(2)}
+ value: <154 fusion.7{16} @2> (size=4,offset=44): u32[]{:S(2)}
+ value: <155 fusion.7{17} @2> (size=4,offset=48): u32[]{:S(2)}
+allocation 7: size 4096, color 4, preallocated-temp:
+ value: <85 async-collective-start{2} @4> (size=4096,offset=0): s32[2]{0:S(4)}
+ value: <142 fusion.7{4} @4> (size=4096,offset=0): s32[2]{0:S(4)}

@@ -1,0 +1,107 @@
+HloModule jit_f, is_scheduled=true, entry_computation_layout={(bf16[512,512]{1,0:T(8,128)(2,1)}, bf16[3,3]{1,0:T(4,128)(2,1)})->bf16[512,512]{1,0:T(8,128)(2,1)}}, allow_spmd_sharding_propagation_to_parameters={true,true}, allow_spmd_sharding_propagation_to_output={true}
+
+FileNames
+1 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_convolution.py"
+2 "/home/shounaka_google_com/accelerator-microbenchmarks/src/run_benchmark.py"
+
+FunctionNames
+1 "convolve_common.<locals>.f"
+2 "scipy_signal_convolve.<locals>.convolve_fn"
+3 "<module>"
+4 "main"
+5 "run_single_benchmark"
+6 "scipy_signal_convolve"
+7 "convolve_common"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=46 end_line=46 column=15 end_column=48}
+2 {file_name_id=1 function_name_id=2 line=202 end_line=202 column=15 end_column=62}
+3 {file_name_id=2 function_name_id=3 line=527 end_line=527 column=4 end_column=41}
+4 {file_name_id=2 function_name_id=4 line=422 end_line=422 column=12 end_column=50}
+5 {file_name_id=2 function_name_id=5 line=328 end_line=330 column=28 end_column=9}
+6 {file_name_id=1 function_name_id=6 line=206 end_line=215 column=11 end_column=5}
+7 {file_name_id=1 function_name_id=7 line=60 end_line=60 column=13 end_column=39}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=1}
+4 {file_location_id=4 parent_frame_id=4}
+5 {file_location_id=5 parent_frame_id=5}
+6 {file_location_id=6 parent_frame_id=6}
+7 {file_location_id=7 parent_frame_id=7}
+8 {file_location_id=1 parent_frame_id=8}
+9 {file_location_id=2 parent_frame_id=9}
+
+
+%fused_computation.4 (param_0.18: bf16[1,512,1,7,2], param_1.19: bf16[1,512,1,8,65]) -> bf16[1,512,8,67] {
+  %param_1.19 = bf16[1,512,1,8,65]{1,4,3,2,0:T(8,128)(2,1)} parameter(1)
+  %constant.11 = bf16[]{:T(256)} constant(-inf)
+  %pad.6 = bf16[1,512,1,8,67]{1,4,3,2,0:T(8,128)(2,1)} pad(%param_1.19, %constant.11), padding=0_0x0_0x0_0x0_0x0_2, metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  %convert = f32[1,512,1,8,67]{1,4,3,2,0:T(8,128)} convert(%pad.6)
+  %iota.7 = s32[1,512,1,8,67]{1,4,3,2,0:T(8,128)} iota(), iota_dimension=4, metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  %constant.10 = s32[] constant(65), metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  %broadcast.6 = s32[1,512,1,8,67]{1,4,3,2,0:T(8,128)} broadcast(%constant.10), dimensions={}, metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  %compare.7 = pred[1,512,1,8,67]{1,4,3,2,0:T(8,128)(4,1)} compare(%iota.7, %broadcast.6), direction=GE, metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  %param_0.18 = bf16[1,512,1,7,2]{1,4,3,2,0:T(2,128)(2,1)} parameter(0)
+  %constant.13 = bf16[]{:T(256)} constant(0), metadata={op_name="jit(f)/broadcast_in_dim" stack_frame_id=9}
+  %pad.5 = bf16[1,512,1,8,67]{1,4,3,2,0:T(8,128)(2,1)} pad(%param_0.18, %constant.13), padding=0_0x0_0x0_0x0_1x65_0, metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  %broadcast.7 = bf16[1,512,1,8,67]{1,4,3,2,0:T(8,128)(2,1)} broadcast(%constant.11), dimensions={}, metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  %select.7 = bf16[1,512,1,8,67]{1,4,3,2,0:T(8,128)(2,1)} select(%compare.7, %pad.5, %broadcast.7), metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  %convert.1 = f32[1,512,1,8,67]{1,4,3,2,0:T(8,128)} convert(%select.7)
+  %maximum.3 = f32[1,512,1,8,67]{1,4,3,2,0:T(8,128)} maximum(%convert, %convert.1), metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"float_type_correction_info":{"original_type":"BF16","original_shape":{"element_type":"BF16","dimensions":["1","512","1","8","67"],"tuple_shapes":[],"layout":{"minor_to_major":["1","4","3","2","0"],"tiles":[{"dimensions":["8","128"]},{"dimensions":["2","1"]}],"element_size_in_bits":"0","memory_space":"0","dim_level_types":[],"index_primitive_type":"PRIMITIVE_TYPE_INVALID","pointer_primitive_type":"PRIMITIVE_TYPE_INVALID","dim_unique":[],"dim_ordered":[],"dynamic_shape_metadata_prefix_bytes":"0","tail_padding_alignment_in_elements":"1","split_configs":[]},"is_dynamic_dimension":[false,false,false,false,false]}}}
+  %convert.2 = bf16[1,512,1,8,67]{1,4,3,2,0:T(8,128)(2,1)} convert(%maximum.3)
+  ROOT %bitcast.7 = bf16[1,512,8,67]{1,3,2,0:T(8,128)(2,1)} bitcast(%convert.2), metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+}
+
+%bitcast_fusion (bitcast_input: bf16[1,512,8,67]) -> bf16[1,512,8,67] {
+  %bitcast_input = bf16[1,512,8,67]{2,0,3,1:T(2,128)(2,1)} parameter(0)
+  ROOT %bitcast.12 = bf16[1,512,8,67]{2,0,3,1:T(2,128)(2,1)} bitcast(%bitcast_input)
+}
+
+%bitcast_fusion.1 (bitcast_input.1: bf16[1,1,3,3]) -> bf16[1,1,3,3] {
+  %bitcast_input.1 = bf16[1,1,3,3]{1,0,3,2:T(2,128)(2,1)} parameter(0)
+  ROOT %bitcast.13 = bf16[1,1,3,3]{1,0,3,2:T(2,128)(2,1)} bitcast(%bitcast_input.1)
+}
+
+%fused_computation (param_0.3: pred[8,65], param_1.3: bf16[1,512,8,67], param_2.3: bf16[1,1,3,3]) -> bf16[512,8,65,1] {
+  %param_0.3 = pred[8,65]{0,1:T(8,128)(4,1)} parameter(0)
+  %broadcast.4 = pred[512,8,65,1]{3,1,2,0:T(8,128)(4,1)} broadcast(%param_0.3), dimensions={1,2}, metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  %param_1.3 = bf16[1,512,8,67]{2,0,3,1:T(2,128)(2,1)} parameter(1)
+  %fusion.3 = bf16[1,512,8,67]{2,0,3,1:T(2,128)(2,1)} fusion(%param_1.3), kind=kLoop, calls=%bitcast_fusion
+  %param_2.3 = bf16[1,1,3,3]{1,0,3,2:T(2,128)(2,1)} parameter(2)
+  %fusion.4 = bf16[1,1,3,3]{1,0,3,2:T(2,128)(2,1)} fusion(%param_2.3), kind=kLoop, calls=%bitcast_fusion.1
+  %convolution.1 = bf16[512,8,65,1]{3,1,2,0:T(8,128)(2,1)} convolution(%fusion.3, %fusion.4), window={size=3x3 pad=1_1x0_0}, dim_labels=f0b1_oi01->0b1f, metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  %constant.12 = bf16[]{:T(256)} constant(0), metadata={op_name="jit(f)/broadcast_in_dim" stack_frame_id=9}
+  %broadcast.5 = bf16[512,8,65,1]{3,1,2,0:T(8,128)(2,1)} broadcast(%constant.12), dimensions={}, metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  ROOT %select.2 = bf16[512,8,65,1]{3,1,2,0:T(8,128)(2,1)} select(%broadcast.4, %convolution.1, %broadcast.5), metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+}
+
+%fused_computation.5 (param_0.16: bf16[512,1,520,1]) -> bf16[512,512] {
+  %param_0.16 = bf16[512,1,520,1]{0,2,3,1:T(8,128)(2,1)} parameter(0)
+  %slice.4 = bf16[512,1,512,1]{0,2,3,1:T(8,128)(2,1)} slice(%param_0.16), slice={[0:512], [0:1], [0:512], [0:1]}, metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  ROOT %bitcast.8 = bf16[512,512]{0,1:T(8,128)(2,1)} bitcast(%slice.4), metadata={op_name="jit(f)/squeeze" stack_frame_id=9}
+}
+
+ENTRY %main.2 (x.1: bf16[512,512], kernel.1: bf16[3,3]) -> bf16[512,512] {
+  %constant = bf16[]{:T(256)} constant(0), metadata={op_name="jit(f)/broadcast_in_dim" stack_frame_id=9}
+  %constant.4 = pred[8,65]{0,1:T(8,128)(4,1)} constant({...}), metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  %kernel.1 = bf16[3,3]{1,0:T(4,128)(2,1)} parameter(1), metadata={op_name="kernel"}
+  %x.1 = bf16[512,512]{1,0:T(8,128)(2,1)} parameter(0), metadata={op_name="x"}
+  %bitcast = bf16[1,512,1,512]{3,1,2,0:T(8,128)(2,1)} bitcast(%x.1), metadata={op_name="jit(f)/broadcast_in_dim" stack_frame_id=9}
+  %rev.0 = bf16[3,3]{1,0:T(4,128)(2,1)} reverse(%kernel.1), dimensions={0,1}, metadata={op_name="jit(f)/jit(_flip)/rev" stack_frame_id=2}
+  %bitcast.2 = bf16[1,1,3,3]{3,2,1,0:T(4,128)(2,1)} bitcast(%rev.0), metadata={op_name="jit(f)/broadcast_in_dim" stack_frame_id=9}
+  %copy.4 = bf16[1,1,3,3]{1,0,3,2:T(2,128)(2,1)} copy(%bitcast.2), metadata={op_name="jit(f)/broadcast_in_dim" stack_frame_id=9}
+  %copy.9 = bf16[1,512,1,512]{1,3,2,0:T(8,128)(2,1)} copy(%bitcast)
+  %pad.clone = bf16[1,512,1,520]{1,3,2,0:T(8,128)(2,1)} pad(%copy.9, %constant), padding=0_0x0_0x0_0x1_7, metadata={op_name="jit(f)/broadcast_in_dim" stack_frame_id=9}
+  %reshape.2 = bf16[1,512,1,8,65]{1,4,3,2,0:T(8,128)(2,1)} reshape(%pad.clone), metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  %slice.2 = bf16[1,512,1,7,2]{1,4,3,2,0:T(2,128)(2,1)} slice(%reshape.2), slice={[0:1], [0:512], [0:1], [1:8], [0:2]}, metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  %fusion.2 = bf16[1,512,8,67]{1,3,2,0:T(8,128)(2,1)} fusion(%slice.2, %reshape.2), kind=kLoop, calls=%fused_computation.4, metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  %copy.3 = bf16[1,512,8,67]{2,0,3,1:T(2,128)(2,1)} copy(%fusion.2), metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  %broadcast_select_fusion = bf16[512,8,65,1]{3,1,2,0:T(8,128)(2,1)} fusion(%constant.4, %copy.3, %copy.4), kind=kOutput, calls=%fused_computation, metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  %copy.5 = bf16[512,8,65,1]{0,2,1,3:T(8,128)(2,1)} copy(%broadcast_select_fusion), metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  %reshape.6 = bf16[512,1,520,1]{0,2,3,1:T(8,128)(2,1)} reshape(%copy.5), metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=9}
+  %slice_bitcast_fusion = bf16[512,512]{0,1:T(8,128)(2,1)} fusion(%reshape.6), kind=kLoop, calls=%fused_computation.5, metadata={op_name="jit(f)/squeeze" stack_frame_id=9}
+  ROOT %copy.6 = bf16[512,512]{1,0:T(8,128)(2,1)} copy(%slice_bitcast_fusion), metadata={op_name="jit(f)/squeeze" stack_frame_id=9}
+}
+

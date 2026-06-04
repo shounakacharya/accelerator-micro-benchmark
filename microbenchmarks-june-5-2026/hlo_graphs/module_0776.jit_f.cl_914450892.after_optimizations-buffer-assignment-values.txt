@@ -1,0 +1,25 @@
+
+Total bytes used: 6291456 (6.00MiB)
+
+Used values:
+<0 param.1 @0>
+ positions:
+  param.1
+  bitcast.3
+ uses:
+  bitcast.3, operand 0
+  all_to_all.9, operand 0
+ from instruction: %param.1 = bf16[1024,1024]{1,0:T(8,128)(2,1)} parameter(0), sharding={replicated}, metadata={op_name="x"}
+<1 all_to_all.9 @1>
+ positions:
+  all_to_all.9
+  bitcast.2
+ uses:
+  bitcast.2, operand 0
+  copy.3, operand 0
+ from instruction: %all_to_all.9 = bf16[4,256,1024]{2,1,0:T(8,128)(2,1)S(1)} all-to-all(%bitcast.3), channel_id=1, replica_groups={{0,1,2,3}}, dimensions={0}, metadata={op_name="jit(f)/shard_map/all_to_all" stack_frame_id=8}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"GLOBAL","id":"-1"},"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<2 copy.3 @0>
+ positions:
+  copy.3
+ uses:
+ from instruction: %copy.3 = bf16[1024,1024]{1,0:T(8,128)(2,1)} copy(%bitcast.2), backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

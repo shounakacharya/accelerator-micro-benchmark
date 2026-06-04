@@ -1,0 +1,163 @@
+HloLiveRange (max 56):
+  InstructionSequence:
+    0:param.3
+    1:param.4
+    2:bitcast.8
+    3:param_0.8
+    4:slice.1
+    5:slice-start
+    6:param.5
+    7:copy.4
+    8:param_0.9
+    9:slice.3
+    10:slice-start.1
+    11:all-gather.21
+    12:slice-done
+    13:slice-done.1
+    14:custom-call.4
+    15:bitcast.9
+    16:all-gather.22
+    17:async-collective-start
+    18:get-tuple-element.16
+    19:get-tuple-element.15
+    20:get-tuple-element.14
+    21:get-tuple-element.13
+    22:get-tuple-element.12
+    23:get-tuple-element.11
+    24:get-tuple-element.10
+    25:get-tuple-element.9
+    26:get-tuple-element.8
+    27:get-tuple-element.7
+    28:get-tuple-element.6
+    29:get-tuple-element.5
+    30:get-tuple-element.4
+    31:get-tuple-element.3
+    32:get-tuple-element.2
+    33:get-tuple-element
+    34:fusion.7
+    35:get-tuple-element.34
+    36:get-tuple-element.33
+    37:get-tuple-element.32
+    38:get-tuple-element.31
+    39:get-tuple-element.30
+    40:get-tuple-element.29
+    41:get-tuple-element.28
+    42:get-tuple-element.27
+    43:get-tuple-element.26
+    44:get-tuple-element.25
+    45:get-tuple-element.24
+    46:get-tuple-element.23
+    47:get-tuple-element.22
+    48:get-tuple-element.21
+    49:get-tuple-element.19
+    50:get-tuple-element.18
+    51:get-tuple-element.17
+    52:copy-start
+    53:async-collective-done
+    54:copy-done
+    55:fusion.1
+  BufferLiveRange:
+    slice.1{}:4-14
+    slice.3{}:9-14
+    param.5{}:0-56
+    copy.4{}:7-17
+    async-collective-start{}:17-33
+    async-collective-start{0}:17-34
+    async-collective-start{1}:17-34
+    async-collective-start{2}:17-34
+    async-collective-start{3}:17-34
+    async-collective-start{4}:17-34
+    async-collective-start{5}:17-34
+    async-collective-start{6}:17-34
+    async-collective-start{7}:17-34
+    async-collective-start{8}:17-34
+    async-collective-start{9}:17-34
+    async-collective-start{10}:17-34
+    async-collective-start{11}:17-34
+    async-collective-start{12}:17-34
+    async-collective-start{13}:17-34
+    async-collective-start{14}:17-34
+    async-collective-start{15}:17-34
+    param.4{}:0-56
+    slice-start{}:5-12
+    slice-start{0}:5-12
+    slice-start{2}:5-12
+    slice-start.1{}:10-13
+    slice-start.1{0}:10-13
+    slice-start.1{2}:10-13
+    custom-call.4{}:14-16
+    all-gather.22{}:16-34
+    param.3{}:0-56
+    all-gather.21{}:11-34
+    fusion.7{}:34-51
+    fusion.7{0}:34-54
+    fusion.7{1}:34-53
+    fusion.7{2}:34-53
+    fusion.7{3}:34-34
+    fusion.7{4}:34-53
+    fusion.7{5}:34-53
+    fusion.7{6}:34-53
+    fusion.7{7}:34-53
+    fusion.7{8}:34-53
+    fusion.7{9}:34-53
+    fusion.7{10}:34-53
+    fusion.7{11}:34-53
+    fusion.7{12}:34-53
+    fusion.7{13}:34-53
+    fusion.7{14}:34-53
+    fusion.7{15}:34-53
+    fusion.7{16}:34-53
+    fusion.7{17}:34-53
+    copy-start{}:52-54
+    copy-start{0}:52-55
+    copy-start{2}:52-54
+    async-collective-done{}:53-55
+    fusion.1{}:55-56
+  Live ranges at 17 (peak):
+    all-gather.21{}: 33554432 bytes (cumulative: 33554432 bytes)
+    all-gather.22{}: 33554432 bytes (cumulative: 67108864 bytes)
+    async-collective-start{1}: 33554432 bytes (cumulative: 100663296 bytes)
+    async-collective-start{0}: 8388608 bytes (cumulative: 109051904 bytes)
+    copy.4{}: 8388608 bytes (cumulative: 117440512 bytes)
+    param.3{}: 8388608 bytes (cumulative: 125829120 bytes)
+    param.4{}: 8388608 bytes (cumulative: 134217728 bytes)
+    param.5{}: 8388608 bytes (cumulative: 142606336 bytes)
+    async-collective-start{}: 128 bytes (cumulative: 142606464 bytes)
+    async-collective-start{2}: 8 bytes (cumulative: 142606472 bytes)
+    async-collective-start{3}: 4 bytes (cumulative: 142606476 bytes)
+    async-collective-start{4}: 4 bytes (cumulative: 142606480 bytes)
+    async-collective-start{5}: 4 bytes (cumulative: 142606484 bytes)
+    async-collective-start{6}: 4 bytes (cumulative: 142606488 bytes)
+    async-collective-start{7}: 4 bytes (cumulative: 142606492 bytes)
+    async-collective-start{8}: 4 bytes (cumulative: 142606496 bytes)
+    async-collective-start{9}: 4 bytes (cumulative: 142606500 bytes)
+    async-collective-start{10}: 4 bytes (cumulative: 142606504 bytes)
+    async-collective-start{11}: 4 bytes (cumulative: 142606508 bytes)
+    async-collective-start{12}: 4 bytes (cumulative: 142606512 bytes)
+    async-collective-start{13}: 4 bytes (cumulative: 142606516 bytes)
+    async-collective-start{14}: 4 bytes (cumulative: 142606520 bytes)
+    async-collective-start{15}: 4 bytes (cumulative: 142606524 bytes)
+  Stack trace breakdown for peak usage: 142 606 524 bytes
+    main.0_spmd (100.0%, total: 142 606 524 bytes, current: 0 bytes, remaining: 142 606 524 bytes)
+      ├── jit(f)/shard_map (47.1%, total: 67 108 864 bytes, current: 67 108 864 bytes, remaining: 75 497 660 bytes)
+      ├── async-collective-start{1} (23.5%, total: 33 554 432 bytes, current: 33 554 432 bytes, remaining: 41 943 228 bytes)
+      ├── act (5.9%, total: 8 388 608 bytes, current: 8 388 608 bytes, remaining: 33 554 620 bytes)
+      ├── async-collective-start{0} (5.9%, total: 8 388 608 bytes, current: 8 388 608 bytes, remaining: 25 166 012 bytes)
+      ├── copy.4 (5.9%, total: 8 388 608 bytes, current: 8 388 608 bytes, remaining: 16 777 404 bytes)
+      ├── weights[0] (5.9%, total: 8 388 608 bytes, current: 8 388 608 bytes, remaining: 8 388 796 bytes)
+      ├── weights[1] (5.9%, total: 8 388 608 bytes, current: 8 388 608 bytes, remaining: 188 bytes)
+      ├── async-collective-start (0.0%, total: 128 bytes, current: 128 bytes, remaining: 60 bytes)
+      ├── async-collective-start{2} (0.0%, total: 8 bytes, current: 8 bytes, remaining: 52 bytes)
+      ├── async-collective-start{10} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 48 bytes)
+      ├── async-collective-start{11} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 44 bytes)
+      ├── async-collective-start{12} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 40 bytes)
+      ├── async-collective-start{13} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 36 bytes)
+      ├── async-collective-start{14} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 32 bytes)
+      ├── async-collective-start{15} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 28 bytes)
+      ├── async-collective-start{3} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 24 bytes)
+      ├── async-collective-start{4} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 20 bytes)
+      ├── async-collective-start{5} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 16 bytes)
+      ├── async-collective-start{6} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 12 bytes)
+      ├── async-collective-start{7} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 8 bytes)
+      ├── async-collective-start{8} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 4 bytes)
+      └── async-collective-start{9} (0.0%, total: 4 bytes, current: 4 bytes, remaining: 0 bytes)

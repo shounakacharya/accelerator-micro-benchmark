@@ -1,0 +1,123 @@
+HloModule jit_f, is_scheduled=true, entry_computation_layout={(f32[2,512,8,256]{3,2,1,0:T(8,128)}, f32[2,512,8,256]{3,2,1,0:T(8,128)}, f32[2,512,8,256]{3,2,1,0:T(8,128)})->f32[2,512,8,256]{3,2,1,0:T(8,128)}}, allow_spmd_sharding_propagation_to_parameters={true,true,true}, allow_spmd_sharding_propagation_to_output={true}
+
+FileNames
+1 "/home/shounaka_google_com/accelerator-microbenchmarks/src/run_benchmark.py"
+2 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_attention.py"
+3 "/home/shounaka_google_com/amb-venv/lib/python3.11/site-packages/flax/nnx/nn/attention.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "run_single_benchmark"
+4 "flax_nnx_attention_benchmark"
+5 "flax_nnx_attention_benchmark.<locals>.f"
+6 "dot_product_attention"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=527 end_line=527 column=4 end_column=41}
+2 {file_name_id=1 function_name_id=2 line=422 end_line=422 column=12 end_column=50}
+3 {file_name_id=1 function_name_id=3 line=328 end_line=330 column=28 end_column=9}
+4 {file_name_id=2 function_name_id=4 line=325 end_line=325 column=13 end_column=23}
+5 {file_name_id=2 function_name_id=5 line=313 end_line=313 column=17 end_column=51}
+6 {file_name_id=3 function_name_id=6 line=275 end_line=275 column=10 end_column=90}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+5 {file_location_id=5 parent_frame_id=5}
+6 {file_location_id=6 parent_frame_id=6}
+
+
+%fused_computation.8.clone.clone (param_0.44: f32[2,512,8,256]) -> bf16[2,512,8,256] {
+  %param_0.44 = f32[2,512,8,256]{3,2,1,0:T(8,128)} parameter(0)
+  ROOT %copy.17 = bf16[2,512,8,256]{3,1,2,0:T(8,128)(2,1)} copy(%param_0.44), metadata={op_name="q"}
+}
+
+%fused_computation.7.clone.clone (param_0.43: f32[2,512,8,256]) -> bf16[2,512,8,256] {
+  %param_0.43 = f32[2,512,8,256]{3,2,1,0:T(8,128)} parameter(0)
+  ROOT %copy.16 = bf16[2,512,8,256]{3,1,2,0:T(8,128)(2,1)} copy(%param_0.43), metadata={op_name="k"}
+}
+
+%region_0.1 (reduce_max.3: f32[], reduce_max.4: f32[]) -> f32[] {
+  %reduce_max.4 = f32[]{:T(128)} parameter(1), metadata={op_name="reduce_max"}
+  %reduce_max.3 = f32[]{:T(128)} parameter(0), metadata={op_name="reduce_max"}
+  ROOT %reduce_max.5 = f32[]{:T(128)} maximum(%reduce_max.3, %reduce_max.4), metadata={op_name="jit(f)/vmap()/reduce_max" stack_frame_id=6}
+}
+
+%fused_computation.3 (param_0.45: f32[2,512,8,256], param_1.38: f32[2,512,8,256]) -> (f32[2,8,512], f32[2,8,512,512]) {
+  %param_1.38 = f32[2,512,8,256]{3,2,1,0:T(8,128)} parameter(1)
+  %fusion.6.clone.1 = bf16[2,512,8,256]{3,1,2,0:T(8,128)(2,1)} fusion(%param_1.38), kind=kLoop, calls=%fused_computation.8.clone.clone, metadata={op_name="q"}
+  %param_0.45 = f32[2,512,8,256]{3,2,1,0:T(8,128)} parameter(0)
+  %fusion.5.clone.1 = bf16[2,512,8,256]{3,1,2,0:T(8,128)(2,1)} fusion(%param_0.45), kind=kLoop, calls=%fused_computation.7.clone.clone, metadata={op_name="k"}
+  %convolution-base-dilated.3.clone.1 = f32[2,8,512,512]{2,3,1,0:T(8,128)} convolution(%fusion.6.clone.1, %fusion.5.clone.1), window={size=2x8 stride=1x7 lhs_dilate=2x8}, dim_labels=0b1f_0o1i->01bf, metadata={op_name="jit(f)/vmap(BTNH,BSNH->BNTS)/dot_general" stack_frame_id=6}
+  %constant.11 = f32[]{:T(128)} constant(0.0625)
+  %broadcast.23 = f32[2,8,512,512]{2,3,1,0:T(8,128)} broadcast(%constant.11), dimensions={}, metadata={op_name="jit(f)/vmap()/mul" stack_frame_id=6}
+  %mul.1 = f32[2,8,512,512]{2,3,1,0:T(8,128)} multiply(%convolution-base-dilated.3.clone.1, %broadcast.23), metadata={op_name="jit(f)/vmap()/mul" stack_frame_id=6}
+  %constant.18 = f32[]{:T(128)} constant(-inf)
+  %reduce.5 = f32[2,8,512]{2,1,0:T(8,128)} reduce(%mul.1, %constant.18), dimensions={3}, to_apply=%region_0.1, metadata={op_name="jit(f)/vmap()/reduce_max" stack_frame_id=6}
+  ROOT %tuple = (f32[2,8,512]{2,1,0:T(8,128)}, f32[2,8,512,512]{2,3,1,0:T(8,128)}) tuple(%reduce.5, %convolution-base-dilated.3.clone.1)
+}
+
+%region_1.2 (reduce_sum.3: f32[], reduce_sum.4: f32[]) -> f32[] {
+  %reduce_sum.4 = f32[]{:T(128)} parameter(1), metadata={op_name="reduce_sum"}
+  %reduce_sum.3 = f32[]{:T(128)} parameter(0), metadata={op_name="reduce_sum"}
+  ROOT %reduce_sum.5 = f32[]{:T(128)} add(%reduce_sum.3, %reduce_sum.4), metadata={op_name="jit(f)/vmap()/reduce_sum" stack_frame_id=6}
+}
+
+%fused_computation.4 (param_0.38: f32[2,8,512,512], param_1.35: f32[2,8,512]) -> f32[2,8,512] {
+  %param_0.38 = f32[2,8,512,512]{2,3,1,0:T(8,128)} parameter(0)
+  %constant.12 = f32[]{:T(128)} constant(0.0625)
+  %broadcast.22 = f32[2,8,512,512]{2,3,1,0:T(8,128)} broadcast(%constant.12), dimensions={}, metadata={op_name="jit(f)/vmap()/mul" stack_frame_id=6}
+  %mul.6 = f32[2,8,512,512]{2,3,1,0:T(8,128)} multiply(%param_0.38, %broadcast.22), metadata={op_name="jit(f)/vmap()/mul" stack_frame_id=6}
+  %param_1.35 = f32[2,8,512]{2,1,0:T(8,128)} parameter(1)
+  %broadcast.17 = f32[2,8,512,512]{2,3,1,0:T(8,128)} broadcast(%param_1.35), dimensions={0,1,2}, metadata={op_name="jit(f)/vmap()/sub" stack_frame_id=6}
+  %sub.11 = f32[2,8,512,512]{2,3,1,0:T(8,128)} subtract(%mul.6, %broadcast.17), metadata={op_name="jit(f)/vmap()/sub" stack_frame_id=6}
+  %exp.8 = f32[2,8,512,512]{2,3,1,0:T(8,128)} exponential(%sub.11), metadata={op_name="jit(f)/vmap()/exp" stack_frame_id=6}
+  %constant.10 = f32[]{:T(128)} constant(0)
+  ROOT %reduce.6 = f32[2,8,512]{2,1,0:T(8,128)} reduce(%exp.8, %constant.10), dimensions={3}, to_apply=%region_1.2, metadata={op_name="jit(f)/vmap()/reduce_sum" stack_frame_id=6}
+}
+
+%fused_computation.1.clone.clone (param_0.36: f32[2,8,512,512], param_1.33: f32[2,8,512], param_2.23: f32[2,8,512]) -> f32[2,8,512,512] {
+  %param_0.36 = f32[2,8,512,512]{2,3,1,0:T(8,128)} parameter(0)
+  %constant.17 = f32[]{:T(128)} constant(0.0625)
+  %broadcast.33 = f32[2,8,512,512]{2,3,1,0:T(8,128)} broadcast(%constant.17), dimensions={}, metadata={op_name="jit(f)/vmap()/mul" stack_frame_id=6}
+  %mul.11 = f32[2,8,512,512]{2,3,1,0:T(8,128)} multiply(%param_0.36, %broadcast.33), metadata={op_name="jit(f)/vmap()/mul" stack_frame_id=6}
+  %param_2.23 = f32[2,8,512]{2,1,0:T(8,128)} parameter(2)
+  %broadcast.32 = f32[2,8,512,512]{2,3,1,0:T(8,128)} broadcast(%param_2.23), dimensions={0,1,2}, metadata={op_name="jit(f)/vmap()/sub" stack_frame_id=6}
+  %sub.16 = f32[2,8,512,512]{2,3,1,0:T(8,128)} subtract(%mul.11, %broadcast.32), metadata={op_name="jit(f)/vmap()/sub" stack_frame_id=6}
+  %exp.13 = f32[2,8,512,512]{2,3,1,0:T(8,128)} exponential(%sub.16), metadata={op_name="jit(f)/vmap()/exp" stack_frame_id=6}
+  %param_1.33 = f32[2,8,512]{2,1,0:T(8,128)} parameter(1)
+  %broadcast.31 = f32[2,8,512,512]{2,3,1,0:T(8,128)} broadcast(%param_1.33), dimensions={0,1,2}, metadata={op_name="jit(f)/vmap()/div" stack_frame_id=6}
+  ROOT %div.10 = f32[2,8,512,512]{2,3,1,0:T(8,128)} divide(%exp.13, %broadcast.31), metadata={op_name="jit(f)/vmap()/div" stack_frame_id=6}
+}
+
+%fused_computation.5.clone.clone (param_0.35: f32[2,512,8,256]) -> bf16[2,512,8,256] {
+  %param_0.35 = f32[2,512,8,256]{3,2,1,0:T(8,128)} parameter(0)
+  ROOT %copy.13 = bf16[2,512,8,256]{3,1,2,0:T(8,128)(2,1)} copy(%param_0.35), metadata={op_name="v"}
+}
+
+%fused_computation.12 (param_0.37: f32[2,512,8,256], param_1.34: f32[2,8,512,512], param_2.24: f32[2,8,512], param_3.15: f32[2,8,512]) -> f32[2,512,8,256] {
+  %param_1.34 = f32[2,8,512,512]{2,3,1,0:T(8,128)} parameter(1)
+  %param_2.24 = f32[2,8,512]{2,1,0:T(8,128)} parameter(2)
+  %param_3.15 = f32[2,8,512]{2,1,0:T(8,128)} parameter(3)
+  %fusion.14 = f32[2,8,512,512]{2,3,1,0:T(8,128)} fusion(%param_1.34, %param_2.24, %param_3.15), kind=kLoop, calls=%fused_computation.1.clone.clone, metadata={op_name="jit(f)/vmap()/div" stack_frame_id=6}
+  %param_0.37 = f32[2,512,8,256]{3,2,1,0:T(8,128)} parameter(0)
+  %fusion.13 = bf16[2,512,8,256]{3,1,2,0:T(8,128)(2,1)} fusion(%param_0.37), kind=kLoop, calls=%fused_computation.5.clone.clone, metadata={op_name="v"}
+  %convolution-base-dilated.5 = f32[2,8,512,256]{3,2,1,0:T(8,128)} convolution(%fusion.14, %fusion.13), window={size=2x8 stride=1x7 lhs_dilate=2x8}, dim_labels=01bf_0i1o->01bf, metadata={op_name="jit(f)/vmap(BNTS,BSNH->BTNH)/dot_general" stack_frame_id=6}
+  ROOT %bitcast.7 = f32[2,512,8,256]{3,1,2,0:T(8,128)} bitcast(%convolution-base-dilated.5), metadata={op_name="jit(f)/reshape" stack_frame_id=6}
+}
+
+ENTRY %main.3 (q.1: f32[2,512,8,256], k.1: f32[2,512,8,256], v.1: f32[2,512,8,256]) -> f32[2,512,8,256] {
+  %v.1 = f32[2,512,8,256]{3,2,1,0:T(8,128)} parameter(2), metadata={op_name="v"}
+  %k.1 = f32[2,512,8,256]{3,2,1,0:T(8,128)} parameter(1), metadata={op_name="k"}
+  %q.1 = f32[2,512,8,256]{3,2,1,0:T(8,128)} parameter(0), metadata={op_name="q"}
+  %multiply_reduce_fusion = (f32[2,8,512]{2,1,0:T(8,128)}, f32[2,8,512,512]{2,3,1,0:T(8,128)}) fusion(%k.1, %q.1), kind=kOutput, calls=%fused_computation.3, metadata={op_name="jit(f)/vmap(BTNH,BSNH->BNTS)/dot_general" stack_frame_id=6}
+  %get-tuple-element.1 = f32[2,8,512,512]{2,3,1,0:T(8,128)} get-tuple-element(%multiply_reduce_fusion), index=1, metadata={op_name="jit(f)/vmap()/reduce_max" stack_frame_id=6}
+  %get-tuple-element = f32[2,8,512]{2,1,0:T(8,128)} get-tuple-element(%multiply_reduce_fusion), index=0, metadata={op_name="jit(f)/vmap()/reduce_max" stack_frame_id=6}
+  %fusion.2 = f32[2,8,512]{2,1,0:T(8,128)} fusion(%get-tuple-element.1, %get-tuple-element), kind=kLoop, calls=%fused_computation.4, metadata={op_name="jit(f)/vmap()/reduce_sum" stack_frame_id=6}
+  %fusion.10 = f32[2,512,8,256]{3,1,2,0:T(8,128)} fusion(%v.1, %get-tuple-element.1, %fusion.2, %get-tuple-element), kind=kOutput, calls=%fused_computation.12, metadata={op_name="jit(f)/vmap(BNTS,BSNH->BTNH)/dot_general" stack_frame_id=6}
+  ROOT %copy.4 = f32[2,512,8,256]{3,2,1,0:T(8,128)} copy(%fusion.10), metadata={op_name="jit(f)/reshape" stack_frame_id=6}
+}
+

@@ -1,0 +1,138 @@
+
+Total bytes used: 53542952 (51.06MiB)
+
+Used values:
+<19 slice.1 @1>
+ positions:
+  slice.1
+  slice-start {1}
+  slice-done
+ uses:
+  slice-done, operand 0 {1}
+  custom-call.1, operand 0
+ from instruction: %slice.1 = s8[4194304]{0:T(1024)(128)(4,1)S(1)} slice(%param_0.21), slice={[0:4194304]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<20 slice.3 @1>
+ positions:
+  slice.3
+  slice-start.1 {1}
+  slice-done.1
+ uses:
+  slice-done.1, operand 0 {1}
+  custom-call.1, operand 1
+ from instruction: %slice.3 = s8[4194304]{0:T(1024)(128)(4,1)S(1)} slice(%param_0.22), slice={[4194304:8388608]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<21 fusion.3 @1>
+ positions:
+  fusion.3
+ uses:
+  broadcast_add_fusion, operand 0
+ from instruction: %fusion.3 = f32[512,512]{1,0:T(8,128)S(1)} fusion(), kind=kLoop, calls=%fused_computation.5, metadata={op_name="jit(f)/jit(mha_reference)/jit(_where)/select_n" stack_frame_id=28}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<22 k.1 @0>
+ positions:
+  k.1
+ uses:
+  broadcast_add_fusion, operand 1
+ from instruction: %k.1 = f32[2,1,512,2048]{3,2,1,0:T(8,128)} parameter(1), metadata={op_name="k"}
+<23 q.1 @0>
+ positions:
+  q.1
+  copy-start {1}
+ uses:
+  copy-start, operand 0
+  copy-done, operand 0 {1}
+ from instruction: %q.1 = f32[2,1,512,2048]{3,2,1,0:T(8,128)} parameter(0), metadata={op_name="q"}
+<24 copy-start{} @0>
+ positions:
+  copy-start {}
+ uses:
+  copy-done, operand 0 {}
+ from instruction: %copy-start = (f32[2,1,512,2048]{3,2,1,0:T(8,128)S(1)}, f32[2,1,512,2048]{3,2,1,0:T(8,128)}, u32[]{:S(2)}) copy-start(%q.1), cross_program_prefetch_index=0
+<25 copy-start{0} @1>
+ positions:
+  copy-start {0}
+  copy-done
+ uses:
+  copy-done, operand 0 {0}
+  broadcast_add_fusion, operand 2
+ from instruction: %copy-start = (f32[2,1,512,2048]{3,2,1,0:T(8,128)S(1)}, f32[2,1,512,2048]{3,2,1,0:T(8,128)}, u32[]{:S(2)}) copy-start(%q.1), cross_program_prefetch_index=0
+<26 copy-start{2} @2>
+ positions:
+  copy-start {2}
+ uses:
+  copy-done, operand 0 {2}
+ from instruction: %copy-start = (f32[2,1,512,2048]{3,2,1,0:T(8,128)S(1)}, f32[2,1,512,2048]{3,2,1,0:T(8,128)}, u32[]{:S(2)}) copy-start(%q.1), cross_program_prefetch_index=0
+<27 broadcast_add_fusion @1>
+ positions:
+  broadcast_add_fusion
+ uses:
+  online-softmax, operand 0
+ from instruction: %broadcast_add_fusion = f32[2,512,512]{2,1,0:T(8,128)S(1)} fusion(%fusion.3, %k.1, %copy-done), kind=kOutput, calls=%fused_computation.4, metadata={op_name="jit(f)/jit(mha_reference)/bhqc,bhkc->bhqk/dot_general" stack_frame_id=22}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<28 v.1 @0>
+ positions:
+  v.1
+  bitcast.26
+  slice-start {0,0}
+  slice-start.1 {0,0}
+  param_0.21
+  param_0.22
+ uses:
+  bitcast.26, operand 0
+  slice-start, operand 0
+  slice-start.1, operand 0
+  slice-done, operand 0 {0,0}
+  slice-done.1, operand 0 {0,0}
+  slice.1, operand 0
+  slice.3, operand 0
+ from instruction: %v.1 = f32[2,1,512,2048]{3,2,1,0:T(8,128)} parameter(2), metadata={op_name="v"}
+<29 slice-start{} @0>
+ positions:
+  slice-start {}
+ uses:
+  slice-done, operand 0 {}
+ from instruction: %slice-start = ((s8[8388608]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[0:4194304]}
+<30 slice-start{0} @0>
+ positions:
+  slice-start {0}
+ uses:
+  slice-done, operand 0 {0}
+ from instruction: %slice-start = ((s8[8388608]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[0:4194304]}
+<31 slice-start{2} @2>
+ positions:
+  slice-start {2}
+ uses:
+  slice-done, operand 0 {2}
+ from instruction: %slice-start = ((s8[8388608]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[0:4194304]}
+<32 slice-start.1{} @0>
+ positions:
+  slice-start.1 {}
+ uses:
+  slice-done.1, operand 0 {}
+ from instruction: %slice-start.1 = ((s8[8388608]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[4194304:8388608]}
+<33 slice-start.1{0} @0>
+ positions:
+  slice-start.1 {0}
+ uses:
+  slice-done.1, operand 0 {0}
+ from instruction: %slice-start.1 = ((s8[8388608]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[4194304:8388608]}
+<34 slice-start.1{2} @2>
+ positions:
+  slice-start.1 {2}
+ uses:
+  slice-done.1, operand 0 {2}
+ from instruction: %slice-start.1 = ((s8[8388608]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[4194304:8388608]}
+<35 custom-call.1 @1>
+ positions:
+  custom-call.1
+  bitcast.27
+  bitcast.28
+ uses:
+  bitcast.27, operand 0
+  bitcast.28, operand 0
+  online-softmax, operand 1
+ from instruction: %custom-call.1 = f32[2,1,512,2048]{3,2,1,0:T(8,128)S(1)} custom-call(%slice-done, %slice-done.1), custom_call_target="ConcatBitcast", backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<36 online-softmax @0>
+ positions:
+  online-softmax
+  bitcast.4
+ uses:
+  bitcast.4, operand 0
+ from instruction: %online-softmax = f32[2,512,2048]{2,1,0:T(8,128)} custom-call(%broadcast_add_fusion, %bitcast.28), custom_call_target="tpu_custom_call", operand_layout_constraints={f32[2,512,512]{2,1,0}, f32[2,512,2048]{2,1,0}}, frontend_attributes={tiling="512,512"}, metadata={op_name="online-softmax"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"custom_call_config":{"body":"bW9kdWxlIHsKICBmdW5jLmZ1bmMgQG1haW4oJWFyZzA6IGkzMiwgJWFyZzE6IGkzMiwgJWFyZzI6IGkzMiwgJWFyZzM6IG1lbXJlZjwxeDUxMng1MTJ4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sICVhcmc0OiBtZW1yZWY8MXg1MTJ4MjA0OHhmMzIsICN0cHUubWVtb3J5X3NwYWNlPHZtZW0+PiwgJWFyZzU6IG1lbXJlZjwxeDUxMngyMDQ4eGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCAlYXJnNjogbWVtcmVmPDF4NTEyeDF4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sICVhcmc3OiBtZW1yZWY8MXg1MTJ4MXhmMzIsICN0cHUubWVtb3J5X3NwYWNlPHZtZW0+PikgYXR0cmlidXRlcyB7ZGltZW5zaW9uX3NlbWFudGljcyA9IFsjdHB1LmRpbWVuc2lvbl9zZW1hbnRpY3M8cGFyYWxsZWw+LCAjdHB1LmRpbWVuc2lvbl9zZW1hbnRpY3M8cGFyYWxsZWw+LCAjdHB1LmRpbWVuc2lvbl9zZW1hbnRpY3M8YXJiaXRyYXJ5Pl0sIGl0ZXJhdGlvbl9ib3VuZHMgPSBhcnJheTxpNjQ6IDIsIDEsIDE+LCBzY3JhdGNoX29wZXJhbmRzID0gMiA6IGk2NCwgd2luZG93X3BhcmFtcyA9IFt7dHJhbnNmb3JtX2luZGljZXMgPSBAcWtfZm4sIHdpbmRvd19ib3VuZHMgPSBhcnJheTxpNjQ6IDEsIDUxMiwgNTEyPn0sIHt0cmFuc2Zvcm1faW5kaWNlcyA9IEB2X2ZuLCB3aW5kb3dfYm91bmRzID0gYXJyYXk8aTY0OiAxLCA1MTIsIDIwNDg+fSwge3RyYW5zZm9ybV9pbmRpY2VzID0gQG9pX2ZuLCB3aW5kb3dfYm91bmRzID0gYXJyYXk8aTY0OiAxLCA1MTIsIDIwNDg+fV19IHsKICAgICVjMCA9IGFyaXRoLmNvbnN0YW50IDAgOiBpbmRleAogICAgJWMwX2kzMiA9IGFyaXRoLmNvbnN0YW50IDAgOiBpMzIKICAgICUwID0gYXJpdGguY21waSBlcSwgJWMwX2kzMiwgJWFyZzIgOiBpMzIKICAgIHNjZi5pZiAlMCB7CiAgICAgICVjc3RfMyA9IGFyaXRoLmNvbnN0YW50IGRlbnNlPDAuMDAwMDAwZSswMD4gOiB2ZWN0b3I8MXg1MTJ4MjA0OHhmMzI+CiAgICAgIHZlY3Rvci5zdG9yZSAlY3N0XzMsICVhcmc1WyVjMCwgJWMwLCAlYzBdIDogbWVtcmVmPDF4NTEyeDIwNDh4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sIHZlY3RvcjwxeDUxMngyMDQ4eGYzMj4KICAgICAgJWNzdF80ID0gYXJpdGguY29uc3RhbnQgZGVuc2U8MHhGRjgwMDAwMD4gOiB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAgIHZlY3Rvci5zdG9yZSAlY3N0XzQsICVhcmc2WyVjMCwgJWMwLCAlYzBdIDogbWVtcmVmPDF4NTEyeDF4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sIHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICAgJWNzdF81ID0gYXJpdGguY29uc3RhbnQgZGVuc2U8MC4wMDAwMDBlKzAwPiA6IHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICAgdmVjdG9yLnN0b3JlICVjc3RfNSwgJWFyZzdbJWMwLCAlYzAsICVjMF0gOiBtZW1yZWY8MXg1MTJ4MXhmMzIsICN0cHUubWVtb3J5X3NwYWNlPHZtZW0+PiwgdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgfQogICAgJTEgPSB2ZWN0b3IubG9hZCAlYXJnM1slYzAsICVjMCwgJWMwXSA6IG1lbXJlZjwxeDUxMng1MTJ4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sIHZlY3RvcjwxeDUxMng1MTJ4ZjMyPgogICAgJWNzdCA9IGFyaXRoLmNvbnN0YW50IGRlbnNlPDB4RkY4MDAwMDA+IDogdmVjdG9yPDF4NTEyeGYzMj4KICAgICUyID0gdmVjdG9yLm11bHRpX3JlZHVjdGlvbiA8bWF4aW11bWY+LCAlMSwgJWNzdCBbMl0gOiB2ZWN0b3I8MXg1MTJ4NTEyeGYzMj4gdG8gdmVjdG9yPDF4NTEyeGYzMj4KICAgICUzID0gdmVjdG9yLnNoYXBlX2Nhc3QgJTIgOiB2ZWN0b3I8MXg1MTJ4ZjMyPiB0byB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAlNCA9IHZlY3Rvci5sb2FkICVhcmc2WyVjMCwgJWMwLCAlYzBdIDogbWVtcmVmPDF4NTEyeDF4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sIHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICU1ID0gYXJpdGgubWF4aW11bWYgJTQsICUzIDogdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgJWNzdF8wID0gYXJpdGguY29uc3RhbnQgZGVuc2U8MC4wMDAwMDBlKzAwPiA6IHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICU2ID0gYXJpdGguY21wZiBvZXEsICU0LCAlNSA6IHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICU3ID0gYXJpdGguc3ViZiAlNCwgJTUgOiB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAlOCA9IGFyaXRoLnNlbGVjdCAlNiwgJWNzdF8wLCAlNyA6IHZlY3RvcjwxeDUxMngxeGkxPiwgdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgJTkgPSB2ZWN0b3IuYnJvYWRjYXN0ICU1IDogdmVjdG9yPDF4NTEyeDF4ZjMyPiB0byB2ZWN0b3I8MXg1MTJ4NTEyeGYzMj4KICAgICUxMCA9IGFyaXRoLnN1YmYgJTEsICU5IDogdmVjdG9yPDF4NTEyeDUxMnhmMzI+CiAgICAlMTEgPSBtYXRoLmV4cCAlMTAgOiB2ZWN0b3I8MXg1MTJ4NTEyeGYzMj4KICAgICVjc3RfMSA9IGFyaXRoLmNvbnN0YW50IGRlbnNlPDAuMDAwMDAwZSswMD4gOiB2ZWN0b3I8MXg1MTJ4ZjMyPgogICAgJTEyID0gdmVjdG9yLm11bHRpX3JlZHVjdGlvbiA8YWRkPiwgJTExLCAlY3N0XzEgWzJdIDogdmVjdG9yPDF4NTEyeDUxMnhmMzI+IHRvIHZlY3RvcjwxeDUxMnhmMzI+CiAgICAlMTMgPSB2ZWN0b3Iuc2hhcGVfY2FzdCAlMTIgOiB2ZWN0b3I8MXg1MTJ4ZjMyPiB0byB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAlMTQgPSB2ZWN0b3IubG9hZCAlYXJnN1slYzAsICVjMCwgJWMwXSA6IG1lbXJlZjwxeDUxMngxeGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAlMTUgPSBtYXRoLmV4cCAlOCA6IHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICUxNiA9IGFyaXRoLm11bGYgJTE1LCAlMTQgOiB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAlMTcgPSBhcml0aC5hZGRmICUxNiwgJTEzIDogdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgJTE4ID0gdmVjdG9yLmxvYWQgJWFyZzVbJWMwLCAlYzAsICVjMF0gOiBtZW1yZWY8MXg1MTJ4MjA0OHhmMzIsICN0cHUubWVtb3J5X3NwYWNlPHZtZW0+PiwgdmVjdG9yPDF4NTEyeDIwNDh4ZjMyPgogICAgJTE5ID0gbWF0aC5leHAgJTggOiB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAlMjAgPSBhcml0aC5tdWxmICUxOSwgJTE0IDogdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgJTIxID0gdmVjdG9yLmJyb2FkY2FzdCAlMjAgOiB2ZWN0b3I8MXg1MTJ4MXhmMzI+IHRvIHZlY3RvcjwxeDUxMngyMDQ4eGYzMj4KICAgICUyMiA9IGFyaXRoLm11bGYgJTIxLCAlMTggOiB2ZWN0b3I8MXg1MTJ4MjA0OHhmMzI+CiAgICAlMjMgPSB2ZWN0b3IubG9hZCAlYXJnNFslYzAsICVjMCwgJWMwXSA6IG1lbXJlZjwxeDUxMngyMDQ4eGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCB2ZWN0b3I8MXg1MTJ4MjA0OHhmMzI+CiAgICAlMjQgPSB2ZWN0b3Iuc2hhcGVfY2FzdCAlMjMgOiB2ZWN0b3I8MXg1MTJ4MjA0OHhmMzI+IHRvIHZlY3Rvcjw1MTJ4MjA0OHhmMzI+CiAgICAlMjUgPSB2ZWN0b3Iuc2hhcGVfY2FzdCAlMTEgOiB2ZWN0b3I8MXg1MTJ4NTEyeGYzMj4gdG8gdmVjdG9yPDUxMng1MTJ4ZjMyPgogICAgJTI2ID0gdmVjdG9yLnNoYXBlX2Nhc3QgJTIyIDogdmVjdG9yPDF4NTEyeDIwNDh4ZjMyPiB0byB2ZWN0b3I8NTEyeDIwNDh4ZjMyPgogICAgJTI3ID0gdHB1Lm1hdG11bCAlMjUsICUyNCwgJTI2IHtkaW1lbnNpb25fbnVtYmVycyA9ICN0cHUuZG90X2RpbWVuc2lvbl9udW1iZXJzPFsxXSwgWzBdLCBbMF0sIFsxXSwgWzAsIDAsIDEsIDFdLCBbXSwgW10+LCBwcmVjaXNpb24gPSAjdHB1LmNvbnRyYWN0X3ByZWNpc2lvbjxiZjE2PiwgdHJhbnNwb3NlX2xoc19oaW50ID0gZmFsc2V9IDogdmVjdG9yPDUxMng1MTJ4ZjMyPiwgdmVjdG9yPDUxMngyMDQ4eGYzMj4sIHZlY3Rvcjw1MTJ4MjA0OHhmMzI+IC0+IHZlY3Rvcjw1MTJ4MjA0OHhmMzI+CiAgICAlMjggPSB2ZWN0b3Iuc2hhcGVfY2FzdCAlMjcgOiB2ZWN0b3I8NTEyeDIwNDh4ZjMyPiB0byB2ZWN0b3I8MXg1MTJ4MjA0OHhmMzI+CiAgICAlY3N0XzIgPSBhcml0aC5jb25zdGFudCBkZW5zZTwxLjAwMDAwMGUrMDA+IDogdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgJTI5ID0gYXJpdGguZGl2ZiAlY3N0XzIsICUxNyA6IHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICUzMCA9IHZlY3Rvci5icm9hZGNhc3QgJTI5IDogdmVjdG9yPDF4NTEyeDF4ZjMyPiB0byB2ZWN0b3I8MXg1MTJ4MjA0OHhmMzI+CiAgICAlMzEgPSBhcml0aC5tdWxmICUyOCwgJTMwIDogdmVjdG9yPDF4NTEyeDIwNDh4ZjMyPgogICAgJTMyID0gdmVjdG9yLnNoYXBlX2Nhc3QgJTMxIDogdmVjdG9yPDF4NTEyeDIwNDh4ZjMyPiB0byB2ZWN0b3I8MXg1MTJ4MjA0OHhmMzI+CiAgICB2ZWN0b3Iuc3RvcmUgJTMyLCAlYXJnNVslYzAsICVjMCwgJWMwXSA6IG1lbXJlZjwxeDUxMngyMDQ4eGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCB2ZWN0b3I8MXg1MTJ4MjA0OHhmMzI+CiAgICB2ZWN0b3Iuc3RvcmUgJTUsICVhcmc2WyVjMCwgJWMwLCAlYzBdIDogbWVtcmVmPDF4NTEyeDF4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sIHZlY3RvcjwxeDUxMngxeGYzMj4KICAgIHZlY3Rvci5zdG9yZSAlMTcsICVhcmc3WyVjMCwgJWMwLCAlYzBdIDogbWVtcmVmPDF4NTEyeDF4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sIHZlY3RvcjwxeDUxMngxeGYzMj4KICAgIHJldHVybgogIH0KICBmdW5jLmZ1bmMgQHFrX2ZuKCVhcmcwOiBpMzIsICVhcmcxOiBpMzIsICVhcmcyOiBpMzIpIC0+IChpMzIsIGkzMiwgaTMyKSB7CiAgICByZXR1cm4gJWFyZzAsICVhcmcxLCAlYXJnMiA6IGkzMiwgaTMyLCBpMzIKICB9CiAgZnVuYy5mdW5jIEB2X2ZuKCVhcmcwOiBpMzIsICVhcmcxOiBpMzIsICVhcmcyOiBpMzIpIC0+IChpMzIsIGkzMiwgaTMyKSB7CiAgICAlYzBfaTMyID0gYXJpdGguY29uc3RhbnQgMCA6IGkzMgogICAgcmV0dXJuICVhcmcwLCAlYXJnMiwgJWMwX2kzMiA6IGkzMiwgaTMyLCBpMzIKICB9CiAgZnVuYy5mdW5jIEBvaV9mbiglYXJnMDogaTMyLCAlYXJnMTogaTMyLCAlYXJnMjogaTMyKSAtPiAoaTMyLCBpMzIsIGkzMikgewogICAgJWMwX2kzMiA9IGFyaXRoLmNvbnN0YW50IDAgOiBpMzIKICAgIHJldHVybiAlYXJnMCwgJWFyZzEsICVjMF9pMzIgOiBpMzIsIGkzMiwgaTMyCiAgfQp9","needs_layout_passes":true,"needs_hlo_passes":false,"allow_input_fusion":[],"output_memory_colors":[],"output_memory_space_colors":[],"input_memory_space_colors":[]},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

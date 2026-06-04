@@ -1,0 +1,18 @@
+HloLiveRange (max 3):
+  InstructionSequence:
+    0:y.1
+    1:x.1
+    2:fusion
+  BufferLiveRange:
+    x.1{}:0-3
+    y.1{}:0-3
+    fusion{}:2-3
+  Live ranges at 2 (peak):
+    fusion{}: 2147483648 bytes (cumulative: 2147483648 bytes)
+    x.1{}: 2147483648 bytes (cumulative: 4294967296 bytes)
+    y.1{}: 2147483648 bytes (cumulative: 6442450944 bytes)
+  Stack trace breakdown for peak usage: 6 442 450 944 bytes
+    main.1 (100.0%, total: 6 442 450 944 bytes, current: 0 bytes, remaining: 6 442 450 944 bytes)
+      ├── jit(f)/ij,jk->ik/dot_general (33.3%, total: 2 147 483 648 bytes, current: 2 147 483 648 bytes, remaining: 4 294 967 296 bytes)
+      ├── x (33.3%, total: 2 147 483 648 bytes, current: 2 147 483 648 bytes, remaining: 2 147 483 648 bytes)
+      └── y (33.3%, total: 2 147 483 648 bytes, current: 2 147 483 648 bytes, remaining: 0 bytes)

@@ -1,0 +1,45 @@
+HloModule jit_f, entry_computation_layout={(bf16[256]{0:T(256)(128)(2,1)}, bf16[3]{0:T(256)(128)(2,1)})->bf16[256]{0:T(256)(128)(2,1)}}, allow_spmd_sharding_propagation_to_parameters={true,true}, allow_spmd_sharding_propagation_to_output={true}
+
+FileNames
+1 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_convolution.py"
+
+FunctionNames
+1 "convolve_common.<locals>.f"
+2 "numpy_convolve.<locals>.convolve_fn"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=46 end_line=46 column=15 end_column=48}
+2 {file_name_id=1 function_name_id=2 line=155 end_line=155 column=15 end_column=49}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+
+
+%_flip.1 (Arg_0.3: bf16[3]) -> bf16[3] {
+  %Arg_0.3 = bf16[3]{0} parameter(0)
+  ROOT %rev.1 = bf16[3]{0} reverse(%Arg_0.3), dimensions={0}, metadata={op_name="rev"}
+}
+
+%_conv.2 (Arg_0.4: bf16[256], Arg_1.2: bf16[3]) -> bf16[256] {
+  %Arg_0.4 = bf16[256]{0} parameter(0)
+  %broadcast_in_dim.2 = bf16[1,1,256]{2,1,0} reshape(%Arg_0.4), metadata={op_name="broadcast_in_dim"}
+  %Arg_1.2 = bf16[3]{0} parameter(1)
+  %jit__flip_.1 = bf16[3]{0} call(%Arg_1.2), to_apply=%_flip.1, metadata={op_name="jit(_flip)"}
+  %broadcast_in_dim.3 = bf16[1,1,3]{2,1,0} reshape(%jit__flip_.1), metadata={op_name="broadcast_in_dim"}
+  %conv_general_dilated.1 = bf16[1,1,256]{2,1,0} convolution(%broadcast_in_dim.2, %broadcast_in_dim.3), window={size=3 pad=1_1}, dim_labels=bf0_oi0->bf0, metadata={op_name="conv_general_dilated"}
+  ROOT %squeeze.1 = bf16[256]{0} reshape(%conv_general_dilated.1), metadata={op_name="squeeze"}
+}
+
+%convolve.3 (Arg_0.5: bf16[256], Arg_1.3: bf16[3]) -> bf16[256] {
+  %Arg_0.5 = bf16[256]{0} parameter(0)
+  %Arg_1.3 = bf16[3]{0} parameter(1)
+  ROOT %jit__conv_.1 = bf16[256]{0} call(%Arg_0.5, %Arg_1.3), to_apply=%_conv.2, metadata={op_name="jit(_conv)"}
+}
+
+ENTRY %main.4 (x.1: bf16[256], kernel.1: bf16[3]) -> bf16[256] {
+  %x.1 = bf16[256]{0} parameter(0), metadata={op_name="x"}
+  %kernel.1 = bf16[3]{0} parameter(1), metadata={op_name="kernel"}
+  ROOT %jit_convolve_.1 = bf16[256]{0} call(%x.1, %kernel.1), to_apply=%convolve.3, metadata={op_name="jit(f)/jit(convolve)" stack_frame_id=2}
+}
+

@@ -1,0 +1,98 @@
+
+Total bytes used: 39488 (38.6KiB)
+
+Used values:
+<0 lhs @0>
+ positions:
+  lhs
+ uses:
+  add, operand 0
+ from instruction: %lhs = u32[] parameter(0)
+<1 rhs @0>
+ positions:
+  rhs
+ uses:
+  add, operand 1
+ from instruction: %rhs = u32[] parameter(1)
+<2 add @0>
+ positions:
+  add
+ uses:
+ from instruction: %add = u32[] add(%lhs, %rhs), backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<3 lhs.1 @0>
+ positions:
+  lhs.1
+ uses:
+  add.1, operand 0
+ from instruction: %lhs.1 = u32[] parameter(0)
+<4 rhs.1 @0>
+ positions:
+  rhs.1
+ uses:
+  add.1, operand 1
+ from instruction: %rhs.1 = u32[] parameter(1)
+<5 add.1 @0>
+ positions:
+  add.1
+ uses:
+ from instruction: %add.1 = u32[] add(%lhs.1, %rhs.1), backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<6 lhs.2 @0>
+ positions:
+  lhs.2
+ uses:
+  add.2, operand 0
+ from instruction: %lhs.2 = u32[] parameter(0)
+<7 rhs.2 @0>
+ positions:
+  rhs.2
+ uses:
+  add.2, operand 1
+ from instruction: %rhs.2 = u32[] parameter(1)
+<8 add.2 @0>
+ positions:
+  add.2
+ uses:
+ from instruction: %add.2 = u32[] add(%lhs.2, %rhs.2), backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<18 args_0_.1 @0>
+ positions:
+  args_0_.1
+ uses:
+  slice_reduce_fusion, operand 0
+ from instruction: %args_0_.1 = u32[3,2]{0,1:T(2,128)} parameter(0), metadata={op_name="args[0]"}
+<19 slice_reduce_fusion{} @0>
+ positions:
+  slice_reduce_fusion {}
+ uses:
+  get-tuple-element, operand 0 {}
+  get-tuple-element.1, operand 0 {}
+  get-tuple-element.2, operand 0 {}
+ from instruction: %slice_reduce_fusion = (u32[2]{0:T(128)}, u32[2]{0:T(128)}, u32[2]{0:T(128)}) fusion(%args_0_.1), kind=kLoop, calls=%fused_computation, metadata={op_name="jit(unstack)/unstack" stack_frame_id=5}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<20 slice_reduce_fusion{0} @0>
+ positions:
+  slice_reduce_fusion {0}
+  get-tuple-element
+  tuple.1 {2}
+ uses:
+  tuple.1, operand 2
+ from instruction: %slice_reduce_fusion = (u32[2]{0:T(128)}, u32[2]{0:T(128)}, u32[2]{0:T(128)}) fusion(%args_0_.1), kind=kLoop, calls=%fused_computation, metadata={op_name="jit(unstack)/unstack" stack_frame_id=5}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<21 slice_reduce_fusion{1} @0>
+ positions:
+  slice_reduce_fusion {1}
+  get-tuple-element.1
+  tuple.1 {1}
+ uses:
+  tuple.1, operand 1
+ from instruction: %slice_reduce_fusion = (u32[2]{0:T(128)}, u32[2]{0:T(128)}, u32[2]{0:T(128)}) fusion(%args_0_.1), kind=kLoop, calls=%fused_computation, metadata={op_name="jit(unstack)/unstack" stack_frame_id=5}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<22 slice_reduce_fusion{2} @0>
+ positions:
+  slice_reduce_fusion {2}
+  get-tuple-element.2
+  tuple.1 {0}
+ uses:
+  tuple.1, operand 0
+ from instruction: %slice_reduce_fusion = (u32[2]{0:T(128)}, u32[2]{0:T(128)}, u32[2]{0:T(128)}) fusion(%args_0_.1), kind=kLoop, calls=%fused_computation, metadata={op_name="jit(unstack)/unstack" stack_frame_id=5}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<23 tuple.1{} @0>
+ positions:
+  tuple.1 {}
+ uses:
+ from instruction: %tuple.1 = (u32[2]{0:T(128)}, u32[2]{0:T(128)}, u32[2]{0:T(128)}) tuple(%get-tuple-element.2, %get-tuple-element.1, %get-tuple-element)

@@ -1,0 +1,14 @@
+HloLiveRange (max 2):
+  InstructionSequence:
+    0:param.1
+    1:psum_invariant.7
+  BufferLiveRange:
+    param.1{}:0-2
+    psum_invariant.7{}:1-2
+  Live ranges at 1 (peak):
+    param.1{}: 411041792 bytes (cumulative: 411041792 bytes)
+    psum_invariant.7{}: 411041792 bytes (cumulative: 822083584 bytes)
+  Stack trace breakdown for peak usage: 822 083 584 bytes
+    main.0_spmd (100.0%, total: 822 083 584 bytes, current: 0 bytes, remaining: 822 083 584 bytes)
+      ├── jit(f)/shard_map/psum_invariant (50.0%, total: 411 041 792 bytes, current: 411 041 792 bytes, remaining: 411 041 792 bytes)
+      └── x (50.0%, total: 411 041 792 bytes, current: 411 041 792 bytes, remaining: 0 bytes)

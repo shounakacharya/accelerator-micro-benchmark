@@ -1,0 +1,15 @@
+
+Total bytes used: 16777216 (16.00MiB)
+
+Used values:
+<2 args_0_.1 @0>
+ positions:
+  args_0_.1
+ uses:
+  copy_bitcast_fusion, operand 0
+ from instruction: %args_0_.1 = f32[2,8,512,256]{3,2,1,0:T(8,128)} parameter(0), metadata={op_name="args[0]"}
+<3 copy_bitcast_fusion @0>
+ positions:
+  copy_bitcast_fusion
+ uses:
+ from instruction: %copy_bitcast_fusion = f32[2,512,8,256]{3,2,1,0:T(8,128)} fusion(%args_0_.1), kind=kLoop, calls=%fused_computation, metadata={op_name="jit(transpose)/transpose" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

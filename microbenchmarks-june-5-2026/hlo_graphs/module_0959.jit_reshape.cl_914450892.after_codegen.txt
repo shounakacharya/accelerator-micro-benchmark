@@ -1,0 +1,30 @@
+HloModule jit_reshape, is_scheduled=true, entry_computation_layout={(s32[9437184]{0:T(1024)})->s32[3072,3072]{1,0:T(8,128)}}, allow_spmd_sharding_propagation_to_parameters={true}, allow_spmd_sharding_propagation_to_output={true}
+
+FileNames
+1 "/home/shounaka_google_com/accelerator-microbenchmarks/src/run_benchmark.py"
+2 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_matmul.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "run_single_benchmark"
+4 "naive_matmul"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=527 end_line=527 column=4 end_column=41}
+2 {file_name_id=1 function_name_id=2 line=422 end_line=422 column=12 end_column=50}
+3 {file_name_id=1 function_name_id=3 line=328 end_line=330 column=28 end_column=9}
+4 {file_name_id=2 function_name_id=4 line=83 end_line=83 column=10 end_column=53}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+
+
+ENTRY %main.1 (args_0_.1: s32[9437184]) -> s32[3072,3072] {
+  %args_0_.1 = s32[9437184]{0:T(1024)} parameter(0), metadata={op_name="args[0]"}
+  ROOT %reshape.1 = s32[3072,3072]{1,0:T(8,128)} reshape(%args_0_.1), metadata={op_name="jit(reshape)/reshape" stack_frame_id=4}, backend_config={"flag_configs":[],"integer_config":{"integer":"270336"},"scoped_memory_configs":[],"used_scoped_memory_configs":[{"memory_space":"1","offset":"0","size":"4325376"}],"retry_config":{"retry_count":"0"},"aliasing_operands":{"lists":[]}}
+}
+

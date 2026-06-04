@@ -1,0 +1,14 @@
+HloLiveRange (max 2):
+  InstructionSequence:
+    0:param.1
+    1:reduce_scatter.7
+  BufferLiveRange:
+    param.1{}:0-2
+    reduce_scatter.7{}:1-2
+  Live ranges at 1 (peak):
+    param.1{}: 1207959552 bytes (cumulative: 1207959552 bytes)
+    reduce_scatter.7{}: 301989888 bytes (cumulative: 1509949440 bytes)
+  Stack trace breakdown for peak usage: 1 509 949 440 bytes
+    main.0_spmd (100.0%, total: 1 509 949 440 bytes, current: 0 bytes, remaining: 1 509 949 440 bytes)
+      ├── x (80.0%, total: 1 207 959 552 bytes, current: 1 207 959 552 bytes, remaining: 301 989 888 bytes)
+      └── jit(f)/shard_map/reduce_scatter (20.0%, total: 301 989 888 bytes, current: 301 989 888 bytes, remaining: 0 bytes)

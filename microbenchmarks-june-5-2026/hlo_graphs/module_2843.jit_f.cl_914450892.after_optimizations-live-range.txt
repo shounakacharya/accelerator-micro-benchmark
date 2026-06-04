@@ -1,0 +1,26 @@
+HloLiveRange (max 8):
+  InstructionSequence:
+    0:v.1
+    1:k.1
+    2:q.1
+    3:bitcast.6
+    4:bitcast.7
+    5:bitcast.8
+    6:dot_general.4
+    7:bitcast.4
+  BufferLiveRange:
+    q.1{}:0-8
+    k.1{}:0-8
+    v.1{}:0-8
+    dot_general.4{}:6-8
+  Live ranges at 6 (peak):
+    dot_general.4{}: 4194304 bytes (cumulative: 4194304 bytes)
+    k.1{}: 4194304 bytes (cumulative: 8388608 bytes)
+    q.1{}: 4194304 bytes (cumulative: 12582912 bytes)
+    v.1{}: 4194304 bytes (cumulative: 16777216 bytes)
+  Stack trace breakdown for peak usage: 16 777 216 bytes
+    main.4 (100.0%, total: 16 777 216 bytes, current: 0 bytes, remaining: 16 777 216 bytes)
+      ├── jit(f)/jit(mha_reference)/bhqk,bhkc->bhqc/dot_general (25.0%, total: 4 194 304 bytes, current: 4 194 304 bytes, remaining: 12 582 912 bytes)
+      ├── k (25.0%, total: 4 194 304 bytes, current: 4 194 304 bytes, remaining: 8 388 608 bytes)
+      ├── q (25.0%, total: 4 194 304 bytes, current: 4 194 304 bytes, remaining: 4 194 304 bytes)
+      └── v (25.0%, total: 4 194 304 bytes, current: 4 194 304 bytes, remaining: 0 bytes)

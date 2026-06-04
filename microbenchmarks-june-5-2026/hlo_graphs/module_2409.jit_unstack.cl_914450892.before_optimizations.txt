@@ -1,0 +1,39 @@
+HloModule jit_unstack, entry_computation_layout={(u32[3,2]{0,1:T(2,128)})->(u32[2]{0:T(128)}, u32[2]{0:T(128)}, u32[2]{0:T(128)})}, allow_spmd_sharding_propagation_to_parameters={true}, allow_spmd_sharding_propagation_to_output={true,true,true}
+
+FileNames
+1 "/home/shounaka_google_com/accelerator-microbenchmarks/src/run_benchmark.py"
+2 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_attention.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "run_single_benchmark"
+4 "naive_attention_benchmark"
+5 "generate_qkv"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=527 end_line=527 column=4 end_column=41}
+2 {file_name_id=1 function_name_id=2 line=422 end_line=422 column=12 end_column=50}
+3 {file_name_id=1 function_name_id=3 line=328 end_line=330 column=28 end_column=9}
+4 {file_name_id=2 function_name_id=4 line=119 end_line=119 column=14 end_column=62}
+5 {file_name_id=2 function_name_id=5 line=57 end_line=57 column=4 end_column=23}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+5 {file_location_id=5 parent_frame_id=5}
+
+
+ENTRY %main.1 (args_0_.1: u32[3,2]) -> (u32[2], u32[2], u32[2]) {
+  %args_0_.1 = u32[3,2]{1,0} parameter(0), metadata={op_name="args[0]"}
+  %unstack.6 = u32[1,2]{1,0} slice(%args_0_.1), slice={[0:1], [0:2]}, metadata={op_name="jit(unstack)/unstack" stack_frame_id=5}
+  %unstack.7 = u32[2]{0} reshape(%unstack.6), metadata={op_name="jit(unstack)/unstack" stack_frame_id=5}
+  %unstack.8 = u32[1,2]{1,0} slice(%args_0_.1), slice={[1:2], [0:2]}, metadata={op_name="jit(unstack)/unstack" stack_frame_id=5}
+  %unstack.9 = u32[2]{0} reshape(%unstack.8), metadata={op_name="jit(unstack)/unstack" stack_frame_id=5}
+  %unstack.10 = u32[1,2]{1,0} slice(%args_0_.1), slice={[2:3], [0:2]}, metadata={op_name="jit(unstack)/unstack" stack_frame_id=5}
+  %unstack.11 = u32[2]{0} reshape(%unstack.10), metadata={op_name="jit(unstack)/unstack" stack_frame_id=5}
+  ROOT %tuple.1 = (u32[2]{0}, u32[2]{0}, u32[2]{0}) tuple(%unstack.7, %unstack.9, %unstack.11)
+}
+

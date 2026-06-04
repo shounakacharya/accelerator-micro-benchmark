@@ -1,0 +1,4 @@
+BufferAssignment:
+allocation 0: size 1048576, output shape is |s32[262144]|, maybe-live-out:
+ value: <0 iota.1 @0> (size=1048576,offset=0): s32[262144]{0:T(1024)}
+allocation 1: size 0, color 1, preallocated-temp:

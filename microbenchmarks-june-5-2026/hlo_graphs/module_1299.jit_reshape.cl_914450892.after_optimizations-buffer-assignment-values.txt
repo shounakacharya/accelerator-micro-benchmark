@@ -1,0 +1,15 @@
+
+Total bytes used: 4437573632 (4.13GiB)
+
+Used values:
+<0 args_0_.1 @0>
+ positions:
+  args_0_.1
+ uses:
+  reshape.1, operand 0
+ from instruction: %args_0_.1 = s32[554696704]{0:T(1024)} parameter(0), metadata={op_name="args[0]"}
+<1 reshape.1 @0>
+ positions:
+  reshape.1
+ uses:
+ from instruction: %reshape.1 = s32[23552,23552]{1,0:T(8,128)} reshape(%args_0_.1), metadata={op_name="jit(reshape)/reshape" stack_frame_id=4}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

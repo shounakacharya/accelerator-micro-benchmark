@@ -1,0 +1,156 @@
+HloModule jit_f, is_scheduled=true, entry_computation_layout={(bf16[6912,27648]{1,0:T(8,128)(2,1)}, bf16[27648,6912]{1,0:T(8,128)(2,1)}, bf16[27648,6912]{1,0:T(8,128)(2,1)})->bf16[27648,27648]{1,0:T(8,128)(2,1)}}, allow_spmd_sharding_propagation_to_parameters={false,false,false}, allow_spmd_sharding_propagation_to_output={true}, num_partitions=4
+
+FileNames
+1 "/home/shounaka_google_com/accelerator-microbenchmarks/src/run_benchmark.py"
+2 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_matmul.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "run_single_benchmark"
+4 "multilayer_collective_matmul"
+5 "multilayer_collective_matmul.<locals>.f"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=527 end_line=527 column=4 end_column=4}
+2 {file_name_id=1 function_name_id=2 line=422 end_line=422 column=12 end_column=12}
+3 {file_name_id=1 function_name_id=3 line=328 end_line=328 column=28 end_column=28}
+4 {file_name_id=2 function_name_id=4 line=572 end_line=572 column=13 end_column=13}
+5 {file_name_id=2 function_name_id=5 line=543 end_line=543 column=18 end_column=18}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+5 {file_location_id=5 parent_frame_id=1}
+6 {file_location_id=5 parent_frame_id=5}
+
+
+%fused_computation.2 (param_0.3: bf16[27648,6912]) -> (bf16[27648,6912], bf16[27648,27648], s32[2], u32[], u32[], /*index=5*/u32[], u32[], u32[], u32[], u32[], /*index=10*/u32[], u32[], u32[], u32[], u32[], /*index=15*/u32[]) {
+  %param_0.3 = bf16[27648,6912]{1,0:T(8,128)(2,1)} parameter(0)
+  %all-gather.16 = bf16[27648,27648]{1,0:T(8,128)(2,1)} all-gather(%param_0.3), channel_id=3, replica_groups=mesh['axis_0'=1,'axis_1'=4] {'axis_1'}, dimensions={1}, use_global_device_ids=true, frontend_attributes={chain_id="0"}, metadata={op_name="jit(f)/shard_map" stack_frame_id=4}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[],"async_collective_fusion_config":{"flag_start":"-1","flag_end":"-1"},"used_scoped_memory_configs":[]}
+  ROOT %custom-call.1 = (bf16[27648,6912]{1,0:T(8,128)(2,1)}, bf16[27648,27648]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) custom-call(%all-gather.16), custom_call_target="AsyncCollectiveStart"
+}
+
+%bitcast_fusion.clone.clone (bitcast_input.7: bf16[27648,27648]) -> bf16[27648,27648] {
+  %bitcast_input.7 = bf16[27648,27648]{1,0:T(8,128)(2,1)} parameter(0)
+  ROOT %bitcast.7 = bf16[27648,27648]{1,0:T(8,128)(2,1)} bitcast(%bitcast_input.7)
+}
+
+%bitcast_fusion.2.clone.clone (bitcast_input.6: bf16[27648,27648]) -> bf16[27648,27648] {
+  %bitcast_input.6 = bf16[27648,27648]{1,0:T(8,128)(2,1)} parameter(0)
+  ROOT %bitcast.6 = bf16[27648,27648]{1,0:T(8,128)(2,1)} bitcast(%bitcast_input.6)
+}
+
+%async_collective_fusion.7 (param_0.6: bf16[27648,6912], param_1.4: bf16[27648,27648], param_2.2: s32[2], param_3.2: u32[], param_4.2: u32[], param_5.2: u32[], param_6.2: u32[], param_7.2: u32[], param_8.2: u32[], param_9.2: u32[], param_10.2: u32[], param_11.2: u32[], param_12.2: u32[], param_13.2: u32[], param_14.2: u32[], param_15.2: u32[], param_16.2: bf16[27648,27648], param_17.3: bf16[27648,27648]) -> (bf16[27648,27648], bf16[27648,6912], bf16[27648,27648], bf16[27648,27648], s32[2], /*index=5*/u32[], u32[], u32[], u32[], u32[], /*index=10*/u32[], u32[], u32[], u32[], u32[], /*index=15*/u32[], u32[], u32[]) {
+  %param_17.3 = bf16[27648,27648]{1,0:T(8,128)(2,1)} parameter(17)
+  %fusion.11 = bf16[27648,27648]{1,0:T(8,128)(2,1)} fusion(%param_17.3), kind=kLoop, calls=%bitcast_fusion.clone.clone
+  %param_16.2 = bf16[27648,27648]{1,0:T(8,128)(2,1)} parameter(16)
+  %fusion.10 = bf16[27648,27648]{1,0:T(8,128)(2,1)} fusion(%param_16.2), kind=kLoop, calls=%bitcast_fusion.2.clone.clone
+  %convolution.5 = bf16[27648,27648]{1,0:T(8,128)(2,1)} convolution(%fusion.11, %fusion.10), dim_labels=bf_io->bf, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}
+  %param_0.6 = bf16[27648,6912]{1,0:T(8,128)(2,1)} parameter(0)
+  %param_1.4 = bf16[27648,27648]{1,0:T(8,128)(2,1)} parameter(1)
+  %all-gather.18 = bf16[27648,27648]{1,0:T(8,128)(2,1)} all-gather(%param_0.6), channel_id=3, replica_groups=mesh['axis_0'=1,'axis_1'=4] {'axis_1'}, dimensions={1}, use_global_device_ids=true, frontend_attributes={chain_id="0"}, metadata={op_name="jit(f)/shard_map" stack_frame_id=4}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[],"async_collective_fusion_config":{"flag_start":"2","flag_end":"15"},"used_scoped_memory_configs":[]}
+  %param_2.2 = s32[2]{0:S(4)} parameter(2)
+  %param_3.2 = u32[]{:S(2)} parameter(3)
+  %param_4.2 = u32[]{:S(2)} parameter(4)
+  %param_5.2 = u32[]{:S(2)} parameter(5)
+  %param_6.2 = u32[]{:S(2)} parameter(6)
+  %param_7.2 = u32[]{:S(2)} parameter(7)
+  %param_8.2 = u32[]{:S(2)} parameter(8)
+  %param_9.2 = u32[]{:S(2)} parameter(9)
+  %param_10.2 = u32[]{:S(2)} parameter(10)
+  %param_11.2 = u32[]{:S(2)} parameter(11)
+  %param_12.2 = u32[]{:S(2)} parameter(12)
+  %param_13.2 = u32[]{:S(2)} parameter(13)
+  %param_14.2 = u32[]{:S(2)} parameter(14)
+  %param_15.2 = u32[]{:S(2)} parameter(15)
+  ROOT %tuple.2 = (bf16[27648,27648]{1,0:T(8,128)(2,1)}, bf16[27648,6912]{1,0:T(8,128)(2,1)}, bf16[27648,27648]{1,0:T(8,128)(2,1)}, bf16[27648,27648]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) tuple(%convolution.5, %param_0.6, %param_1.4, %all-gather.18, %param_2.2, /*index=5*/%param_3.2, %param_4.2, %param_5.2, %param_6.2, %param_7.2, /*index=10*/%param_8.2, %param_9.2, %param_10.2, %param_11.2, %param_12.2, /*index=15*/%param_13.2, %param_14.2, %param_15.2)
+}
+
+%fused_computation.4 (param_0.7: bf16[27648,6912], param_1.5: bf16[27648,27648], param_2.4: s32[2], param_3.4: u32[], param_4.4: u32[], param_5.4: u32[], param_6.4: u32[], param_7.4: u32[], param_8.4: u32[], param_9.4: u32[], param_10.4: u32[], param_11.4: u32[], param_12.4: u32[], param_13.4: u32[], param_14.4: u32[], param_15.4: u32[]) -> bf16[27648,27648] {
+  %param_0.7 = bf16[27648,6912]{1,0:T(8,128)(2,1)} parameter(0)
+  %param_1.5 = bf16[27648,27648]{1,0:T(8,128)(2,1)} parameter(1)
+  %all-gather.20 = bf16[27648,27648]{1,0:T(8,128)(2,1)} all-gather(%param_0.7), channel_id=3, replica_groups=mesh['axis_0'=1,'axis_1'=4] {'axis_1'}, dimensions={1}, use_global_device_ids=true, frontend_attributes={chain_id="0"}, metadata={op_name="jit(f)/shard_map" stack_frame_id=4}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[],"async_collective_fusion_config":{"flag_start":"2","flag_end":"15"},"used_scoped_memory_configs":[]}
+  %param_2.4 = s32[2]{0:S(4)} parameter(2)
+  %param_3.4 = u32[]{:S(2)} parameter(3)
+  %param_4.4 = u32[]{:S(2)} parameter(4)
+  %param_5.4 = u32[]{:S(2)} parameter(5)
+  %param_6.4 = u32[]{:S(2)} parameter(6)
+  %param_7.4 = u32[]{:S(2)} parameter(7)
+  %param_8.4 = u32[]{:S(2)} parameter(8)
+  %param_9.4 = u32[]{:S(2)} parameter(9)
+  %param_10.4 = u32[]{:S(2)} parameter(10)
+  %param_11.4 = u32[]{:S(2)} parameter(11)
+  %param_12.4 = u32[]{:S(2)} parameter(12)
+  %param_13.4 = u32[]{:S(2)} parameter(13)
+  %param_14.4 = u32[]{:S(2)} parameter(14)
+  %param_15.4 = u32[]{:S(2)} parameter(15)
+  ROOT %custom-call.3 = bf16[27648,27648]{1,0:T(8,128)(2,1)} custom-call(%param_0.7, %param_1.5, %all-gather.20, %param_2.4, %param_3.4, /*index=5*/%param_4.4, %param_5.4, %param_6.4, %param_7.4, %param_8.4, /*index=10*/%param_9.4, %param_10.4, %param_11.4, %param_12.4, %param_13.4, /*index=15*/%param_14.4, %param_15.4), custom_call_target="AsyncCollectiveDone"
+}
+
+%bitcast_fusion.1 (bitcast_input.1: bf16[27648,27648]) -> bf16[27648,27648] {
+  %bitcast_input.1 = bf16[27648,27648]{1,0:T(8,128)(2,1)} parameter(0)
+  ROOT %bitcast.1 = bf16[27648,27648]{1,0:T(8,128)(2,1)} bitcast(%bitcast_input.1)
+}
+
+%bitcast_fusion.3 (bitcast_input.3: bf16[27648,27648]) -> bf16[27648,27648] {
+  %bitcast_input.3 = bf16[27648,27648]{1,0:T(8,128)(2,1)} parameter(0)
+  ROOT %bitcast.3 = bf16[27648,27648]{1,0:T(8,128)(2,1)} bitcast(%bitcast_input.3)
+}
+
+%fused_computation.1 (param_0.1: bf16[27648,27648], param_1.1: bf16[27648,27648]) -> bf16[27648,27648] {
+  %param_0.1 = bf16[27648,27648]{1,0:T(8,128)(2,1)} parameter(0)
+  %fusion.3 = bf16[27648,27648]{1,0:T(8,128)(2,1)} fusion(%param_0.1), kind=kLoop, calls=%bitcast_fusion.1
+  %param_1.1 = bf16[27648,27648]{1,0:T(8,128)(2,1)} parameter(1)
+  %fusion.5 = bf16[27648,27648]{1,0:T(8,128)(2,1)} fusion(%param_1.1), kind=kLoop, calls=%bitcast_fusion.3
+  ROOT %convolution.3 = bf16[27648,27648]{1,0:T(8,128)(2,1)} convolution(%fusion.3, %fusion.5), dim_labels=bf_io->bf, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}
+}
+
+ENTRY %main.0_spmd (param.3: bf16[6912,27648], param.4: bf16[27648,6912], param.5: bf16[27648,6912]) -> bf16[27648,27648] {
+  %param.3 = bf16[6912,27648]{1,0:T(8,128)(2,1)} parameter(0), sharding={devices=[4,1]<=[4]}, metadata={op_name="act"}
+  %param.4 = bf16[27648,6912]{1,0:T(8,128)(2,1)} parameter(1), sharding={devices=[1,4]<=[4]}, metadata={op_name="weights[0]"}
+  %param.5 = bf16[27648,6912]{1,0:T(8,128)(2,1)} parameter(2), sharding={devices=[1,4]<=[4]}, metadata={op_name="weights[1]"}
+  %copy.4 = bf16[27648,6912]{1,0:T(8,128)(2,1)} copy(%param.5)
+  %all-gather.21 = bf16[27648,27648]{1,0:T(8,128)(2,1)} all-gather(%param.3), channel_id=1, replica_groups=mesh['axis_0'=4,'axis_1'=1] {'axis_0'}, dimensions={0}, use_global_device_ids=true, frontend_attributes={async_collective_name="all-gather-start"}, metadata={op_name="jit(f)/shard_map" stack_frame_id=4}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"1"},"scoped_memory_configs":[],"used_scoped_memory_configs":[]}
+  %all-gather.22 = bf16[27648,27648]{1,0:T(8,128)(2,1)} all-gather(%param.4), channel_id=2, replica_groups=mesh['axis_0'=1,'axis_1'=4] {'axis_1'}, dimensions={1}, use_global_device_ids=true, frontend_attributes={async_collective_name="all-gather-start.1"}, metadata={op_name="jit(f)/shard_map" stack_frame_id=4}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"1"},"scoped_memory_configs":[],"used_scoped_memory_configs":[]}
+  %async-collective-start = (bf16[27648,6912]{1,0:T(8,128)(2,1)}, bf16[27648,27648]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) fusion(%copy.4), kind=kCustom, output_to_operand_aliasing={{0}: (0, {})}, calls=%fused_computation.2
+  %get-tuple-element.16 = u32[]{:S(2)} get-tuple-element(%async-collective-start), index=15
+  %get-tuple-element.15 = u32[]{:S(2)} get-tuple-element(%async-collective-start), index=14
+  %get-tuple-element.14 = u32[]{:S(2)} get-tuple-element(%async-collective-start), index=13
+  %get-tuple-element.13 = u32[]{:S(2)} get-tuple-element(%async-collective-start), index=12
+  %get-tuple-element.12 = u32[]{:S(2)} get-tuple-element(%async-collective-start), index=11
+  %get-tuple-element.11 = u32[]{:S(2)} get-tuple-element(%async-collective-start), index=10
+  %get-tuple-element.10 = u32[]{:S(2)} get-tuple-element(%async-collective-start), index=9
+  %get-tuple-element.9 = u32[]{:S(2)} get-tuple-element(%async-collective-start), index=8
+  %get-tuple-element.8 = u32[]{:S(2)} get-tuple-element(%async-collective-start), index=7
+  %get-tuple-element.7 = u32[]{:S(2)} get-tuple-element(%async-collective-start), index=6
+  %get-tuple-element.6 = u32[]{:S(2)} get-tuple-element(%async-collective-start), index=5
+  %get-tuple-element.5 = u32[]{:S(2)} get-tuple-element(%async-collective-start), index=4
+  %get-tuple-element.4 = u32[]{:S(2)} get-tuple-element(%async-collective-start), index=3
+  %get-tuple-element.3 = s32[2]{0:S(4)} get-tuple-element(%async-collective-start), index=2
+  %get-tuple-element.2 = bf16[27648,27648]{1,0:T(8,128)(2,1)} get-tuple-element(%async-collective-start), index=1
+  %get-tuple-element = bf16[27648,6912]{1,0:T(8,128)(2,1)} get-tuple-element(%async-collective-start), index=0
+  %fusion.7 = (bf16[27648,27648]{1,0:T(8,128)(2,1)}, bf16[27648,6912]{1,0:T(8,128)(2,1)}, bf16[27648,27648]{1,0:T(8,128)(2,1)}, bf16[27648,27648]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[]}
+  %get-tuple-element.34 = u32[]{:S(2)} get-tuple-element(%fusion.7), index=17
+  %get-tuple-element.33 = u32[]{:S(2)} get-tuple-element(%fusion.7), index=16
+  %get-tuple-element.32 = u32[]{:S(2)} get-tuple-element(%fusion.7), index=15
+  %get-tuple-element.31 = u32[]{:S(2)} get-tuple-element(%fusion.7), index=14
+  %get-tuple-element.30 = u32[]{:S(2)} get-tuple-element(%fusion.7), index=13
+  %get-tuple-element.29 = u32[]{:S(2)} get-tuple-element(%fusion.7), index=12
+  %get-tuple-element.28 = u32[]{:S(2)} get-tuple-element(%fusion.7), index=11
+  %get-tuple-element.27 = u32[]{:S(2)} get-tuple-element(%fusion.7), index=10
+  %get-tuple-element.26 = u32[]{:S(2)} get-tuple-element(%fusion.7), index=9
+  %get-tuple-element.25 = u32[]{:S(2)} get-tuple-element(%fusion.7), index=8
+  %get-tuple-element.24 = u32[]{:S(2)} get-tuple-element(%fusion.7), index=7
+  %get-tuple-element.23 = u32[]{:S(2)} get-tuple-element(%fusion.7), index=6
+  %get-tuple-element.22 = u32[]{:S(2)} get-tuple-element(%fusion.7), index=5
+  %get-tuple-element.21 = s32[2]{0:S(4)} get-tuple-element(%fusion.7), index=4
+  %get-tuple-element.19 = bf16[27648,27648]{1,0:T(8,128)(2,1)} get-tuple-element(%fusion.7), index=2
+  %get-tuple-element.18 = bf16[27648,6912]{1,0:T(8,128)(2,1)} get-tuple-element(%fusion.7), index=1
+  %async-collective-done = bf16[27648,27648]{1,0:T(8,128)(2,1)} fusion(%get-tuple-element.18, %get-tuple-element.19, %get-tuple-element.21, %get-tuple-element.22, %get-tuple-element.23, /*index=5*/%get-tuple-element.24, %get-tuple-element.25, %get-tuple-element.26, %get-tuple-element.27, %get-tuple-element.28, /*index=10*/%get-tuple-element.29, %get-tuple-element.30, %get-tuple-element.31, %get-tuple-element.32, %get-tuple-element.33, /*index=15*/%get-tuple-element.34), kind=kCustom, output_to_operand_aliasing={{}: (1, {})}, calls=%fused_computation.4, metadata={op_name="jit(f)/shard_map" stack_frame_id=4}
+  %get-tuple-element.17 = bf16[27648,27648]{1,0:T(8,128)(2,1)} get-tuple-element(%fusion.7), index=0, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}
+  ROOT %fusion.1 = bf16[27648,27648]{1,0:T(8,128)(2,1)} fusion(%get-tuple-element.17, %async-collective-done), kind=kOutput, calls=%fused_computation.1, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}
+}
+

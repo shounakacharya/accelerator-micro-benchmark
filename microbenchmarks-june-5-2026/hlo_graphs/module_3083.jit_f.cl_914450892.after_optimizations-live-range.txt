@@ -1,0 +1,42 @@
+HloLiveRange (max 13):
+  InstructionSequence:
+    0:q.1
+    1:copy-start
+    2:v.1
+    3:copy-start.1
+    4:k.1
+    5:copy-done
+    6:bitcast.14
+    7:bitcast.15
+    8:broadcast_multiply_fusion
+    9:copy-done.1
+    10:bitcast.16
+    11:online-softmax
+    12:bitcast.7
+  BufferLiveRange:
+    q.1{}:0-13
+    copy-start{}:1-5
+    copy-start{0}:1-8
+    copy-start{2}:1-5
+    k.1{}:0-13
+    broadcast_multiply_fusion{}:8-11
+    v.1{}:0-13
+    copy-start.1{}:3-9
+    copy-start.1{0}:3-11
+    copy-start.1{2}:3-9
+    online-softmax{}:11-13
+  Live ranges at 11 (peak):
+    broadcast_multiply_fusion{}: 2097152 bytes (cumulative: 2097152 bytes)
+    copy-start.1{0}: 524288 bytes (cumulative: 2621440 bytes)
+    k.1{}: 524288 bytes (cumulative: 3145728 bytes)
+    online-softmax{}: 524288 bytes (cumulative: 3670016 bytes)
+    q.1{}: 524288 bytes (cumulative: 4194304 bytes)
+    v.1{}: 524288 bytes (cumulative: 4718592 bytes)
+  Stack trace breakdown for peak usage: 4 718 592 bytes
+    main.3 (100.0%, total: 4 718 592 bytes, current: 0 bytes, remaining: 4 718 592 bytes)
+      ├── jit(f)/vmap(BTNH,BSNH->BNTS)/dot_general (44.4%, total: 2 097 152 bytes, current: 2 097 152 bytes, remaining: 2 621 440 bytes)
+      ├── copy-start.1{0} (11.1%, total: 524 288 bytes, current: 524 288 bytes, remaining: 2 097 152 bytes)
+      ├── k (11.1%, total: 524 288 bytes, current: 524 288 bytes, remaining: 1 572 864 bytes)
+      ├── online-softmax (11.1%, total: 524 288 bytes, current: 524 288 bytes, remaining: 1 048 576 bytes)
+      ├── q (11.1%, total: 524 288 bytes, current: 524 288 bytes, remaining: 524 288 bytes)
+      └── v (11.1%, total: 524 288 bytes, current: 524 288 bytes, remaining: 0 bytes)

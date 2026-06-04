@@ -1,0 +1,48 @@
+HloModule jit_f, is_scheduled=true, entry_computation_layout={(bf16[19456,19456]{1,0:T(8,128)(2,1)})->bf16[19456,19456]{1,0:T(8,128)(2,1)}}, allow_spmd_sharding_propagation_to_parameters={true}, allow_spmd_sharding_propagation_to_output={true}, num_partitions=4
+
+FileNames
+1 "/home/shounaka_google_com/accelerator-microbenchmarks/src/run_benchmark.py"
+2 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_collectives.py"
+3 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_utils.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "run_single_benchmark"
+4 "psum_benchmark"
+5 "benchmark_collective"
+6 "simple_timeit"
+7 "benchmark_collective.<locals>.f"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=527 end_line=527 column=4 end_column=4}
+2 {file_name_id=1 function_name_id=2 line=422 end_line=422 column=12 end_column=12}
+3 {file_name_id=1 function_name_id=3 line=328 end_line=328 column=28 end_column=28}
+4 {file_name_id=2 function_name_id=4 line=198 end_line=198 column=38 end_column=38}
+5 {file_name_id=2 function_name_id=5 line=139 end_line=139 column=19 end_column=19}
+6 {file_name_id=3 function_name_id=6 line=50 end_line=50 column=17 end_column=17}
+7 {file_name_id=2 function_name_id=7 line=136 end_line=136 column=15 end_column=15}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+5 {file_location_id=5 parent_frame_id=5}
+6 {file_location_id=6 parent_frame_id=6}
+7 {file_location_id=7 parent_frame_id=1}
+8 {file_location_id=7 parent_frame_id=8}
+9 {file_location_id=7 parent_frame_id=7}
+
+
+%region_0.0 (psum_invariant.0: bf16[], psum_invariant.1: bf16[]) -> bf16[] {
+  %psum_invariant.1 = bf16[]{:T(256)} parameter(1), metadata={op_name="psum_invariant"}
+  %psum_invariant.0 = bf16[]{:T(256)} parameter(0), metadata={op_name="psum_invariant"}
+  ROOT %add.0 = bf16[]{:T(256)} add(%psum_invariant.0, %psum_invariant.1), metadata={op_name="add" stack_frame_id=8}
+}
+
+ENTRY %main.0_spmd (param.1: bf16[19456,19456]) -> bf16[19456,19456] {
+  %param.1 = bf16[19456,19456]{1,0:T(8,128)(2,1)} parameter(0), sharding={replicated}, metadata={op_name="x"}
+  ROOT %psum_invariant.7 = bf16[19456,19456]{1,0:T(8,128)(2,1)} all-reduce(%param.1), channel_id=1, replica_groups={{0,1,2,3}}, use_global_device_ids=true, to_apply=%region_0.0, metadata={op_name="jit(f)/shard_map/psum_invariant" stack_frame_id=9}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[],"used_scoped_memory_configs":[]}
+}
+

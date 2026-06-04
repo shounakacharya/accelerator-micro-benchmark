@@ -1,0 +1,499 @@
+
+Total bytes used: 453185588 (432.19MiB)
+
+Used values:
+<69 slice.1 @1>
+ positions:
+  slice.1
+  slice-start {1}
+  slice-done
+ uses:
+  slice-done, operand 0 {1}
+  custom-call.4, operand 0
+ from instruction: %slice.1 = s8[4194304]{0:T(1024)(128)(4,1)S(1)} slice(%param_0.8), slice={[0:4194304]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<70 slice.3 @1>
+ positions:
+  slice.3
+  slice-start.1 {1}
+  slice-done.1
+ uses:
+  slice-done.1, operand 0 {1}
+  custom-call.4, operand 1
+ from instruction: %slice.3 = s8[4194304]{0:T(1024)(128)(4,1)S(1)} slice(%param_0.9), slice={[4194304:8388608]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<71 slice.5 @1>
+ positions:
+  slice.5
+  slice-start.2 {1}
+  slice-done.2
+ uses:
+  slice-done.2, operand 0 {1}
+  custom-call.4, operand 2
+ from instruction: %slice.5 = s8[4194304]{0:T(1024)(128)(4,1)S(1)} slice(%param_0.10), slice={[8388608:12582912]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<72 slice.7 @1>
+ positions:
+  slice.7
+  slice-start.3 {1}
+  slice-done.3
+ uses:
+  slice-done.3, operand 0 {1}
+  custom-call.4, operand 3
+ from instruction: %slice.7 = s8[4194304]{0:T(1024)(128)(4,1)S(1)} slice(%param_0.11), slice={[12582912:16777216]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<73 slice.9 @1>
+ positions:
+  slice.9
+  slice-start.4 {1}
+  slice-done.4
+ uses:
+  slice-done.4, operand 0 {1}
+  custom-call.4, operand 4
+ from instruction: %slice.9 = s8[2097152]{0:T(1024)(128)(4,1)S(1)} slice(%param_0.12), slice={[16777216:18874368]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<74 param.5 @0>
+ positions:
+  param.5
+ uses:
+  copy.4, operand 0
+ from instruction: %param.5 = bf16[6144,1536]{1,0:T(8,128)(2,1)} parameter(2), sharding={devices=[1,4]<=[4]}, metadata={op_name="weights[1]"}
+<75 copy.4 @1>
+ positions:
+  copy.4
+ uses:
+  async-collective-start, operand 0
+ from instruction: %copy.4 = bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)} copy(%param.5), backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<76 async-collective-start{} @0>
+ positions:
+  async-collective-start {}
+ uses:
+  get-tuple-element, operand 0 {}
+  get-tuple-element.2, operand 0 {}
+  get-tuple-element.3, operand 0 {}
+  get-tuple-element.4, operand 0 {}
+  get-tuple-element.5, operand 0 {}
+  get-tuple-element.6, operand 0 {}
+  get-tuple-element.7, operand 0 {}
+  get-tuple-element.8, operand 0 {}
+  get-tuple-element.9, operand 0 {}
+  get-tuple-element.10, operand 0 {}
+  get-tuple-element.11, operand 0 {}
+  get-tuple-element.12, operand 0 {}
+  get-tuple-element.13, operand 0 {}
+  get-tuple-element.14, operand 0 {}
+  get-tuple-element.15, operand 0 {}
+  get-tuple-element.16, operand 0 {}
+ from instruction: %async-collective-start = (bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) fusion(%copy.4), kind=kCustom, output_to_operand_aliasing={{0}: (0, {})}, calls=%fused_computation.2, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","1"]}]}}
+<77 async-collective-start{0} @1>
+ positions:
+  async-collective-start {0}
+  get-tuple-element
+ uses:
+  fusion.7, operand 0
+ from instruction: %async-collective-start = (bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) fusion(%copy.4), kind=kCustom, output_to_operand_aliasing={{0}: (0, {})}, calls=%fused_computation.2, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","1"]}]}}
+<78 async-collective-start{1} @0>
+ positions:
+  async-collective-start {1}
+  get-tuple-element.2
+ uses:
+  fusion.7, operand 1
+ from instruction: %async-collective-start = (bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) fusion(%copy.4), kind=kCustom, output_to_operand_aliasing={{0}: (0, {})}, calls=%fused_computation.2, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","1"]}]}}
+<79 async-collective-start{2} @4>
+ positions:
+  async-collective-start {2}
+  get-tuple-element.3
+ uses:
+  fusion.7, operand 2
+ from instruction: %async-collective-start = (bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) fusion(%copy.4), kind=kCustom, output_to_operand_aliasing={{0}: (0, {})}, calls=%fused_computation.2, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","1"]}]}}
+<80 async-collective-start{3} @2>
+ positions:
+  async-collective-start {3}
+  get-tuple-element.4
+ uses:
+  fusion.7, operand 3
+ from instruction: %async-collective-start = (bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) fusion(%copy.4), kind=kCustom, output_to_operand_aliasing={{0}: (0, {})}, calls=%fused_computation.2, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","1"]}]}}
+<81 async-collective-start{4} @2>
+ positions:
+  async-collective-start {4}
+  get-tuple-element.5
+ uses:
+  fusion.7, operand 4
+ from instruction: %async-collective-start = (bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) fusion(%copy.4), kind=kCustom, output_to_operand_aliasing={{0}: (0, {})}, calls=%fused_computation.2, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","1"]}]}}
+<82 async-collective-start{5} @2>
+ positions:
+  async-collective-start {5}
+  get-tuple-element.6
+ uses:
+  fusion.7, operand 5
+ from instruction: %async-collective-start = (bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) fusion(%copy.4), kind=kCustom, output_to_operand_aliasing={{0}: (0, {})}, calls=%fused_computation.2, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","1"]}]}}
+<83 async-collective-start{6} @2>
+ positions:
+  async-collective-start {6}
+  get-tuple-element.7
+ uses:
+  fusion.7, operand 6
+ from instruction: %async-collective-start = (bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) fusion(%copy.4), kind=kCustom, output_to_operand_aliasing={{0}: (0, {})}, calls=%fused_computation.2, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","1"]}]}}
+<84 async-collective-start{7} @2>
+ positions:
+  async-collective-start {7}
+  get-tuple-element.8
+ uses:
+  fusion.7, operand 7
+ from instruction: %async-collective-start = (bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) fusion(%copy.4), kind=kCustom, output_to_operand_aliasing={{0}: (0, {})}, calls=%fused_computation.2, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","1"]}]}}
+<85 async-collective-start{8} @2>
+ positions:
+  async-collective-start {8}
+  get-tuple-element.9
+ uses:
+  fusion.7, operand 8
+ from instruction: %async-collective-start = (bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) fusion(%copy.4), kind=kCustom, output_to_operand_aliasing={{0}: (0, {})}, calls=%fused_computation.2, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","1"]}]}}
+<86 async-collective-start{9} @2>
+ positions:
+  async-collective-start {9}
+  get-tuple-element.10
+ uses:
+  fusion.7, operand 9
+ from instruction: %async-collective-start = (bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) fusion(%copy.4), kind=kCustom, output_to_operand_aliasing={{0}: (0, {})}, calls=%fused_computation.2, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","1"]}]}}
+<87 async-collective-start{10} @2>
+ positions:
+  async-collective-start {10}
+  get-tuple-element.11
+ uses:
+  fusion.7, operand 10
+ from instruction: %async-collective-start = (bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) fusion(%copy.4), kind=kCustom, output_to_operand_aliasing={{0}: (0, {})}, calls=%fused_computation.2, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","1"]}]}}
+<88 async-collective-start{11} @2>
+ positions:
+  async-collective-start {11}
+  get-tuple-element.12
+ uses:
+  fusion.7, operand 11
+ from instruction: %async-collective-start = (bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) fusion(%copy.4), kind=kCustom, output_to_operand_aliasing={{0}: (0, {})}, calls=%fused_computation.2, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","1"]}]}}
+<89 async-collective-start{12} @2>
+ positions:
+  async-collective-start {12}
+  get-tuple-element.13
+ uses:
+  fusion.7, operand 12
+ from instruction: %async-collective-start = (bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) fusion(%copy.4), kind=kCustom, output_to_operand_aliasing={{0}: (0, {})}, calls=%fused_computation.2, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","1"]}]}}
+<90 async-collective-start{13} @2>
+ positions:
+  async-collective-start {13}
+  get-tuple-element.14
+ uses:
+  fusion.7, operand 13
+ from instruction: %async-collective-start = (bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) fusion(%copy.4), kind=kCustom, output_to_operand_aliasing={{0}: (0, {})}, calls=%fused_computation.2, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","1"]}]}}
+<91 async-collective-start{14} @2>
+ positions:
+  async-collective-start {14}
+  get-tuple-element.15
+ uses:
+  fusion.7, operand 14
+ from instruction: %async-collective-start = (bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) fusion(%copy.4), kind=kCustom, output_to_operand_aliasing={{0}: (0, {})}, calls=%fused_computation.2, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","1"]}]}}
+<92 async-collective-start{15} @2>
+ positions:
+  async-collective-start {15}
+  get-tuple-element.16
+ uses:
+  fusion.7, operand 15
+ from instruction: %async-collective-start = (bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}) fusion(%copy.4), kind=kCustom, output_to_operand_aliasing={{0}: (0, {})}, calls=%fused_computation.2, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","1"]}]}}
+<93 param.4 @0>
+ positions:
+  param.4
+  bitcast.8
+  slice-start {0,0}
+  slice-start.1 {0,0}
+  slice-start.2 {0,0}
+  slice-start.3 {0,0}
+  slice-start.4 {0,0}
+  param_0.8
+  param_0.9
+  param_0.10
+  param_0.11
+  param_0.12
+ uses:
+  bitcast.8, operand 0
+  slice-start, operand 0
+  slice-start.1, operand 0
+  slice-start.2, operand 0
+  slice-start.3, operand 0
+  slice-start.4, operand 0
+  slice-done, operand 0 {0,0}
+  slice-done.1, operand 0 {0,0}
+  slice-done.2, operand 0 {0,0}
+  slice-done.3, operand 0 {0,0}
+  slice-done.4, operand 0 {0,0}
+  slice.1, operand 0
+  slice.3, operand 0
+  slice.5, operand 0
+  slice.7, operand 0
+  slice.9, operand 0
+ from instruction: %param.4 = bf16[6144,1536]{1,0:T(8,128)(2,1)} parameter(1), sharding={devices=[1,4]<=[4]}, metadata={op_name="weights[0]"}
+<94 slice-start{} @0>
+ positions:
+  slice-start {}
+ uses:
+  slice-done, operand 0 {}
+ from instruction: %slice-start = ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.8), slice={[0:4194304]}
+<95 slice-start{0} @0>
+ positions:
+  slice-start {0}
+ uses:
+  slice-done, operand 0 {0}
+ from instruction: %slice-start = ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.8), slice={[0:4194304]}
+<96 slice-start{2} @2>
+ positions:
+  slice-start {2}
+ uses:
+  slice-done, operand 0 {2}
+ from instruction: %slice-start = ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.8), slice={[0:4194304]}
+<97 slice-start.1{} @0>
+ positions:
+  slice-start.1 {}
+ uses:
+  slice-done.1, operand 0 {}
+ from instruction: %slice-start.1 = ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.8), slice={[4194304:8388608]}
+<98 slice-start.1{0} @0>
+ positions:
+  slice-start.1 {0}
+ uses:
+  slice-done.1, operand 0 {0}
+ from instruction: %slice-start.1 = ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.8), slice={[4194304:8388608]}
+<99 slice-start.1{2} @2>
+ positions:
+  slice-start.1 {2}
+ uses:
+  slice-done.1, operand 0 {2}
+ from instruction: %slice-start.1 = ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.8), slice={[4194304:8388608]}
+<100 slice-start.2{} @0>
+ positions:
+  slice-start.2 {}
+ uses:
+  slice-done.2, operand 0 {}
+ from instruction: %slice-start.2 = ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.8), slice={[8388608:12582912]}
+<101 slice-start.2{0} @0>
+ positions:
+  slice-start.2 {0}
+ uses:
+  slice-done.2, operand 0 {0}
+ from instruction: %slice-start.2 = ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.8), slice={[8388608:12582912]}
+<102 slice-start.2{2} @2>
+ positions:
+  slice-start.2 {2}
+ uses:
+  slice-done.2, operand 0 {2}
+ from instruction: %slice-start.2 = ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.8), slice={[8388608:12582912]}
+<103 slice-start.3{} @0>
+ positions:
+  slice-start.3 {}
+ uses:
+  slice-done.3, operand 0 {}
+ from instruction: %slice-start.3 = ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.8), slice={[12582912:16777216]}
+<104 slice-start.3{0} @0>
+ positions:
+  slice-start.3 {0}
+ uses:
+  slice-done.3, operand 0 {0}
+ from instruction: %slice-start.3 = ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.8), slice={[12582912:16777216]}
+<105 slice-start.3{2} @2>
+ positions:
+  slice-start.3 {2}
+ uses:
+  slice-done.3, operand 0 {2}
+ from instruction: %slice-start.3 = ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.8), slice={[12582912:16777216]}
+<106 slice-start.4{} @0>
+ positions:
+  slice-start.4 {}
+ uses:
+  slice-done.4, operand 0 {}
+ from instruction: %slice-start.4 = ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[2097152]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.8), slice={[16777216:18874368]}
+<107 slice-start.4{0} @0>
+ positions:
+  slice-start.4 {0}
+ uses:
+  slice-done.4, operand 0 {0}
+ from instruction: %slice-start.4 = ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[2097152]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.8), slice={[16777216:18874368]}
+<108 slice-start.4{2} @2>
+ positions:
+  slice-start.4 {2}
+ uses:
+  slice-done.4, operand 0 {2}
+ from instruction: %slice-start.4 = ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[2097152]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.8), slice={[16777216:18874368]}
+<109 custom-call.4 @1>
+ positions:
+  custom-call.4
+  bitcast.9
+ uses:
+  bitcast.9, operand 0
+  all-gather.22, operand 0
+ from instruction: %custom-call.4 = bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)} custom-call(%slice-done, %slice-done.1, %slice-done.2, %slice-done.3, %slice-done.4), custom_call_target="ConcatBitcast", backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<110 all-gather.22 @0>
+ positions:
+  all-gather.22
+ uses:
+  fusion.7, operand 16
+ from instruction: %all-gather.22 = bf16[6144,6144]{1,0:T(8,128)(2,1)} all-gather(%bitcast.9), channel_id=2, replica_groups=mesh['axis_0'=1,'axis_1'=4] {'axis_1'}, dimensions={1}, use_global_device_ids=true, frontend_attributes={async_collective_name="all-gather-start.1"}, metadata={op_name="jit(f)/shard_map" stack_frame_id=4}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"1"},"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<111 param.3 @0>
+ positions:
+  param.3
+ uses:
+  all-gather.21, operand 0
+ from instruction: %param.3 = bf16[1536,6144]{1,0:T(8,128)(2,1)} parameter(0), sharding={devices=[4,1]<=[4]}, metadata={op_name="act"}
+<112 all-gather.21 @0>
+ positions:
+  all-gather.21
+ uses:
+  fusion.7, operand 17
+ from instruction: %all-gather.21 = bf16[6144,6144]{1,0:T(8,128)(2,1)} all-gather(%param.3), channel_id=1, replica_groups=mesh['axis_0'=4,'axis_1'=1] {'axis_0'}, dimensions={0}, use_global_device_ids=true, frontend_attributes={async_collective_name="all-gather-start"}, metadata={op_name="jit(f)/shard_map" stack_frame_id=4}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"1"},"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<113 fusion.7{} @0>
+ positions:
+  fusion.7 {}
+ uses:
+  get-tuple-element.17, operand 0 {}
+  get-tuple-element.18, operand 0 {}
+  get-tuple-element.19, operand 0 {}
+  get-tuple-element.34, operand 0 {}
+  get-tuple-element.21, operand 0 {}
+  get-tuple-element.22, operand 0 {}
+  get-tuple-element.23, operand 0 {}
+  get-tuple-element.24, operand 0 {}
+  get-tuple-element.25, operand 0 {}
+  get-tuple-element.26, operand 0 {}
+  get-tuple-element.27, operand 0 {}
+  get-tuple-element.28, operand 0 {}
+  get-tuple-element.29, operand 0 {}
+  get-tuple-element.30, operand 0 {}
+  get-tuple-element.31, operand 0 {}
+  get-tuple-element.32, operand 0 {}
+  get-tuple-element.33, operand 0 {}
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<114 fusion.7{0} @1>
+ positions:
+  fusion.7 {0}
+  get-tuple-element.17
+ uses:
+  fusion.1, operand 0
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<115 fusion.7{1} @1>
+ positions:
+  fusion.7 {1}
+  get-tuple-element.18
+ uses:
+  async-collective-done, operand 0
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<116 fusion.7{2} @0>
+ positions:
+  fusion.7 {2}
+  get-tuple-element.19
+ uses:
+  async-collective-done, operand 1
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<117 fusion.7{3} @0>
+ positions:
+  fusion.7 {3}
+ uses:
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<118 fusion.7{4} @4>
+ positions:
+  fusion.7 {4}
+  get-tuple-element.21
+ uses:
+  async-collective-done, operand 2
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<119 fusion.7{5} @2>
+ positions:
+  fusion.7 {5}
+  get-tuple-element.22
+ uses:
+  async-collective-done, operand 3
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<120 fusion.7{6} @2>
+ positions:
+  fusion.7 {6}
+  get-tuple-element.23
+ uses:
+  async-collective-done, operand 4
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<121 fusion.7{7} @2>
+ positions:
+  fusion.7 {7}
+  get-tuple-element.24
+ uses:
+  async-collective-done, operand 5
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<122 fusion.7{8} @2>
+ positions:
+  fusion.7 {8}
+  get-tuple-element.25
+ uses:
+  async-collective-done, operand 6
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<123 fusion.7{9} @2>
+ positions:
+  fusion.7 {9}
+  get-tuple-element.26
+ uses:
+  async-collective-done, operand 7
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<124 fusion.7{10} @2>
+ positions:
+  fusion.7 {10}
+  get-tuple-element.27
+ uses:
+  async-collective-done, operand 8
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<125 fusion.7{11} @2>
+ positions:
+  fusion.7 {11}
+  get-tuple-element.28
+ uses:
+  async-collective-done, operand 9
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<126 fusion.7{12} @2>
+ positions:
+  fusion.7 {12}
+  get-tuple-element.29
+ uses:
+  async-collective-done, operand 10
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<127 fusion.7{13} @2>
+ positions:
+  fusion.7 {13}
+  get-tuple-element.30
+ uses:
+  async-collective-done, operand 11
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<128 fusion.7{14} @2>
+ positions:
+  fusion.7 {14}
+  get-tuple-element.31
+ uses:
+  async-collective-done, operand 12
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<129 fusion.7{15} @2>
+ positions:
+  fusion.7 {15}
+  get-tuple-element.32
+ uses:
+  async-collective-done, operand 13
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<130 fusion.7{16} @2>
+ positions:
+  fusion.7 {16}
+  get-tuple-element.33
+ uses:
+  async-collective-done, operand 14
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<131 fusion.7{17} @2>
+ positions:
+  fusion.7 {17}
+  get-tuple-element.34
+ uses:
+  async-collective-done, operand 15
+ from instruction: %fusion.7 = (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,1536]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, s32[2]{0:S(4)}, /*index=5*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=10*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}, /*index=15*/u32[]{:S(2)}, u32[]{:S(2)}, u32[]{:S(2)}) fusion(%get-tuple-element, %get-tuple-element.2, %get-tuple-element.3, %get-tuple-element.4, %get-tuple-element.5, /*index=5*/%get-tuple-element.6, %get-tuple-element.7, %get-tuple-element.8, %get-tuple-element.9, %get-tuple-element.10, /*index=10*/%get-tuple-element.11, %get-tuple-element.12, %get-tuple-element.13, %get-tuple-element.14, %get-tuple-element.15, /*index=15*/%get-tuple-element.16, %all-gather.22, %all-gather.21), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {}), {11}: (9, {}), {12}: (10, {}), {13}: (11, {}), {14}: (12, {}), {15}: (13, {}), {16}: (14, {}), {17}: (15, {})}, calls=%async_collective_fusion.7, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"16","operand_original_end":"17"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","19"]},{"indices":["1","20","21"]},{"indices":["2","22"]},{"indices":["3","23"]},{"indices":["4","24"]},{"indices":["5","25"]},{"indices":["6","26"]},{"indices":["7","27"]},{"indices":["8","28"]},{"indices":["9","29"]},{"indices":["10","30"]},{"indices":["11","31"]},{"indices":["12","32"]},{"indices":["13","33"]},{"indices":["14","34"]},{"indices":["15","35"]}]}}
+<132 async-collective-done @0>
+ positions:
+  async-collective-done
+ uses:
+  fusion.1, operand 1
+ from instruction: %async-collective-done = bf16[6144,6144]{1,0:T(8,128)(2,1)} fusion(%get-tuple-element.18, %get-tuple-element.19, %get-tuple-element.21, %get-tuple-element.22, %get-tuple-element.23, /*index=5*/%get-tuple-element.24, %get-tuple-element.25, %get-tuple-element.26, %get-tuple-element.27, %get-tuple-element.28, /*index=10*/%get-tuple-element.29, %get-tuple-element.30, %get-tuple-element.31, %get-tuple-element.32, %get-tuple-element.33, /*index=15*/%get-tuple-element.34), kind=kCustom, output_to_operand_aliasing={{}: (1, {})}, calls=%fused_computation.4, metadata={op_name="jit(f)/shard_map" stack_frame_id=4}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","16"]}]}}
+<133 fusion.1 @0>
+ positions:
+  fusion.1
+ uses:
+ from instruction: %fusion.1 = bf16[6144,6144]{1,0:T(8,128)(2,1)} fusion(%get-tuple-element.17, %async-collective-done), kind=kOutput, calls=%fused_computation.1, metadata={op_name="jit(f)/shard_map/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

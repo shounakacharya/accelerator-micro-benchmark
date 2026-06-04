@@ -1,0 +1,106 @@
+
+Total bytes used: 75530280 (72.03MiB)
+
+Used values:
+<10 q.1 @0>
+ positions:
+  q.1
+ uses:
+  fusion, operand 0
+ from instruction: %q.1 = f32[2,512,1,2048]{3,2,1,0:T(1,128)} parameter(0), metadata={op_name="q"}
+<11 fusion @1>
+ positions:
+  fusion
+ uses:
+  dot_general, operand 0
+ from instruction: %fusion = f32[2,512,2048]{2,1,0:T(8,128)S(1)} fusion(%q.1), kind=kLoop, calls=%fused_computation.3, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<12 v.1 @0>
+ positions:
+  v.1
+  copy-start {1}
+ uses:
+  copy-start, operand 0
+  copy-done, operand 0 {1}
+ from instruction: %v.1 = f32[2,512,1,2048]{3,2,1,0:T(1,128)} parameter(2), metadata={op_name="v"}
+<13 copy-start{} @0>
+ positions:
+  copy-start {}
+ uses:
+  copy-done, operand 0 {}
+ from instruction: %copy-start = (f32[2,512,1,2048]{3,2,1,0:T(1,128)S(1)}, f32[2,512,1,2048]{3,2,1,0:T(1,128)}, u32[]{:S(2)}) copy-start(%v.1)
+<14 copy-start{0} @1>
+ positions:
+  copy-start {0}
+  copy-done
+ uses:
+  copy-done, operand 0 {0}
+  copy_bitcast_fusion, operand 0
+ from instruction: %copy-start = (f32[2,512,1,2048]{3,2,1,0:T(1,128)S(1)}, f32[2,512,1,2048]{3,2,1,0:T(1,128)}, u32[]{:S(2)}) copy-start(%v.1)
+<15 copy-start{2} @2>
+ positions:
+  copy-start {2}
+ uses:
+  copy-done, operand 0 {2}
+ from instruction: %copy-start = (f32[2,512,1,2048]{3,2,1,0:T(1,128)S(1)}, f32[2,512,1,2048]{3,2,1,0:T(1,128)}, u32[]{:S(2)}) copy-start(%v.1)
+<16 k.1 @0>
+ positions:
+  k.1
+  copy-start.1 {1}
+ uses:
+  copy-start.1, operand 0
+  copy-done.1, operand 0 {1}
+ from instruction: %k.1 = f32[2,512,1,2048]{3,2,1,0:T(1,128)} parameter(1), metadata={op_name="k"}
+<17 copy-start.1{} @0>
+ positions:
+  copy-start.1 {}
+ uses:
+  copy-done.1, operand 0 {}
+ from instruction: %copy-start.1 = (f32[2,512,1,2048]{3,2,1,0:T(1,128)S(1)}, f32[2,512,1,2048]{3,2,1,0:T(1,128)}, u32[]{:S(2)}) copy-start(%k.1)
+<18 copy-start.1{0} @1>
+ positions:
+  copy-start.1 {0}
+  copy-done.1
+ uses:
+  copy-done.1, operand 0 {0}
+  copy_bitcast_fusion, operand 1
+ from instruction: %copy-start.1 = (f32[2,512,1,2048]{3,2,1,0:T(1,128)S(1)}, f32[2,512,1,2048]{3,2,1,0:T(1,128)}, u32[]{:S(2)}) copy-start(%k.1)
+<19 copy-start.1{2} @2>
+ positions:
+  copy-start.1 {2}
+ uses:
+  copy-done.1, operand 0 {2}
+ from instruction: %copy-start.1 = (f32[2,512,1,2048]{3,2,1,0:T(1,128)S(1)}, f32[2,512,1,2048]{3,2,1,0:T(1,128)}, u32[]{:S(2)}) copy-start(%k.1)
+<20 copy_bitcast_fusion{} @0>
+ positions:
+  copy_bitcast_fusion {}
+ uses:
+  get-tuple-element, operand 0 {}
+  get-tuple-element.1, operand 0 {}
+ from instruction: %copy_bitcast_fusion = (f32[2,512,2048]{2,1,0:T(8,128)S(1)}, f32[2,512,2048]{2,1,0:T(8,128)S(1)}) fusion(%copy-done, %copy-done.1), kind=kLoop, calls=%fused_computation, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"fusion_formation_source":{"fusion_creating_compiler_pass":"TpuAdvancedMOF","fusion_id":"42"},"aliasing_operands":{"lists":[]}}
+<21 copy_bitcast_fusion{0} @1>
+ positions:
+  copy_bitcast_fusion {0}
+  get-tuple-element
+ uses:
+  dot_general, operand 2
+ from instruction: %copy_bitcast_fusion = (f32[2,512,2048]{2,1,0:T(8,128)S(1)}, f32[2,512,2048]{2,1,0:T(8,128)S(1)}) fusion(%copy-done, %copy-done.1), kind=kLoop, calls=%fused_computation, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"fusion_formation_source":{"fusion_creating_compiler_pass":"TpuAdvancedMOF","fusion_id":"42"},"aliasing_operands":{"lists":[]}}
+<22 copy_bitcast_fusion{1} @1>
+ positions:
+  copy_bitcast_fusion {1}
+  get-tuple-element.1
+ uses:
+  dot_general, operand 1
+ from instruction: %copy_bitcast_fusion = (f32[2,512,2048]{2,1,0:T(8,128)S(1)}, f32[2,512,2048]{2,1,0:T(8,128)S(1)}) fusion(%copy-done, %copy-done.1), kind=kLoop, calls=%fused_computation, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"fusion_formation_source":{"fusion_creating_compiler_pass":"TpuAdvancedMOF","fusion_id":"42"},"aliasing_operands":{"lists":[]}}
+<23 dot_general @1>
+ positions:
+  dot_general
+  bitcast.11
+ uses:
+  bitcast.11, operand 0
+  copy.1, operand 0
+ from instruction: %dot_general = f32[2,512,2048]{2,1,0:T(8,128)S(1)} custom-call(%fusion, %get-tuple-element.1, %get-tuple-element), custom_call_target="tpu_custom_call", operand_layout_constraints={f32[2,512,2048]{2,1,0}, f32[2,512,2048]{2,1,0}, f32[2,512,2048]{2,1,0}}, metadata={op_name="jit(f)/...hqk,...khd->...qhd/dot_general" stack_frame_id=10}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"custom_call_config":{"body":"bW9kdWxlIHsKICBmdW5jLmZ1bmMgQG1haW4oJWFyZzA6IGkzMiwgJWFyZzE6IGkzMiwgJWFyZzI6IGkzMiwgJWFyZzM6IG1lbXJlZjwxeDUxMngyMDQ4eGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCAlYXJnNDogbWVtcmVmPDF4NTEyeDIwNDh4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sICVhcmc1OiBtZW1yZWY8MXg1MTJ4MjA0OHhmMzIsICN0cHUubWVtb3J5X3NwYWNlPHZtZW0+PiwgJWFyZzY6IG1lbXJlZjwxeDUxMngyMDQ4eGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCAlYXJnNzogbWVtcmVmPDF4NTEyeDF4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sICVhcmc4OiBtZW1yZWY8MXg1MTJ4MXhmMzIsICN0cHUubWVtb3J5X3NwYWNlPHZtZW0+PikgYXR0cmlidXRlcyB7ZGltZW5zaW9uX3NlbWFudGljcyA9IFsjdHB1LmRpbWVuc2lvbl9zZW1hbnRpY3M8cGFyYWxsZWw+LCAjdHB1LmRpbWVuc2lvbl9zZW1hbnRpY3M8cGFyYWxsZWw+LCAjdHB1LmRpbWVuc2lvbl9zZW1hbnRpY3M8YXJiaXRyYXJ5Pl0sIGl0ZXJhdGlvbl9ib3VuZHMgPSBhcnJheTxpNjQ6IDIsIDEsIDE+LCBzY3JhdGNoX29wZXJhbmRzID0gMiA6IGk2NCwgd2luZG93X3BhcmFtcyA9IFt7dHJhbnNmb3JtX2luZGljZXMgPSBhZmZpbmVfbWFwPChkMCwgZDEsIGQyKSAtPiAoZDAsIGQxLCAwKT59LCB7dHJhbnNmb3JtX2luZGljZXMgPSBhZmZpbmVfbWFwPChkMCwgZDEsIGQyKSAtPiAoZDAsIGQyLCAwKT59LCB7dHJhbnNmb3JtX2luZGljZXMgPSBhZmZpbmVfbWFwPChkMCwgZDEsIGQyKSAtPiAoZDAsIGQyLCAwKT59LCB7dHJhbnNmb3JtX2luZGljZXMgPSBhZmZpbmVfbWFwPChkMCwgZDEsIGQyKSAtPiAoZDAsIGQxLCAwKT59XX0gewogICAgJWMwID0gYXJpdGguY29uc3RhbnQgMCA6IGluZGV4CiAgICAlYzBfaTMyID0gYXJpdGguY29uc3RhbnQgMCA6IGkzMgogICAgJTAgPSBhcml0aC5jbXBpIGVxLCAlYzBfaTMyLCAlYXJnMiA6IGkzMgogICAgc2NmLmlmICUwIHsKICAgICAgJWNzdF8zID0gYXJpdGguY29uc3RhbnQgZGVuc2U8MC4wMDAwMDBlKzAwPiA6IHZlY3RvcjwxeDUxMngyMDQ4eGYzMj4KICAgICAgdmVjdG9yLnN0b3JlICVjc3RfMywgJWFyZzZbJWMwLCAlYzAsICVjMF0gOiBtZW1yZWY8MXg1MTJ4MjA0OHhmMzIsICN0cHUubWVtb3J5X3NwYWNlPHZtZW0+PiwgdmVjdG9yPDF4NTEyeDIwNDh4ZjMyPgogICAgICAlY3N0XzQgPSBhcml0aC5jb25zdGFudCBkZW5zZTwweEZGODAwMDAwPiA6IHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICAgdmVjdG9yLnN0b3JlICVjc3RfNCwgJWFyZzdbJWMwLCAlYzAsICVjMF0gOiBtZW1yZWY8MXg1MTJ4MXhmMzIsICN0cHUubWVtb3J5X3NwYWNlPHZtZW0+PiwgdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgICAlY3N0XzUgPSBhcml0aC5jb25zdGFudCBkZW5zZTwwLjAwMDAwMGUrMDA+IDogdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgICB2ZWN0b3Iuc3RvcmUgJWNzdF81LCAlYXJnOFslYzAsICVjMCwgJWMwXSA6IG1lbXJlZjwxeDUxMngxeGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICB9CiAgICAlMSA9IHZlY3Rvci5sb2FkICVhcmczWyVjMCwgJWMwLCAlYzBdIDogbWVtcmVmPDF4NTEyeDIwNDh4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sIHZlY3RvcjwxeDUxMngyMDQ4eGYzMj4KICAgICUyID0gdmVjdG9yLnNoYXBlX2Nhc3QgJTEgOiB2ZWN0b3I8MXg1MTJ4MjA0OHhmMzI+IHRvIHZlY3Rvcjw1MTJ4MjA0OHhmMzI+CiAgICAlMyA9IHZlY3Rvci5sb2FkICVhcmc0WyVjMCwgJWMwLCAlYzBdIDogbWVtcmVmPDF4NTEyeDIwNDh4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sIHZlY3RvcjwxeDUxMngyMDQ4eGYzMj4KICAgICU0ID0gdmVjdG9yLnNoYXBlX2Nhc3QgJTMgOiB2ZWN0b3I8MXg1MTJ4MjA0OHhmMzI+IHRvIHZlY3Rvcjw1MTJ4MjA0OHhmMzI+CiAgICAlY3N0ID0gYXJpdGguY29uc3RhbnQgZGVuc2U8MC4wMDAwMDBlKzAwPiA6IHZlY3Rvcjw1MTJ4NTEyeGYzMj4KICAgICU1ID0gdmVjdG9yLmNvbnRyYWN0IHtpbmRleGluZ19tYXBzID0gW2FmZmluZV9tYXA8KGQwLCBkMSwgZDIpIC0+IChkMCwgZDIpPiwgYWZmaW5lX21hcDwoZDAsIGQxLCBkMikgLT4gKGQxLCBkMik+LCBhZmZpbmVfbWFwPChkMCwgZDEsIGQyKSAtPiAoZDAsIGQxKT5dLCBpdGVyYXRvcl90eXBlcyA9IFsicGFyYWxsZWwiLCAicGFyYWxsZWwiLCAicmVkdWN0aW9uIl0sIGtpbmQgPSAjdmVjdG9yLmtpbmQ8YWRkPn0gJTIsICU0LCAlY3N0IHtwcmVjaXNpb24gPSAjdHB1LmNvbnRyYWN0X3ByZWNpc2lvbjxiZjE2Pn0gOiB2ZWN0b3I8NTEyeDIwNDh4ZjMyPiwgdmVjdG9yPDUxMngyMDQ4eGYzMj4gaW50byB2ZWN0b3I8NTEyeDUxMnhmMzI+CiAgICAlNiA9IHZlY3Rvci5zaGFwZV9jYXN0ICU1IDogdmVjdG9yPDUxMng1MTJ4ZjMyPiB0byB2ZWN0b3I8MXg1MTJ4NTEyeGYzMj4KICAgICVjc3RfMCA9IGFyaXRoLmNvbnN0YW50IGRlbnNlPDB4RkY4MDAwMDA+IDogdmVjdG9yPDF4NTEyeGYzMj4KICAgICU3ID0gdmVjdG9yLm11bHRpX3JlZHVjdGlvbiA8bWF4aW11bWY+LCAlNiwgJWNzdF8wIFsyXSA6IHZlY3RvcjwxeDUxMng1MTJ4ZjMyPiB0byB2ZWN0b3I8MXg1MTJ4ZjMyPgogICAgJTggPSB2ZWN0b3Iuc2hhcGVfY2FzdCAlNyA6IHZlY3RvcjwxeDUxMnhmMzI+IHRvIHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICU5ID0gdmVjdG9yLmJyb2FkY2FzdCAlOCA6IHZlY3RvcjwxeDUxMngxeGYzMj4gdG8gdmVjdG9yPDF4NTEyeDUxMnhmMzI+CiAgICAlMTAgPSBhcml0aC5zdWJmICU2LCAlOSA6IHZlY3RvcjwxeDUxMng1MTJ4ZjMyPgogICAgJTExID0gbWF0aC5leHAgJTEwIDogdmVjdG9yPDF4NTEyeDUxMnhmMzI+CiAgICAlY3N0XzEgPSBhcml0aC5jb25zdGFudCBkZW5zZTwwLjAwMDAwMGUrMDA+IDogdmVjdG9yPDF4NTEyeGYzMj4KICAgICUxMiA9IHZlY3Rvci5tdWx0aV9yZWR1Y3Rpb24gPGFkZD4sICUxMSwgJWNzdF8xIFsyXSA6IHZlY3RvcjwxeDUxMng1MTJ4ZjMyPiB0byB2ZWN0b3I8MXg1MTJ4ZjMyPgogICAgJTEzID0gdmVjdG9yLnNoYXBlX2Nhc3QgJTEyIDogdmVjdG9yPDF4NTEyeGYzMj4gdG8gdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgJTE0ID0gdmVjdG9yLmxvYWQgJWFyZzdbJWMwLCAlYzAsICVjMF0gOiBtZW1yZWY8MXg1MTJ4MXhmMzIsICN0cHUubWVtb3J5X3NwYWNlPHZtZW0+PiwgdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgJTE1ID0gYXJpdGgubWF4aW11bWYgJTE0LCAlOCA6IHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICUxNiA9IHZlY3Rvci5sb2FkICVhcmc4WyVjMCwgJWMwLCAlYzBdIDogbWVtcmVmPDF4NTEyeDF4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sIHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICUxNyA9IGFyaXRoLnN1YmYgJTE0LCAlMTUgOiB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAlMTggPSBtYXRoLmV4cCAlMTcgOiB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAlMTkgPSBhcml0aC5tdWxmICUxOCwgJTE2IDogdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgJTIwID0gYXJpdGguc3ViZiAlOCwgJTE1IDogdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgJTIxID0gbWF0aC5leHAgJTIwIDogdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgJTIyID0gYXJpdGgubXVsZiAlMjEsICUxMyA6IHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICUyMyA9IGFyaXRoLmFkZGYgJTE5LCAlMjIgOiB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAlMjQgPSB2ZWN0b3IubG9hZCAlYXJnNlslYzAsICVjMCwgJWMwXSA6IG1lbXJlZjwxeDUxMngyMDQ4eGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCB2ZWN0b3I8MXg1MTJ4MjA0OHhmMzI+CiAgICAlMjUgPSBhcml0aC5zdWJmICUxNCwgJTE1IDogdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgJTI2ID0gbWF0aC5leHAgJTI1IDogdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgJTI3ID0gYXJpdGgubXVsZiAlMjYsICUxNiA6IHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICUyOCA9IGFyaXRoLmRpdmYgJTI3LCAlMjMgOiB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAlMjkgPSB2ZWN0b3IuYnJvYWRjYXN0ICUyOCA6IHZlY3RvcjwxeDUxMngxeGYzMj4gdG8gdmVjdG9yPDF4NTEyeDIwNDh4ZjMyPgogICAgJTMwID0gYXJpdGgubXVsZiAlMjksICUyNCA6IHZlY3RvcjwxeDUxMngyMDQ4eGYzMj4KICAgICUzMSA9IHZlY3Rvci5sb2FkICVhcmc1WyVjMCwgJWMwLCAlYzBdIDogbWVtcmVmPDF4NTEyeDIwNDh4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sIHZlY3RvcjwxeDUxMngyMDQ4eGYzMj4KICAgICUzMiA9IHZlY3Rvci5zaGFwZV9jYXN0ICUzMSA6IHZlY3RvcjwxeDUxMngyMDQ4eGYzMj4gdG8gdmVjdG9yPDUxMngyMDQ4eGYzMj4KICAgICUzMyA9IGFyaXRoLnN1YmYgJTgsICUxNSA6IHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICUzNCA9IG1hdGguZXhwICUzMyA6IHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICUzNSA9IGFyaXRoLmRpdmYgJTM0LCAlMjMgOiB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAlMzYgPSB2ZWN0b3IuYnJvYWRjYXN0ICUzNSA6IHZlY3RvcjwxeDUxMngxeGYzMj4gdG8gdmVjdG9yPDF4NTEyeDUxMnhmMzI+CiAgICAlMzcgPSBhcml0aC5tdWxmICUzNiwgJTExIDogdmVjdG9yPDF4NTEyeDUxMnhmMzI+CiAgICAlMzggPSB2ZWN0b3Iuc2hhcGVfY2FzdCAlMzcgOiB2ZWN0b3I8MXg1MTJ4NTEyeGYzMj4gdG8gdmVjdG9yPDUxMng1MTJ4ZjMyPgogICAgJWNzdF8yID0gYXJpdGguY29uc3RhbnQgZGVuc2U8MC4wMDAwMDBlKzAwPiA6IHZlY3Rvcjw1MTJ4MjA0OHhmMzI+CiAgICAlMzkgPSB2ZWN0b3IuY29udHJhY3Qge2luZGV4aW5nX21hcHMgPSBbYWZmaW5lX21hcDwoZDAsIGQxLCBkMikgLT4gKGQwLCBkMik+LCBhZmZpbmVfbWFwPChkMCwgZDEsIGQyKSAtPiAoZDIsIGQxKT4sIGFmZmluZV9tYXA8KGQwLCBkMSwgZDIpIC0+IChkMCwgZDEpPl0sIGl0ZXJhdG9yX3R5cGVzID0gWyJwYXJhbGxlbCIsICJwYXJhbGxlbCIsICJyZWR1Y3Rpb24iXSwga2luZCA9ICN2ZWN0b3Iua2luZDxhZGQ+fSAlMzgsICUzMiwgJWNzdF8yIHtwcmVjaXNpb24gPSAjdHB1LmNvbnRyYWN0X3ByZWNpc2lvbjxiZjE2Pn0gOiB2ZWN0b3I8NTEyeDUxMnhmMzI+LCB2ZWN0b3I8NTEyeDIwNDh4ZjMyPiBpbnRvIHZlY3Rvcjw1MTJ4MjA0OHhmMzI+CiAgICAlNDAgPSB2ZWN0b3Iuc2hhcGVfY2FzdCAlMzkgOiB2ZWN0b3I8NTEyeDIwNDh4ZjMyPiB0byB2ZWN0b3I8MXg1MTJ4MjA0OHhmMzI+CiAgICAlNDEgPSBhcml0aC5hZGRmICUzMCwgJTQwIDogdmVjdG9yPDF4NTEyeDIwNDh4ZjMyPgogICAgJTQyID0gdmVjdG9yLnNoYXBlX2Nhc3QgJTQxIDogdmVjdG9yPDF4NTEyeDIwNDh4ZjMyPiB0byB2ZWN0b3I8MXg1MTJ4MjA0OHhmMzI+CiAgICB2ZWN0b3Iuc3RvcmUgJTQyLCAlYXJnNlslYzAsICVjMCwgJWMwXSA6IG1lbXJlZjwxeDUxMngyMDQ4eGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCB2ZWN0b3I8MXg1MTJ4MjA0OHhmMzI+CiAgICB2ZWN0b3Iuc3RvcmUgJTE1LCAlYXJnN1slYzAsICVjMCwgJWMwXSA6IG1lbXJlZjwxeDUxMngxeGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICB2ZWN0b3Iuc3RvcmUgJTIzLCAlYXJnOFslYzAsICVjMCwgJWMwXSA6IG1lbXJlZjwxeDUxMngxeGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICByZXR1cm4KICB9Cn0=","cost_estimate":{"flops":"4294967296","transcendentals":"262144","bytes_accessed":"25165824","remote_bytes_transferred":"0"},"needs_layout_passes":true,"needs_hlo_passes":false,"allow_input_fusion":[],"output_memory_colors":[],"output_memory_space_colors":[],"input_memory_space_colors":[]},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<24 copy.1 @0>
+ positions:
+  copy.1
+ uses:
+ from instruction: %copy.1 = f32[2,512,1,2048]{3,2,1,0:T(1,128)} copy(%bitcast.11), metadata={op_name="jit(f)/...hqk,...khd->...qhd/transpose" stack_frame_id=10}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

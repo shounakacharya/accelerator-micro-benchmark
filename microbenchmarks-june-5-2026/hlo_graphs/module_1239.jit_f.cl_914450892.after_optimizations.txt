@@ -1,0 +1,54 @@
+HloModule jit_f, is_scheduled=true, entry_computation_layout={(bf16[4864,19456]{1,0:T(8,128)(2,1)}, bf16[19456,19456]{1,0:T(8,128)(2,1)})->bf16[19456,19456]{1,0:T(8,128)(2,1)}}, allow_spmd_sharding_propagation_to_parameters={false,false}, allow_spmd_sharding_propagation_to_output={true}, num_partitions=4
+
+FileNames
+1 "/home/shounaka_google_com/accelerator-microbenchmarks/src/run_benchmark.py"
+2 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_matmul.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "run_single_benchmark"
+4 "naive_matmul"
+5 "naive_matmul.<locals>.f"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=527 end_line=527 column=4 end_column=4}
+2 {file_name_id=1 function_name_id=2 line=422 end_line=422 column=12 end_column=12}
+3 {file_name_id=1 function_name_id=3 line=328 end_line=328 column=28 end_column=28}
+4 {file_name_id=2 function_name_id=4 line=99 end_line=99 column=13 end_column=13}
+5 {file_name_id=2 function_name_id=5 line=80 end_line=80 column=15 end_column=15}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+5 {file_location_id=5 parent_frame_id=1}
+6 {file_location_id=5 parent_frame_id=5}
+
+
+%bitcast_fusion (bitcast_input: bf16[19456,19456]) -> bf16[19456,19456] {
+  %bitcast_input = bf16[19456,19456]{1,0:T(8,128)(2,1)} parameter(0)
+  ROOT %bitcast = bf16[19456,19456]{1,0:T(8,128)(2,1)} bitcast(%bitcast_input)
+}
+
+%bitcast_fusion.1 (bitcast_input.1: bf16[19456,19456]) -> bf16[19456,19456] {
+  %bitcast_input.1 = bf16[19456,19456]{1,0:T(8,128)(2,1)} parameter(0)
+  ROOT %bitcast.1 = bf16[19456,19456]{1,0:T(8,128)(2,1)} bitcast(%bitcast_input.1)
+}
+
+%fused_computation (param_0: bf16[19456,19456], param_1: bf16[19456,19456]) -> bf16[19456,19456] {
+  %param_0 = bf16[19456,19456]{1,0:T(8,128)(2,1)} parameter(0)
+  %fusion.1 = bf16[19456,19456]{1,0:T(8,128)(2,1)} fusion(%param_0), kind=kLoop, calls=%bitcast_fusion
+  %param_1 = bf16[19456,19456]{1,0:T(8,128)(2,1)} parameter(1)
+  %fusion.2 = bf16[19456,19456]{1,0:T(8,128)(2,1)} fusion(%param_1), kind=kLoop, calls=%bitcast_fusion.1
+  ROOT %convolution.1 = bf16[19456,19456]{1,0:T(8,128)(2,1)} convolution(%fusion.1, %fusion.2), dim_labels=bf_io->bf, metadata={op_name="jit(f)/shard_map/ij,jk->ik/dot_general" stack_frame_id=6}
+}
+
+ENTRY %main.0_spmd (param.2: bf16[4864,19456], param.3: bf16[19456,19456]) -> bf16[19456,19456] {
+  %param.2 = bf16[4864,19456]{1,0:T(8,128)(2,1)} parameter(0), sharding={devices=[4,1]<=[4]}, metadata={op_name="x"}
+  %param.3 = bf16[19456,19456]{1,0:T(8,128)(2,1)} parameter(1), sharding={replicated}, metadata={op_name="y"}
+  %all-gather.5 = bf16[19456,19456]{1,0:T(8,128)(2,1)} all-gather(%param.2), channel_id=1, replica_groups=mesh['axis_0'=4,'axis_1'=1] {'axis_0'}, dimensions={0}, use_global_device_ids=true, frontend_attributes={async_collective_name="all-gather-start"}, metadata={op_name="jit(f)/shard_map" stack_frame_id=4}, backend_config={"flag_configs":[],"barrier_config":{"barrier_type":"CUSTOM","id":"0"},"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+  ROOT %fusion = bf16[19456,19456]{1,0:T(8,128)(2,1)} fusion(%all-gather.5, %param.3), kind=kOutput, calls=%fused_computation, metadata={op_name="jit(f)/shard_map/ij,jk->ik/dot_general" stack_frame_id=6}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+}
+

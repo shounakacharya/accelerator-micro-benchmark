@@ -1,0 +1,330 @@
+
+Total bytes used: 219414592 (209.25MiB)
+
+Used values:
+<19 slice.1 @1>
+ positions:
+  slice.1
+  slice-start {1}
+  slice-done
+ uses:
+  slice-done, operand 0 {1}
+  custom-call.1, operand 0
+ from instruction: %slice.1 = s8[4194304]{0:T(1024)(128)(4,1)S(1)} slice(%param_0.21), slice={[0:4194304]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<20 slice.3 @1>
+ positions:
+  slice.3
+  slice-start.1 {1}
+  slice-done.1
+ uses:
+  slice-done.1, operand 0 {1}
+  custom-call.1, operand 1
+ from instruction: %slice.3 = s8[4194304]{0:T(1024)(128)(4,1)S(1)} slice(%param_0.22), slice={[4194304:8388608]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<21 slice.5 @1>
+ positions:
+  slice.5
+  slice-start.2 {1}
+  slice-done.2
+ uses:
+  slice-done.2, operand 0 {1}
+  custom-call.1, operand 2
+ from instruction: %slice.5 = s8[4194304]{0:T(1024)(128)(4,1)S(1)} slice(%param_0.23), slice={[8388608:12582912]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<22 slice.7 @1>
+ positions:
+  slice.7
+  slice-start.3 {1}
+  slice-done.3
+ uses:
+  slice-done.3, operand 0 {1}
+  custom-call.1, operand 3
+ from instruction: %slice.7 = s8[4194304]{0:T(1024)(128)(4,1)S(1)} slice(%param_0.24), slice={[12582912:16777216]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<23 slice.9 @1>
+ positions:
+  slice.9
+  slice-start.4 {1}
+  slice-done.4
+ uses:
+  slice-done.4, operand 0 {1}
+  custom-call.1, operand 4
+ from instruction: %slice.9 = s8[4194304]{0:T(1024)(128)(4,1)S(1)} slice(%param_0.25), slice={[16777216:20971520]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<24 slice.11 @1>
+ positions:
+  slice.11
+  slice-start.5 {1}
+  slice-done.5
+ uses:
+  slice-done.5, operand 0 {1}
+  custom-call.1, operand 5
+ from instruction: %slice.11 = s8[4194304]{0:T(1024)(128)(4,1)S(1)} slice(%param_0.26), slice={[20971520:25165824]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<25 slice.13 @1>
+ positions:
+  slice.13
+  slice-start.6 {1}
+  slice-done.6
+ uses:
+  slice-done.6, operand 0 {1}
+  custom-call.1, operand 6
+ from instruction: %slice.13 = s8[4194304]{0:T(1024)(128)(4,1)S(1)} slice(%param_0.27), slice={[25165824:29360128]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<26 slice.15 @1>
+ positions:
+  slice.15
+  slice-start.7 {1}
+  slice-done.7
+ uses:
+  slice-done.7, operand 0 {1}
+  custom-call.1, operand 7
+ from instruction: %slice.15 = s8[4194304]{0:T(1024)(128)(4,1)S(1)} slice(%param_0.28), slice={[29360128:33554432]}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<27 fusion.7 @1>
+ positions:
+  fusion.7
+ uses:
+  broadcast_add_fusion, operand 0
+ from instruction: %fusion.7 = f32[512,512]{1,0:T(8,128)S(1)} fusion(), kind=kLoop, calls=%fused_computation.5, metadata={op_name="jit(f)/jit(mha_reference)/jit(_where)/select_n" stack_frame_id=28}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<28 k.1 @0>
+ positions:
+  k.1
+ uses:
+  broadcast_add_fusion, operand 1
+ from instruction: %k.1 = f32[16,1,512,1024]{3,2,1,0:T(8,128)} parameter(1), metadata={op_name="k"}
+<29 q.1 @0>
+ positions:
+  q.1
+  copy-start {1}
+ uses:
+  copy-start, operand 0
+  copy-done, operand 0 {1}
+ from instruction: %q.1 = f32[16,1,512,1024]{3,2,1,0:T(8,128)} parameter(0), metadata={op_name="q"}
+<30 copy-start{} @0>
+ positions:
+  copy-start {}
+ uses:
+  copy-done, operand 0 {}
+ from instruction: %copy-start = (f32[16,1,512,1024]{3,2,1,0:T(8,128)S(1)}, f32[16,1,512,1024]{3,2,1,0:T(8,128)}, u32[]{:S(2)}) copy-start(%q.1), cross_program_prefetch_index=0
+<31 copy-start{0} @1>
+ positions:
+  copy-start {0}
+  copy-done
+ uses:
+  copy-done, operand 0 {0}
+  broadcast_add_fusion, operand 2
+ from instruction: %copy-start = (f32[16,1,512,1024]{3,2,1,0:T(8,128)S(1)}, f32[16,1,512,1024]{3,2,1,0:T(8,128)}, u32[]{:S(2)}) copy-start(%q.1), cross_program_prefetch_index=0
+<32 copy-start{2} @2>
+ positions:
+  copy-start {2}
+ uses:
+  copy-done, operand 0 {2}
+ from instruction: %copy-start = (f32[16,1,512,1024]{3,2,1,0:T(8,128)S(1)}, f32[16,1,512,1024]{3,2,1,0:T(8,128)}, u32[]{:S(2)}) copy-start(%q.1), cross_program_prefetch_index=0
+<33 broadcast_add_fusion @1>
+ positions:
+  broadcast_add_fusion
+ uses:
+  online-softmax, operand 0
+ from instruction: %broadcast_add_fusion = f32[16,512,512]{2,1,0:T(8,128)S(1)} fusion(%fusion.7, %k.1, %copy-done), kind=kOutput, calls=%fused_computation.3, metadata={op_name="jit(f)/jit(mha_reference)/bhqc,bhkc->bhqk/dot_general" stack_frame_id=22}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<34 v.1 @0>
+ positions:
+  v.1
+  bitcast.26
+  slice-start {0,0}
+  slice-start.1 {0,0}
+  slice-start.2 {0,0}
+  slice-start.3 {0,0}
+  slice-start.4 {0,0}
+  slice-start.5 {0,0}
+  slice-start.6 {0,0}
+  slice-start.7 {0,0}
+  param_0.21
+  param_0.22
+  param_0.23
+  param_0.24
+  param_0.25
+  param_0.26
+  param_0.27
+  param_0.28
+ uses:
+  bitcast.26, operand 0
+  slice-start, operand 0
+  slice-start.1, operand 0
+  slice-start.2, operand 0
+  slice-start.3, operand 0
+  slice-start.4, operand 0
+  slice-start.5, operand 0
+  slice-start.6, operand 0
+  slice-start.7, operand 0
+  slice-done, operand 0 {0,0}
+  slice-done.1, operand 0 {0,0}
+  slice-done.2, operand 0 {0,0}
+  slice-done.3, operand 0 {0,0}
+  slice-done.4, operand 0 {0,0}
+  slice-done.5, operand 0 {0,0}
+  slice-done.6, operand 0 {0,0}
+  slice-done.7, operand 0 {0,0}
+  slice.1, operand 0
+  slice.3, operand 0
+  slice.5, operand 0
+  slice.7, operand 0
+  slice.9, operand 0
+  slice.11, operand 0
+  slice.13, operand 0
+  slice.15, operand 0
+ from instruction: %v.1 = f32[16,1,512,1024]{3,2,1,0:T(8,128)} parameter(2), metadata={op_name="v"}
+<35 slice-start{} @0>
+ positions:
+  slice-start {}
+ uses:
+  slice-done, operand 0 {}
+ from instruction: %slice-start = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[0:4194304]}
+<36 slice-start{0} @0>
+ positions:
+  slice-start {0}
+ uses:
+  slice-done, operand 0 {0}
+ from instruction: %slice-start = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[0:4194304]}
+<37 slice-start{2} @2>
+ positions:
+  slice-start {2}
+ uses:
+  slice-done, operand 0 {2}
+ from instruction: %slice-start = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[0:4194304]}
+<38 slice-start.1{} @0>
+ positions:
+  slice-start.1 {}
+ uses:
+  slice-done.1, operand 0 {}
+ from instruction: %slice-start.1 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[4194304:8388608]}
+<39 slice-start.1{0} @0>
+ positions:
+  slice-start.1 {0}
+ uses:
+  slice-done.1, operand 0 {0}
+ from instruction: %slice-start.1 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[4194304:8388608]}
+<40 slice-start.1{2} @2>
+ positions:
+  slice-start.1 {2}
+ uses:
+  slice-done.1, operand 0 {2}
+ from instruction: %slice-start.1 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[4194304:8388608]}
+<41 slice-start.2{} @0>
+ positions:
+  slice-start.2 {}
+ uses:
+  slice-done.2, operand 0 {}
+ from instruction: %slice-start.2 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[8388608:12582912]}
+<42 slice-start.2{0} @0>
+ positions:
+  slice-start.2 {0}
+ uses:
+  slice-done.2, operand 0 {0}
+ from instruction: %slice-start.2 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[8388608:12582912]}
+<43 slice-start.2{2} @2>
+ positions:
+  slice-start.2 {2}
+ uses:
+  slice-done.2, operand 0 {2}
+ from instruction: %slice-start.2 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[8388608:12582912]}
+<44 slice-start.3{} @0>
+ positions:
+  slice-start.3 {}
+ uses:
+  slice-done.3, operand 0 {}
+ from instruction: %slice-start.3 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[12582912:16777216]}
+<45 slice-start.3{0} @0>
+ positions:
+  slice-start.3 {0}
+ uses:
+  slice-done.3, operand 0 {0}
+ from instruction: %slice-start.3 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[12582912:16777216]}
+<46 slice-start.3{2} @2>
+ positions:
+  slice-start.3 {2}
+ uses:
+  slice-done.3, operand 0 {2}
+ from instruction: %slice-start.3 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[12582912:16777216]}
+<47 slice-start.4{} @0>
+ positions:
+  slice-start.4 {}
+ uses:
+  slice-done.4, operand 0 {}
+ from instruction: %slice-start.4 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[16777216:20971520]}
+<48 slice-start.4{0} @0>
+ positions:
+  slice-start.4 {0}
+ uses:
+  slice-done.4, operand 0 {0}
+ from instruction: %slice-start.4 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[16777216:20971520]}
+<49 slice-start.4{2} @2>
+ positions:
+  slice-start.4 {2}
+ uses:
+  slice-done.4, operand 0 {2}
+ from instruction: %slice-start.4 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[16777216:20971520]}
+<50 slice-start.5{} @0>
+ positions:
+  slice-start.5 {}
+ uses:
+  slice-done.5, operand 0 {}
+ from instruction: %slice-start.5 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[20971520:25165824]}
+<51 slice-start.5{0} @0>
+ positions:
+  slice-start.5 {0}
+ uses:
+  slice-done.5, operand 0 {0}
+ from instruction: %slice-start.5 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[20971520:25165824]}
+<52 slice-start.5{2} @2>
+ positions:
+  slice-start.5 {2}
+ uses:
+  slice-done.5, operand 0 {2}
+ from instruction: %slice-start.5 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[20971520:25165824]}
+<53 slice-start.6{} @0>
+ positions:
+  slice-start.6 {}
+ uses:
+  slice-done.6, operand 0 {}
+ from instruction: %slice-start.6 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[25165824:29360128]}
+<54 slice-start.6{0} @0>
+ positions:
+  slice-start.6 {0}
+ uses:
+  slice-done.6, operand 0 {0}
+ from instruction: %slice-start.6 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[25165824:29360128]}
+<55 slice-start.6{2} @2>
+ positions:
+  slice-start.6 {2}
+ uses:
+  slice-done.6, operand 0 {2}
+ from instruction: %slice-start.6 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[25165824:29360128]}
+<56 slice-start.7{} @0>
+ positions:
+  slice-start.7 {}
+ uses:
+  slice-done.7, operand 0 {}
+ from instruction: %slice-start.7 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[29360128:33554432]}
+<57 slice-start.7{0} @0>
+ positions:
+  slice-start.7 {0}
+ uses:
+  slice-done.7, operand 0 {0}
+ from instruction: %slice-start.7 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[29360128:33554432]}
+<58 slice-start.7{2} @2>
+ positions:
+  slice-start.7 {2}
+ uses:
+  slice-done.7, operand 0 {2}
+ from instruction: %slice-start.7 = ((s8[33554432]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)}) slice-start(%bitcast.26), slice={[29360128:33554432]}
+<59 custom-call.1 @1>
+ positions:
+  custom-call.1
+  bitcast.27
+  bitcast.28
+ uses:
+  bitcast.27, operand 0
+  bitcast.28, operand 0
+  online-softmax, operand 1
+ from instruction: %custom-call.1 = f32[16,1,512,1024]{3,2,1,0:T(8,128)S(1)} custom-call(%slice-done, %slice-done.1, %slice-done.2, %slice-done.3, %slice-done.4, /*index=5*/%slice-done.5, %slice-done.6, %slice-done.7), custom_call_target="ConcatBitcast", backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<60 online-softmax @0>
+ positions:
+  online-softmax
+  bitcast.4
+ uses:
+  bitcast.4, operand 0
+ from instruction: %online-softmax = f32[16,512,1024]{2,1,0:T(8,128)} custom-call(%broadcast_add_fusion, %bitcast.28), custom_call_target="tpu_custom_call", operand_layout_constraints={f32[16,512,512]{2,1,0}, f32[16,512,1024]{2,1,0}}, frontend_attributes={tiling="512,512"}, metadata={op_name="online-softmax"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"custom_call_config":{"body":"bW9kdWxlIHsKICBmdW5jLmZ1bmMgQG1haW4oJWFyZzA6IGkzMiwgJWFyZzE6IGkzMiwgJWFyZzI6IGkzMiwgJWFyZzM6IG1lbXJlZjwxeDUxMng1MTJ4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sICVhcmc0OiBtZW1yZWY8MXg1MTJ4MTAyNHhmMzIsICN0cHUubWVtb3J5X3NwYWNlPHZtZW0+PiwgJWFyZzU6IG1lbXJlZjwxeDUxMngxMDI0eGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCAlYXJnNjogbWVtcmVmPDF4NTEyeDF4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sICVhcmc3OiBtZW1yZWY8MXg1MTJ4MXhmMzIsICN0cHUubWVtb3J5X3NwYWNlPHZtZW0+PikgYXR0cmlidXRlcyB7ZGltZW5zaW9uX3NlbWFudGljcyA9IFsjdHB1LmRpbWVuc2lvbl9zZW1hbnRpY3M8cGFyYWxsZWw+LCAjdHB1LmRpbWVuc2lvbl9zZW1hbnRpY3M8cGFyYWxsZWw+LCAjdHB1LmRpbWVuc2lvbl9zZW1hbnRpY3M8YXJiaXRyYXJ5Pl0sIGl0ZXJhdGlvbl9ib3VuZHMgPSBhcnJheTxpNjQ6IDE2LCAxLCAxPiwgc2NyYXRjaF9vcGVyYW5kcyA9IDIgOiBpNjQsIHdpbmRvd19wYXJhbXMgPSBbe3RyYW5zZm9ybV9pbmRpY2VzID0gQHFrX2ZuLCB3aW5kb3dfYm91bmRzID0gYXJyYXk8aTY0OiAxLCA1MTIsIDUxMj59LCB7dHJhbnNmb3JtX2luZGljZXMgPSBAdl9mbiwgd2luZG93X2JvdW5kcyA9IGFycmF5PGk2NDogMSwgNTEyLCAxMDI0Pn0sIHt0cmFuc2Zvcm1faW5kaWNlcyA9IEBvaV9mbiwgd2luZG93X2JvdW5kcyA9IGFycmF5PGk2NDogMSwgNTEyLCAxMDI0Pn1dfSB7CiAgICAlYzAgPSBhcml0aC5jb25zdGFudCAwIDogaW5kZXgKICAgICVjMF9pMzIgPSBhcml0aC5jb25zdGFudCAwIDogaTMyCiAgICAlMCA9IGFyaXRoLmNtcGkgZXEsICVjMF9pMzIsICVhcmcyIDogaTMyCiAgICBzY2YuaWYgJTAgewogICAgICAlY3N0XzMgPSBhcml0aC5jb25zdGFudCBkZW5zZTwwLjAwMDAwMGUrMDA+IDogdmVjdG9yPDF4NTEyeDEwMjR4ZjMyPgogICAgICB2ZWN0b3Iuc3RvcmUgJWNzdF8zLCAlYXJnNVslYzAsICVjMCwgJWMwXSA6IG1lbXJlZjwxeDUxMngxMDI0eGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCB2ZWN0b3I8MXg1MTJ4MTAyNHhmMzI+CiAgICAgICVjc3RfNCA9IGFyaXRoLmNvbnN0YW50IGRlbnNlPDB4RkY4MDAwMDA+IDogdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgICB2ZWN0b3Iuc3RvcmUgJWNzdF80LCAlYXJnNlslYzAsICVjMCwgJWMwXSA6IG1lbXJlZjwxeDUxMngxeGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAgICVjc3RfNSA9IGFyaXRoLmNvbnN0YW50IGRlbnNlPDAuMDAwMDAwZSswMD4gOiB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAgIHZlY3Rvci5zdG9yZSAlY3N0XzUsICVhcmc3WyVjMCwgJWMwLCAlYzBdIDogbWVtcmVmPDF4NTEyeDF4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sIHZlY3RvcjwxeDUxMngxeGYzMj4KICAgIH0KICAgICUxID0gdmVjdG9yLmxvYWQgJWFyZzNbJWMwLCAlYzAsICVjMF0gOiBtZW1yZWY8MXg1MTJ4NTEyeGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCB2ZWN0b3I8MXg1MTJ4NTEyeGYzMj4KICAgICVjc3QgPSBhcml0aC5jb25zdGFudCBkZW5zZTwweEZGODAwMDAwPiA6IHZlY3RvcjwxeDUxMnhmMzI+CiAgICAlMiA9IHZlY3Rvci5tdWx0aV9yZWR1Y3Rpb24gPG1heGltdW1mPiwgJTEsICVjc3QgWzJdIDogdmVjdG9yPDF4NTEyeDUxMnhmMzI+IHRvIHZlY3RvcjwxeDUxMnhmMzI+CiAgICAlMyA9IHZlY3Rvci5zaGFwZV9jYXN0ICUyIDogdmVjdG9yPDF4NTEyeGYzMj4gdG8gdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgJTQgPSB2ZWN0b3IubG9hZCAlYXJnNlslYzAsICVjMCwgJWMwXSA6IG1lbXJlZjwxeDUxMngxeGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAlNSA9IGFyaXRoLm1heGltdW1mICU0LCAlMyA6IHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICVjc3RfMCA9IGFyaXRoLmNvbnN0YW50IGRlbnNlPDAuMDAwMDAwZSswMD4gOiB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAlNiA9IGFyaXRoLmNtcGYgb2VxLCAlNCwgJTUgOiB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAlNyA9IGFyaXRoLnN1YmYgJTQsICU1IDogdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgJTggPSBhcml0aC5zZWxlY3QgJTYsICVjc3RfMCwgJTcgOiB2ZWN0b3I8MXg1MTJ4MXhpMT4sIHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICU5ID0gdmVjdG9yLmJyb2FkY2FzdCAlNSA6IHZlY3RvcjwxeDUxMngxeGYzMj4gdG8gdmVjdG9yPDF4NTEyeDUxMnhmMzI+CiAgICAlMTAgPSBhcml0aC5zdWJmICUxLCAlOSA6IHZlY3RvcjwxeDUxMng1MTJ4ZjMyPgogICAgJTExID0gbWF0aC5leHAgJTEwIDogdmVjdG9yPDF4NTEyeDUxMnhmMzI+CiAgICAlY3N0XzEgPSBhcml0aC5jb25zdGFudCBkZW5zZTwwLjAwMDAwMGUrMDA+IDogdmVjdG9yPDF4NTEyeGYzMj4KICAgICUxMiA9IHZlY3Rvci5tdWx0aV9yZWR1Y3Rpb24gPGFkZD4sICUxMSwgJWNzdF8xIFsyXSA6IHZlY3RvcjwxeDUxMng1MTJ4ZjMyPiB0byB2ZWN0b3I8MXg1MTJ4ZjMyPgogICAgJTEzID0gdmVjdG9yLnNoYXBlX2Nhc3QgJTEyIDogdmVjdG9yPDF4NTEyeGYzMj4gdG8gdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgJTE0ID0gdmVjdG9yLmxvYWQgJWFyZzdbJWMwLCAlYzAsICVjMF0gOiBtZW1yZWY8MXg1MTJ4MXhmMzIsICN0cHUubWVtb3J5X3NwYWNlPHZtZW0+PiwgdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgJTE1ID0gbWF0aC5leHAgJTggOiB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAlMTYgPSBhcml0aC5tdWxmICUxNSwgJTE0IDogdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgJTE3ID0gYXJpdGguYWRkZiAlMTYsICUxMyA6IHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICUxOCA9IHZlY3Rvci5sb2FkICVhcmc1WyVjMCwgJWMwLCAlYzBdIDogbWVtcmVmPDF4NTEyeDEwMjR4ZjMyLCAjdHB1Lm1lbW9yeV9zcGFjZTx2bWVtPj4sIHZlY3RvcjwxeDUxMngxMDI0eGYzMj4KICAgICUxOSA9IG1hdGguZXhwICU4IDogdmVjdG9yPDF4NTEyeDF4ZjMyPgogICAgJTIwID0gYXJpdGgubXVsZiAlMTksICUxNCA6IHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICUyMSA9IHZlY3Rvci5icm9hZGNhc3QgJTIwIDogdmVjdG9yPDF4NTEyeDF4ZjMyPiB0byB2ZWN0b3I8MXg1MTJ4MTAyNHhmMzI+CiAgICAlMjIgPSBhcml0aC5tdWxmICUyMSwgJTE4IDogdmVjdG9yPDF4NTEyeDEwMjR4ZjMyPgogICAgJTIzID0gdmVjdG9yLmxvYWQgJWFyZzRbJWMwLCAlYzAsICVjMF0gOiBtZW1yZWY8MXg1MTJ4MTAyNHhmMzIsICN0cHUubWVtb3J5X3NwYWNlPHZtZW0+PiwgdmVjdG9yPDF4NTEyeDEwMjR4ZjMyPgogICAgJTI0ID0gdmVjdG9yLnNoYXBlX2Nhc3QgJTIzIDogdmVjdG9yPDF4NTEyeDEwMjR4ZjMyPiB0byB2ZWN0b3I8NTEyeDEwMjR4ZjMyPgogICAgJTI1ID0gdmVjdG9yLnNoYXBlX2Nhc3QgJTExIDogdmVjdG9yPDF4NTEyeDUxMnhmMzI+IHRvIHZlY3Rvcjw1MTJ4NTEyeGYzMj4KICAgICUyNiA9IHZlY3Rvci5zaGFwZV9jYXN0ICUyMiA6IHZlY3RvcjwxeDUxMngxMDI0eGYzMj4gdG8gdmVjdG9yPDUxMngxMDI0eGYzMj4KICAgICUyNyA9IHRwdS5tYXRtdWwgJTI1LCAlMjQsICUyNiB7ZGltZW5zaW9uX251bWJlcnMgPSAjdHB1LmRvdF9kaW1lbnNpb25fbnVtYmVyczxbMV0sIFswXSwgWzBdLCBbMV0sIFswLCAwLCAxLCAxXSwgW10sIFtdPiwgcHJlY2lzaW9uID0gI3RwdS5jb250cmFjdF9wcmVjaXNpb248YmYxNj4sIHRyYW5zcG9zZV9saHNfaGludCA9IGZhbHNlfSA6IHZlY3Rvcjw1MTJ4NTEyeGYzMj4sIHZlY3Rvcjw1MTJ4MTAyNHhmMzI+LCB2ZWN0b3I8NTEyeDEwMjR4ZjMyPiAtPiB2ZWN0b3I8NTEyeDEwMjR4ZjMyPgogICAgJTI4ID0gdmVjdG9yLnNoYXBlX2Nhc3QgJTI3IDogdmVjdG9yPDUxMngxMDI0eGYzMj4gdG8gdmVjdG9yPDF4NTEyeDEwMjR4ZjMyPgogICAgJWNzdF8yID0gYXJpdGguY29uc3RhbnQgZGVuc2U8MS4wMDAwMDBlKzAwPiA6IHZlY3RvcjwxeDUxMngxeGYzMj4KICAgICUyOSA9IGFyaXRoLmRpdmYgJWNzdF8yLCAlMTcgOiB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICAlMzAgPSB2ZWN0b3IuYnJvYWRjYXN0ICUyOSA6IHZlY3RvcjwxeDUxMngxeGYzMj4gdG8gdmVjdG9yPDF4NTEyeDEwMjR4ZjMyPgogICAgJTMxID0gYXJpdGgubXVsZiAlMjgsICUzMCA6IHZlY3RvcjwxeDUxMngxMDI0eGYzMj4KICAgICUzMiA9IHZlY3Rvci5zaGFwZV9jYXN0ICUzMSA6IHZlY3RvcjwxeDUxMngxMDI0eGYzMj4gdG8gdmVjdG9yPDF4NTEyeDEwMjR4ZjMyPgogICAgdmVjdG9yLnN0b3JlICUzMiwgJWFyZzVbJWMwLCAlYzAsICVjMF0gOiBtZW1yZWY8MXg1MTJ4MTAyNHhmMzIsICN0cHUubWVtb3J5X3NwYWNlPHZtZW0+PiwgdmVjdG9yPDF4NTEyeDEwMjR4ZjMyPgogICAgdmVjdG9yLnN0b3JlICU1LCAlYXJnNlslYzAsICVjMCwgJWMwXSA6IG1lbXJlZjwxeDUxMngxeGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICB2ZWN0b3Iuc3RvcmUgJTE3LCAlYXJnN1slYzAsICVjMCwgJWMwXSA6IG1lbXJlZjwxeDUxMngxeGYzMiwgI3RwdS5tZW1vcnlfc3BhY2U8dm1lbT4+LCB2ZWN0b3I8MXg1MTJ4MXhmMzI+CiAgICByZXR1cm4KICB9CiAgZnVuYy5mdW5jIEBxa19mbiglYXJnMDogaTMyLCAlYXJnMTogaTMyLCAlYXJnMjogaTMyKSAtPiAoaTMyLCBpMzIsIGkzMikgewogICAgcmV0dXJuICVhcmcwLCAlYXJnMSwgJWFyZzIgOiBpMzIsIGkzMiwgaTMyCiAgfQogIGZ1bmMuZnVuYyBAdl9mbiglYXJnMDogaTMyLCAlYXJnMTogaTMyLCAlYXJnMjogaTMyKSAtPiAoaTMyLCBpMzIsIGkzMikgewogICAgJWMwX2kzMiA9IGFyaXRoLmNvbnN0YW50IDAgOiBpMzIKICAgIHJldHVybiAlYXJnMCwgJWFyZzIsICVjMF9pMzIgOiBpMzIsIGkzMiwgaTMyCiAgfQogIGZ1bmMuZnVuYyBAb2lfZm4oJWFyZzA6IGkzMiwgJWFyZzE6IGkzMiwgJWFyZzI6IGkzMikgLT4gKGkzMiwgaTMyLCBpMzIpIHsKICAgICVjMF9pMzIgPSBhcml0aC5jb25zdGFudCAwIDogaTMyCiAgICByZXR1cm4gJWFyZzAsICVhcmcxLCAlYzBfaTMyIDogaTMyLCBpMzIsIGkzMgogIH0KfQ==","needs_layout_passes":true,"needs_hlo_passes":false,"allow_input_fusion":[],"output_memory_colors":[],"output_memory_space_colors":[],"input_memory_space_colors":[]},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

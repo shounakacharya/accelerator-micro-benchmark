@@ -1,0 +1,61 @@
+HloLiveRange (max 19):
+  InstructionSequence:
+    0:q.1
+    1:copy-start
+    2:v.1
+    3:k.1
+    4:bitcast.2
+    5:param_0.14
+    6:slice.1
+    7:slice-start
+    8:fusion.2
+    9:copy-done
+    10:param_0.15
+    11:slice.3
+    12:slice-start.1
+    13:broadcast_subtract_fusion
+    14:slice-done
+    15:slice-done.1
+    16:custom-call.1
+    17:bitcast.3
+    18:online-softmax
+  BufferLiveRange:
+    slice.1{}:6-16
+    slice.3{}:11-16
+    fusion.2{}:8-13
+    q.1{}:0-19
+    copy-start{}:1-9
+    copy-start{0}:1-13
+    copy-start{2}:1-9
+    k.1{}:0-19
+    broadcast_subtract_fusion{}:13-18
+    v.1{}:0-19
+    slice-start{}:7-14
+    slice-start{0}:7-14
+    slice-start{2}:7-14
+    slice-start.1{}:12-15
+    slice-start.1{0}:12-15
+    slice-start.1{2}:12-15
+    custom-call.1{}:16-18
+    online-softmax{}:18-19
+  Live ranges at 16 (peak):
+    broadcast_subtract_fusion{}: 16777216 bytes (cumulative: 16777216 bytes)
+    custom-call.1{}: 8388608 bytes (cumulative: 25165824 bytes)
+    k.1{}: 8388608 bytes (cumulative: 33554432 bytes)
+    q.1{}: 8388608 bytes (cumulative: 41943040 bytes)
+    v.1{}: 8388608 bytes (cumulative: 50331648 bytes)
+    slice.1{}: 4194304 bytes (cumulative: 54525952 bytes)
+    slice.3{}: 4194304 bytes (cumulative: 58720256 bytes)
+  Stack trace breakdown for peak usage: 58 720 256 bytes
+    main.4 (100.0%, total: 58 720 256 bytes, current: 0 bytes, remaining: 58 720 256 bytes)
+      ├── jit(f)/BHSD,BHTD->BHST/dot_general (28.6%, total: 16 777 216 bytes, current: 16 777 216 bytes, remaining: 41 943 040 bytes)
+      ├── custom-call.1 (14.3%, total: 8 388 608 bytes, current: 8 388 608 bytes, remaining: 33 554 432 bytes)
+      ├── k (14.3%, total: 8 388 608 bytes, current: 8 388 608 bytes, remaining: 25 165 824 bytes)
+      ├── q (14.3%, total: 8 388 608 bytes, current: 8 388 608 bytes, remaining: 16 777 216 bytes)
+      ├── v (14.3%, total: 8 388 608 bytes, current: 8 388 608 bytes, remaining: 8 388 608 bytes)
+      ├── slice-start (7.1%, total: 4 194 304 bytes, current: 0 bytes, remaining: 8 388 608 bytes)
+      │   └── async_computation (7.1%, total: 4 194 304 bytes, current: 0 bytes, remaining: 8 388 608 bytes)
+      │       └── slice.1 (7.1%, total: 4 194 304 bytes, current: 4 194 304 bytes, remaining: 4 194 304 bytes)
+      └── slice-start.1 (7.1%, total: 4 194 304 bytes, current: 0 bytes, remaining: 4 194 304 bytes)
+          └── async_computation.1 (7.1%, total: 4 194 304 bytes, current: 0 bytes, remaining: 4 194 304 bytes)
+              └── slice.3 (7.1%, total: 4 194 304 bytes, current: 4 194 304 bytes, remaining: 0 bytes)

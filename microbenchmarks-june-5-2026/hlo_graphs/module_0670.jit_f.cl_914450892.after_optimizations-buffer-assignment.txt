@@ -1,0 +1,29 @@
+BufferAssignment:
+allocation 0: size 512, thread-local:
+ value: <2 add.2 @0> (size=512,offset=0): bf16[]{:T(256)}
+allocation 1: size 253755392, parameter 0, shape |bf16[11264,11264]| at ShapeIndex {}:
+ value: <16 param.1 @0> (size=253755392,offset=0): bf16[11264,11264]{1,0:T(8,128)(2,1)}
+allocation 2: size 63438848, output shape is |bf16[2816,11264]|, maybe-live-out:
+ value: <29 constant_dynamic-slice_fusion @0> (size=63438848,offset=0): bf16[2816,11264]{1,0:T(8,128)(2,1)}
+allocation 3: size 4096, constant:
+ value: <24 constant.8 @0> (size=4096,offset=0): u32[]
+allocation 4: size 4096, constant:
+ value: <25 constant.7 @0> (size=4096,offset=0): u32[]
+allocation 5: size 512, thread-local:
+ value: <1 reduce_scatter.9 @0> (size=512,offset=0): bf16[]{:T(256)}
+allocation 6: size 512, thread-local:
+ value: <0 reduce_scatter.8 @0> (size=512,offset=0): bf16[]{:T(256)}
+allocation 7: size 8, color 2, preallocated-temp:
+ value: <21 collective-permute-start{2} @2> (size=4,offset=0): u32[]{:S(2)}
+ value: <22 collective-permute-start{3} @2> (size=4,offset=4): u32[]{:S(2)}
+allocation 8: size 4096, color 6, preallocated-temp:
+ value: <26 partition-id.2 @6> (size=4096,offset=0): u32[]{:S(6)}
+ value: <27 multiply.3 @6> (size=4096,offset=0): u32[]{:S(6)}
+ value: <28 subtract @6> (size=4096,offset=0): u32[]{:S(6)}
+allocation 9: size 69206048, preallocated-temp:
+ value: <19 collective-permute-start{} @0> (size=32,offset=69206016): (bf16[192,11264]{1,0:T(8,128)(2,1)S(1)}, bf16[192,11264]{1,0:T(8,128)(2,1)S(1)}, u32[]{:S(2)}, u32[]{:S(2)})
+ value: <23 concatenate @0> (size=69206016,offset=0): bf16[3072,11264]{1,0:T(8,128)(2,1)}
+allocation 10: size 73531392, color 1, preallocated-temp:
+ value: <17 fusion @1> (size=64880640,offset=0): bf16[2880,11264]{1,0:T(8,128)(2,1)S(1)}
+ value: <18 slice @1> (size=4325376,offset=69206016): bf16[192,11264]{1,0:T(8,128)(2,1)S(1)}
+ value: <20 collective-permute-start{1} @1> (size=4325376,offset=64880640): bf16[192,11264]{1,0:T(8,128)(2,1)S(1)}

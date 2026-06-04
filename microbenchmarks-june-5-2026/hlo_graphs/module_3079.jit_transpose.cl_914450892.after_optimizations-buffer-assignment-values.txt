@@ -1,0 +1,17 @@
+
+Total bytes used: 1048576 (1.00MiB)
+
+Used values:
+<0 args_0_.1 @0>
+ positions:
+  args_0_.1
+  bitcast.1
+ uses:
+  bitcast.1, operand 0
+  copy.1, operand 0
+ from instruction: %args_0_.1 = f32[2,1,512,128]{3,2,1,0:T(8,128)} parameter(0), metadata={op_name="args[0]"}
+<1 copy.1 @0>
+ positions:
+  copy.1
+ uses:
+ from instruction: %copy.1 = f32[2,512,1,128]{3,2,1,0:T(1,128)} copy(%bitcast.1), backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

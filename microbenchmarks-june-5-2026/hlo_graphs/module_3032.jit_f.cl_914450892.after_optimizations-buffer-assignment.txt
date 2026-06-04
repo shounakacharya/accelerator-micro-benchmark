@@ -1,0 +1,32 @@
+BufferAssignment:
+allocation 0: size 512, thread-local:
+ value: <2 reduce_max.5 @0> (size=512,offset=0): f32[]{:T(128)}
+allocation 1: size 1048576, output shape is |f32[2,128,1,1024]|, maybe-live-out:
+ value: <56 copy.1 @0> (size=1048576,offset=0): f32[2,128,1,1024]{3,2,1,0:T(1,128)}
+allocation 2: size 1048576, parameter 2, shape |f32[2,128,1,1024]| at ShapeIndex {}:
+ value: <45 v.1 @0> (size=1048576,offset=0): f32[2,128,1,1024]{3,2,1,0:T(1,128)}
+allocation 3: size 1048576, parameter 1, shape |f32[2,128,1,1024]| at ShapeIndex {}:
+ value: <49 k.1 @0> (size=1048576,offset=0): f32[2,128,1,1024]{3,2,1,0:T(1,128)}
+allocation 4: size 1048576, parameter 0, shape |f32[2,128,1,1024]| at ShapeIndex {}:
+ value: <50 q.1 @0> (size=1048576,offset=0): f32[2,128,1,1024]{3,2,1,0:T(1,128)}
+allocation 5: size 512, thread-local:
+ value: <1 reduce_max.4 @0> (size=512,offset=0): f32[]{:T(128)}
+allocation 6: size 512, thread-local:
+ value: <0 reduce_max.3 @0> (size=512,offset=0): f32[]{:T(128)}
+allocation 7: size 512, thread-local:
+ value: <5 reduce_sum.5 @0> (size=512,offset=0): f32[]{:T(128)}
+allocation 8: size 512, thread-local:
+ value: <3 reduce_sum.3 @0> (size=512,offset=0): f32[]{:T(128)}
+allocation 9: size 512, thread-local:
+ value: <4 reduce_sum.4 @0> (size=512,offset=0): f32[]{:T(128)}
+allocation 10: size 4, color 2, preallocated-temp:
+ value: <48 copy-start{2} @2> (size=4,offset=0): u32[]{:S(2)}
+allocation 11: size 16416, preallocated-temp:
+ value: <46 copy-start{} @0> (size=32,offset=16384): (f32[2,128,1,1024]{3,2,1,0:T(1,128)S(1)}, f32[2,128,1,1024]{3,2,1,0:T(1,128)}, u32[]{:S(2)})
+ value: <51 fusion.20{} @0> (size=32,offset=0): (f32[2,128]{1,0:T(2,128)S(1)}, f32[2,128,128]{1,2,0:T(8,128)S(1)})
+allocation 12: size 2233344, color 1, preallocated-temp:
+ value: <47 copy-start{0} @1> (size=1048576,offset=1179648): f32[2,128,1,1024]{3,2,1,0:T(1,128)S(1)}
+ value: <52 fusion.20{0} @1> (size=1024,offset=2228224): f32[2,128]{1,0:T(2,128)S(1)}
+ value: <53 fusion.20{1} @1> (size=131072,offset=0): f32[2,128,128]{1,2,0:T(8,128)S(1)}
+ value: <54 fusion.17 @1> (size=1024,offset=2232320): f32[2,128]{1,0:T(2,128)S(1)}
+ value: <55 fusion.8 @1> (size=1048576,offset=131072): f32[2,128,1,1024]{3,1,0,2:T(8,128)S(1)}

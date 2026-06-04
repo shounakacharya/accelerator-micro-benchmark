@@ -1,0 +1,10 @@
+HloLiveRange (max 1):
+  InstructionSequence:
+    0:iota.1
+  BufferLiveRange:
+    iota.1{}:0-1
+  Live ranges at 0 (peak):
+    iota.1{}: 4064256 bytes (cumulative: 4064256 bytes)
+  Stack trace breakdown for peak usage: 4 064 256 bytes
+    main.1 (100.0%, total: 4 064 256 bytes, current: 0 bytes, remaining: 4 064 256 bytes)
+      └── jit(iota)/iota (100.0%, total: 4 064 256 bytes, current: 4 064 256 bytes, remaining: 0 bytes)

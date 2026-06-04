@@ -1,0 +1,211 @@
+BufferAssignment:
+allocation 0: size 512, constant:
+ value: <202 constant.62.clone.1 @0> (size=512,offset=0): s32[]{:T(128)}
+allocation 1: size 75497472, output shape is |bf16[6144,6144]|, maybe-live-out:
+ value: <59 broadcast_in_dim.3 @0> (size=75497472,offset=0): bf16[6144,6144]{1,0:T(8,128)(2,1)}
+ value: <95 dynamic_update_slice.21 @0> (size=75497472,offset=0): bf16[6144,6144]{1,0:T(8,128)(2,1)}
+ value: <123 dynamic_update_slice.22 @0> (size=75497472,offset=0): bf16[6144,6144]{1,0:T(8,128)(2,1)}
+ value: <149 dynamic_update_slice.23 @0> (size=75497472,offset=0): bf16[6144,6144]{1,0:T(8,128)(2,1)}
+ value: <172 dynamic_update_slice.24 @0> (size=75497472,offset=0): bf16[6144,6144]{1,0:T(8,128)(2,1)}
+ value: <196 dynamic_update_slice.25 @0> (size=75497472,offset=0): bf16[6144,6144]{1,0:T(8,128)(2,1)}
+ value: <219 dynamic_update_slice.26 @0> (size=75497472,offset=0): bf16[6144,6144]{1,0:T(8,128)(2,1)}
+ value: <242 dynamic_update_slice.27 @0> (size=75497472,offset=0): bf16[6144,6144]{1,0:T(8,128)(2,1)}
+allocation 2: size 75497472, parameter 1, shape |bf16[6144,6144]| at ShapeIndex {}:
+ value: <77 param.3 @0> (size=75497472,offset=0): bf16[6144,6144]{1,0:T(8,128)(2,1)}
+allocation 3: size 18874368, parameter 0, shape |bf16[1536,6144]| at ShapeIndex {}:
+ value: <60 param.2 @0> (size=18874368,offset=0): bf16[1536,6144]{1,0:T(8,128)(2,1)}
+allocation 4: size 512, constant:
+ value: <58 constant.50.clone.1 @0> (size=512,offset=0): bf16[]{:T(256)}
+allocation 5: size 512, constant:
+ value: <86 constant.51.clone.1 @0> (size=512,offset=0): u32[]{:T(128)}
+allocation 6: size 512, constant:
+ value: <89 constant.52.clone.1 @0> (size=512,offset=0): s32[]{:T(128)}
+allocation 7: size 512, constant:
+ value: <91 constant.53.clone.1 @0> (size=512,offset=0): s32[]{:T(128)}
+allocation 8: size 512, constant:
+ value: <104 constant.54.clone.1 @0> (size=512,offset=0): s32[]{:T(128)}
+allocation 9: size 512, constant:
+ value: <109 constant.55.clone.1 @0> (size=512,offset=0): s32[]{:T(128)}
+allocation 10: size 512, constant:
+ value: <116 constant.56.clone.1 @0> (size=512,offset=0): s32[]{:T(128)}
+allocation 11: size 512, constant:
+ value: <129 constant.57.clone.1 @0> (size=512,offset=0): s32[]{:T(128)}
+allocation 12: size 512, constant:
+ value: <143 constant.58.clone.1 @0> (size=512,offset=0): s32[]{:T(128)}
+allocation 13: size 512, constant:
+ value: <146 constant.59.clone.1 @0> (size=512,offset=0): s32[]{:T(128)}
+allocation 14: size 512, constant:
+ value: <155 constant.60.clone.1 @0> (size=512,offset=0): s32[]{:T(128)}
+allocation 15: size 512, constant:
+ value: <178 constant.61.clone.1 @0> (size=512,offset=0): s32[]{:T(128)}
+allocation 16: size 94371840, color 1, preallocated-temp:
+ value: <53 slice.1 @1> (size=4194304,offset=75497472): s8[4194304]{0:T(1024)(128)(4,1)S(1)}
+ value: <54 slice.3 @1> (size=4194304,offset=79691776): s8[4194304]{0:T(1024)(128)(4,1)S(1)}
+ value: <55 slice.5 @1> (size=4194304,offset=83886080): s8[4194304]{0:T(1024)(128)(4,1)S(1)}
+ value: <56 slice.7 @1> (size=4194304,offset=88080384): s8[4194304]{0:T(1024)(128)(4,1)S(1)}
+ value: <57 slice.9 @1> (size=2097152,offset=92274688): s8[2097152]{0:T(1024)(128)(4,1)S(1)}
+ value: <76 custom-call @1> (size=18874368,offset=75497472): bf16[1536,6144]{1,0:T(8,128)(2,1)S(1)}
+ value: <79 copy-start{0} @1> (size=75497472,offset=0): bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}
+ value: <83 copy-start.1{0} @1> (size=18874368,offset=75497472): bf16[1536,6144]{1,0:T(8,128)(2,1)S(1)}
+ value: <103 fusion.2 @1> (size=9437184,offset=84934656): bf16[768,6144]{1,0:T(8,128)(2,1)S(1)}
+ value: <151 collective-permute-start.2{1} @1> (size=9437184,offset=75497472): bf16[768,6144]{1,0:T(8,128)(2,1)S(1)}
+ value: <174 collective-permute-start.3{1} @1> (size=9437184,offset=84934656): bf16[768,6144]{1,0:T(8,128)(2,1)S(1)}
+ value: <201 fusion.6 @1> (size=9437184,offset=75497472): bf16[768,6144]{1,0:T(8,128)(2,1)S(1)}
+ value: <224 fusion.7 @1> (size=9437184,offset=75497472): bf16[768,6144]{1,0:T(8,128)(2,1)S(1)}
+allocation 17: size 56934400, preallocated-temp:
+ value: <61 slice-start{} @0> (size=32,offset=0): ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)})
+ value: <62 slice-start{0} @0> (size=32,offset=16384): (s8[18874368]{0:T(1024)(128)(4,1)})
+ value: <64 slice-start.1{} @0> (size=32,offset=32768): ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)})
+ value: <65 slice-start.1{0} @0> (size=32,offset=49152): (s8[18874368]{0:T(1024)(128)(4,1)})
+ value: <67 slice-start.2{} @0> (size=32,offset=65536): ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)})
+ value: <68 slice-start.2{0} @0> (size=32,offset=81920): (s8[18874368]{0:T(1024)(128)(4,1)})
+ value: <70 slice-start.3{} @0> (size=32,offset=98304): ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[4194304]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)})
+ value: <71 slice-start.3{0} @0> (size=32,offset=114688): (s8[18874368]{0:T(1024)(128)(4,1)})
+ value: <73 slice-start.4{} @0> (size=32,offset=131072): ((s8[18874368]{0:T(1024)(128)(4,1)}), s8[2097152]{0:T(1024)(128)(4,1)S(1)}, s32[]{:S(2)})
+ value: <74 slice-start.4{0} @0> (size=32,offset=147456): (s8[18874368]{0:T(1024)(128)(4,1)})
+ value: <78 copy-start{} @0> (size=32,offset=163840): (bf16[6144,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[6144,6144]{1,0:T(8,128)(2,1)}, u32[]{:S(2)})
+ value: <81 fusion.1 @0> (size=18874368,offset=38060032): bf16[1536,6144]{1,0:T(8,128)(2,1)}
+ value: <82 copy-start.1{} @0> (size=32,offset=180224): (bf16[1536,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[1536,6144]{1,0:T(8,128)(2,1)}, u32[]{:S(2)})
+ value: <96 fusion{} @0> (size=32,offset=196608): (bf16[768,6144]{1,0:T(8,128)(2,1)}, bf16[768,6144]{1,0:T(8,128)(2,1)})
+ value: <97 fusion{0} @0> (size=9437184,offset=9748480): bf16[768,6144]{1,0:T(8,128)(2,1)}
+ value: <98 fusion{1} @0> (size=9437184,offset=311296): bf16[768,6144]{1,0:T(8,128)(2,1)}
+ value: <99 collective-permute-start{} @0> (size=32,offset=212992): (bf16[768,6144]{1,0:T(8,128)(2,1)}, bf16[768,6144]{1,0:T(8,128)(2,1)}, u32[]{:S(2)}, u32[]{:S(2)})
+ value: <100 collective-permute-start{1} @0> (size=9437184,offset=19185664): bf16[768,6144]{1,0:T(8,128)(2,1)}
+ value: <124 collective-permute-start.1{} @0> (size=32,offset=229376): (bf16[768,6144]{1,0:T(8,128)(2,1)}, bf16[768,6144]{1,0:T(8,128)(2,1)}, u32[]{:S(2)}, u32[]{:S(2)})
+ value: <125 collective-permute-start.1{1} @0> (size=9437184,offset=28622848): bf16[768,6144]{1,0:T(8,128)(2,1)}
+ value: <128 fusion.3 @0> (size=9437184,offset=311296): bf16[768,6144]{1,0:T(8,128)(2,1)}
+ value: <150 collective-permute-start.2{} @0> (size=32,offset=245760): (bf16[768,6144]{1,0:T(8,128)(2,1)}, bf16[768,6144]{1,0:T(8,128)(2,1)S(1)}, u32[]{:S(2)}, u32[]{:S(2)})
+ value: <154 fusion.4 @0> (size=9437184,offset=311296): bf16[768,6144]{1,0:T(8,128)(2,1)}
+ value: <173 collective-permute-start.3{} @0> (size=32,offset=262144): (bf16[768,6144]{1,0:T(8,128)(2,1)}, bf16[768,6144]{1,0:T(8,128)(2,1)S(1)}, u32[]{:S(2)}, u32[]{:S(2)})
+ value: <177 fusion.5 @0> (size=9437184,offset=19185664): bf16[768,6144]{1,0:T(8,128)(2,1)}
+ value: <197 collective-permute-start.4{} @0> (size=32,offset=278528): (bf16[768,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[768,6144]{1,0:T(8,128)(2,1)}, u32[]{:S(2)}, u32[]{:S(2)})
+ value: <198 collective-permute-start.4{1} @0> (size=9437184,offset=9748480): bf16[768,6144]{1,0:T(8,128)(2,1)}
+ value: <220 collective-permute-start.5{} @0> (size=32,offset=294912): (bf16[768,6144]{1,0:T(8,128)(2,1)S(1)}, bf16[768,6144]{1,0:T(8,128)(2,1)}, u32[]{:S(2)}, u32[]{:S(2)})
+ value: <221 collective-permute-start.5{1} @0> (size=9437184,offset=311296): bf16[768,6144]{1,0:T(8,128)(2,1)}
+allocation 18: size 40, color 2, preallocated-temp:
+ value: <63 slice-start{2} @2> (size=4,offset=4): s32[]{:S(2)}
+ value: <66 slice-start.1{2} @2> (size=4,offset=8): s32[]{:S(2)}
+ value: <69 slice-start.2{2} @2> (size=4,offset=12): s32[]{:S(2)}
+ value: <72 slice-start.3{2} @2> (size=4,offset=16): s32[]{:S(2)}
+ value: <75 slice-start.4{2} @2> (size=4,offset=20): s32[]{:S(2)}
+ value: <80 copy-start{2} @2> (size=4,offset=0): u32[]{:S(2)}
+ value: <84 copy-start.1{2} @2> (size=4,offset=0): u32[]{:S(2)}
+ value: <101 collective-permute-start{2} @2> (size=4,offset=24): u32[]{:S(2)}
+ value: <102 collective-permute-start{3} @2> (size=4,offset=28): u32[]{:S(2)}
+ value: <126 collective-permute-start.1{2} @2> (size=4,offset=32): u32[]{:S(2)}
+ value: <127 collective-permute-start.1{3} @2> (size=4,offset=36): u32[]{:S(2)}
+ value: <152 collective-permute-start.2{2} @2> (size=4,offset=0): u32[]{:S(2)}
+ value: <153 collective-permute-start.2{3} @2> (size=4,offset=4): u32[]{:S(2)}
+ value: <175 collective-permute-start.3{2} @2> (size=4,offset=8): u32[]{:S(2)}
+ value: <176 collective-permute-start.3{3} @2> (size=4,offset=12): u32[]{:S(2)}
+ value: <199 collective-permute-start.4{2} @2> (size=4,offset=0): u32[]{:S(2)}
+ value: <200 collective-permute-start.4{3} @2> (size=4,offset=4): u32[]{:S(2)}
+ value: <222 collective-permute-start.5{2} @2> (size=4,offset=8): u32[]{:S(2)}
+ value: <223 collective-permute-start.5{3} @2> (size=4,offset=12): u32[]{:S(2)}
+allocation 19: size 10752, color 6, preallocated-temp:
+ value: <85 axis_index.10 @6> (size=512,offset=0): u32[]{:T(128)S(6)}
+ value: <87 axis_index.11 @6> (size=512,offset=0): u32[]{:T(128)S(6)}
+ value: <88 axis_index.12 @6> (size=512,offset=512): s32[]{:T(128)S(6)}
+ value: <90 mul.21 @6> (size=512,offset=1536): s32[]{:T(128)S(6)}
+ value: <92 lt.47 @6> (size=512,offset=3072): pred[]{:T(512)S(6)}
+ value: <93 add.78 @6> (size=512,offset=2560): s32[]{:T(128)S(6)}
+ value: <94 select_n.48 @6> (size=512,offset=2560): s32[]{:T(128)S(6)}
+ value: <105 sub.11 @6> (size=512,offset=0): s32[]{:T(128)S(6)}
+ value: <106 rem.79 @6> (size=512,offset=1536): pred[]{:T(512)S(6)}
+ value: <107 rem.80 @6> (size=512,offset=1024): s32[]{:T(128)S(6)}
+ value: <108 rem.81 @6> (size=512,offset=1024): s32[]{:T(128)S(6)}
+ value: <110 rem.82 @6> (size=512,offset=1024): s32[]{:T(128)S(6)}
+ value: <111 rem.83 @6> (size=512,offset=0): s32[]{:T(128)S(6)}
+ value: <112 rem.84 @6> (size=512,offset=0): s32[]{:T(128)S(6)}
+ value: <113 lt.48 @6> (size=512,offset=1024): pred[]{:T(512)S(6)}
+ value: <114 ne.26 @6> (size=512,offset=1536): pred[]{:T(512)S(6)}
+ value: <115 and.26 @6> (size=512,offset=1024): pred[]{:T(512)S(6)}
+ value: <117 add.79 @6> (size=512,offset=2048): s32[]{:T(128)S(6)}
+ value: <118 select_n.49 @6> (size=512,offset=2048): s32[]{:T(128)S(6)}
+ value: <119 mul.22 @6> (size=512,offset=2048): s32[]{:T(128)S(6)}
+ value: <120 lt.49 @6> (size=512,offset=1024): pred[]{:T(512)S(6)}
+ value: <121 add.80 @6> (size=512,offset=0): s32[]{:T(128)S(6)}
+ value: <122 select_n.50 @6> (size=512,offset=0): s32[]{:T(128)S(6)}
+ value: <130 add.81 @6> (size=512,offset=3584): s32[]{:T(128)S(6)}
+ value: <131 rem.85 @6> (size=512,offset=4096): pred[]{:T(512)S(6)}
+ value: <132 rem.86 @6> (size=512,offset=4608): s32[]{:T(128)S(6)}
+ value: <133 rem.87 @6> (size=512,offset=4608): s32[]{:T(128)S(6)}
+ value: <134 rem.88 @6> (size=512,offset=4608): s32[]{:T(128)S(6)}
+ value: <135 rem.89 @6> (size=512,offset=3584): s32[]{:T(128)S(6)}
+ value: <136 rem.90 @6> (size=512,offset=3584): s32[]{:T(128)S(6)}
+ value: <137 lt.50 @6> (size=512,offset=4096): pred[]{:T(512)S(6)}
+ value: <138 ne.27 @6> (size=512,offset=4608): pred[]{:T(512)S(6)}
+ value: <139 and.27 @6> (size=512,offset=4096): pred[]{:T(512)S(6)}
+ value: <140 add.82 @6> (size=512,offset=5120): s32[]{:T(128)S(6)}
+ value: <141 select_n.51 @6> (size=512,offset=5120): s32[]{:T(128)S(6)}
+ value: <142 mul.23 @6> (size=512,offset=5120): s32[]{:T(128)S(6)}
+ value: <144 add.83 @6> (size=512,offset=3584): s32[]{:T(128)S(6)}
+ value: <145 lt.51 @6> (size=512,offset=4608): pred[]{:T(512)S(6)}
+ value: <147 add.84 @6> (size=512,offset=5120): s32[]{:T(128)S(6)}
+ value: <148 select_n.52 @6> (size=512,offset=5120): s32[]{:T(128)S(6)}
+ value: <156 sub.12 @6> (size=512,offset=5632): s32[]{:T(128)S(6)}
+ value: <157 rem.91 @6> (size=512,offset=6144): pred[]{:T(512)S(6)}
+ value: <158 rem.92 @6> (size=512,offset=6656): s32[]{:T(128)S(6)}
+ value: <159 rem.93 @6> (size=512,offset=6656): s32[]{:T(128)S(6)}
+ value: <160 rem.94 @6> (size=512,offset=6656): s32[]{:T(128)S(6)}
+ value: <161 rem.95 @6> (size=512,offset=5632): s32[]{:T(128)S(6)}
+ value: <162 rem.96 @6> (size=512,offset=5632): s32[]{:T(128)S(6)}
+ value: <163 lt.52 @6> (size=512,offset=6144): pred[]{:T(512)S(6)}
+ value: <164 ne.28 @6> (size=512,offset=6656): pred[]{:T(512)S(6)}
+ value: <165 and.28 @6> (size=512,offset=6144): pred[]{:T(512)S(6)}
+ value: <166 add.85 @6> (size=512,offset=7168): s32[]{:T(128)S(6)}
+ value: <167 select_n.53 @6> (size=512,offset=7168): s32[]{:T(128)S(6)}
+ value: <168 mul.24 @6> (size=512,offset=7168): s32[]{:T(128)S(6)}
+ value: <169 lt.53 @6> (size=512,offset=6144): pred[]{:T(512)S(6)}
+ value: <170 add.86 @6> (size=512,offset=5632): s32[]{:T(128)S(6)}
+ value: <171 select_n.54 @6> (size=512,offset=5632): s32[]{:T(128)S(6)}
+ value: <179 add.87 @6> (size=512,offset=6656): s32[]{:T(128)S(6)}
+ value: <180 rem.97 @6> (size=512,offset=7680): pred[]{:T(512)S(6)}
+ value: <181 rem.98 @6> (size=512,offset=8192): s32[]{:T(128)S(6)}
+ value: <182 rem.99 @6> (size=512,offset=8192): s32[]{:T(128)S(6)}
+ value: <183 rem.100 @6> (size=512,offset=8192): s32[]{:T(128)S(6)}
+ value: <184 rem.101 @6> (size=512,offset=6656): s32[]{:T(128)S(6)}
+ value: <185 rem.102 @6> (size=512,offset=6656): s32[]{:T(128)S(6)}
+ value: <186 lt.54 @6> (size=512,offset=7680): pred[]{:T(512)S(6)}
+ value: <187 ne.29 @6> (size=512,offset=8192): pred[]{:T(512)S(6)}
+ value: <188 and.29 @6> (size=512,offset=7680): pred[]{:T(512)S(6)}
+ value: <189 add.88 @6> (size=512,offset=8704): s32[]{:T(128)S(6)}
+ value: <190 select_n.55 @6> (size=512,offset=8704): s32[]{:T(128)S(6)}
+ value: <191 mul.25 @6> (size=512,offset=8704): s32[]{:T(128)S(6)}
+ value: <192 add.89 @6> (size=512,offset=6656): s32[]{:T(128)S(6)}
+ value: <193 lt.55 @6> (size=512,offset=9216): pred[]{:T(512)S(6)}
+ value: <194 add.90 @6> (size=512,offset=8704): s32[]{:T(128)S(6)}
+ value: <195 select_n.56 @6> (size=512,offset=8704): s32[]{:T(128)S(6)}
+ value: <203 sub.13 @6> (size=512,offset=4096): s32[]{:T(128)S(6)}
+ value: <204 rem.103 @6> (size=512,offset=4608): pred[]{:T(512)S(6)}
+ value: <205 rem.104 @6> (size=512,offset=7680): s32[]{:T(128)S(6)}
+ value: <206 rem.105 @6> (size=512,offset=7680): s32[]{:T(128)S(6)}
+ value: <207 rem.106 @6> (size=512,offset=7680): s32[]{:T(128)S(6)}
+ value: <208 rem.107 @6> (size=512,offset=4096): s32[]{:T(128)S(6)}
+ value: <209 rem.108 @6> (size=512,offset=4096): s32[]{:T(128)S(6)}
+ value: <210 lt.56 @6> (size=512,offset=4608): pred[]{:T(512)S(6)}
+ value: <211 ne.30 @6> (size=512,offset=7680): pred[]{:T(512)S(6)}
+ value: <212 and.30 @6> (size=512,offset=4608): pred[]{:T(512)S(6)}
+ value: <213 add.91 @6> (size=512,offset=8192): s32[]{:T(128)S(6)}
+ value: <214 select_n.57 @6> (size=512,offset=8192): s32[]{:T(128)S(6)}
+ value: <215 mul.26 @6> (size=512,offset=8192): s32[]{:T(128)S(6)}
+ value: <216 lt.57 @6> (size=512,offset=4096): pred[]{:T(512)S(6)}
+ value: <217 add.92 @6> (size=512,offset=7680): s32[]{:T(128)S(6)}
+ value: <218 select_n.58 @6> (size=512,offset=7680): s32[]{:T(128)S(6)}
+ value: <225 add.93 @6> (size=512,offset=512): s32[]{:T(128)S(6)}
+ value: <226 rem.109 @6> (size=512,offset=4608): pred[]{:T(512)S(6)}
+ value: <227 rem.110 @6> (size=512,offset=9216): s32[]{:T(128)S(6)}
+ value: <228 rem.111 @6> (size=512,offset=9216): s32[]{:T(128)S(6)}
+ value: <229 rem.112 @6> (size=512,offset=9216): s32[]{:T(128)S(6)}
+ value: <230 rem.113 @6> (size=512,offset=512): s32[]{:T(128)S(6)}
+ value: <231 rem.114 @6> (size=512,offset=512): s32[]{:T(128)S(6)}
+ value: <232 lt.58 @6> (size=512,offset=4608): pred[]{:T(512)S(6)}
+ value: <233 ne.31 @6> (size=512,offset=9216): pred[]{:T(512)S(6)}
+ value: <234 and.31 @6> (size=512,offset=4608): pred[]{:T(512)S(6)}
+ value: <235 add.94 @6> (size=512,offset=9728): s32[]{:T(128)S(6)}
+ value: <236 select_n.59 @6> (size=512,offset=9728): s32[]{:T(128)S(6)}
+ value: <237 mul.27 @6> (size=512,offset=9728): s32[]{:T(128)S(6)}
+ value: <238 add.95 @6> (size=512,offset=512): s32[]{:T(128)S(6)}
+ value: <239 lt.59 @6> (size=512,offset=10240): pred[]{:T(512)S(6)}
+ value: <240 add.96 @6> (size=512,offset=9728): s32[]{:T(128)S(6)}
+ value: <241 select_n.60 @6> (size=512,offset=9728): s32[]{:T(128)S(6)}

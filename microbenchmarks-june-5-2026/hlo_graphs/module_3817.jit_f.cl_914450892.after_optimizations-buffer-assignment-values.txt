@@ -1,0 +1,61 @@
+
+Total bytes used: 118067204 (112.60MiB)
+
+Used values:
+<7 x.1 @0>
+ positions:
+  x.1
+  copy-start {1}
+ uses:
+  copy-start, operand 0
+  copy-done, operand 0 {1}
+ from instruction: %x.1 = bf16[16,128,128,16]{2,3,1,0:T(8,128)(2,1)} parameter(0), metadata={op_name="x"}
+<8 copy-start{} @0>
+ positions:
+  copy-start {}
+ uses:
+  copy-done, operand 0 {}
+ from instruction: %copy-start = (bf16[16,128,128,16]{2,3,1,0:T(8,128)(2,1)S(1)}, bf16[16,128,128,16]{2,3,1,0:T(8,128)(2,1)}, u32[]{:S(2)}) copy-start(%x.1)
+<9 copy-start{0} @1>
+ positions:
+  copy-start {0}
+  copy-done
+ uses:
+  copy-done, operand 0 {0}
+  copy, operand 0
+ from instruction: %copy-start = (bf16[16,128,128,16]{2,3,1,0:T(8,128)(2,1)S(1)}, bf16[16,128,128,16]{2,3,1,0:T(8,128)(2,1)}, u32[]{:S(2)}) copy-start(%x.1)
+<10 copy-start{2} @2>
+ positions:
+  copy-start {2}
+ uses:
+  copy-done, operand 0 {2}
+ from instruction: %copy-start = (bf16[16,128,128,16]{2,3,1,0:T(8,128)(2,1)S(1)}, bf16[16,128,128,16]{2,3,1,0:T(8,128)(2,1)}, u32[]{:S(2)}) copy-start(%x.1)
+<11 copy @1>
+ positions:
+  copy
+ uses:
+  fusion, operand 0
+ from instruction: %copy = bf16[16,128,128,16]{3,0,2,1:T(8,128)(2,1)S(1)} copy(%copy-done), metadata={op_name="x"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<12 kernel.1 @0>
+ positions:
+  kernel.1
+ uses:
+  copy.1, operand 0
+ from instruction: %kernel.1 = bf16[63,63,16,16]{1,3,2,0:T(8,128)(2,1)} parameter(1), metadata={op_name="kernel"}
+<13 copy.1 @0>
+ positions:
+  copy.1
+ uses:
+  fusion, operand 1
+ from instruction: %copy.1 = bf16[63,63,16,16]{3,2,1,0:T(8,128)(2,1)} copy(%kernel.1), metadata={op_name="kernel"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<14 fusion @1>
+ positions:
+  fusion
+ uses:
+  copy.2, operand 0
+ from instruction: %fusion = bf16[16,66,66,16]{3,0,2,1:T(8,128)(2,1)S(1)} fusion(%copy, %copy.1), kind=kOutput, calls=%fused_computation, metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=5}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<15 copy.2 @0>
+ positions:
+  copy.2
+ uses:
+ from instruction: %copy.2 = bf16[16,66,66,16]{2,3,1,0:T(8,128)(2,1)} copy(%fusion), metadata={op_name="jit(f)/conv_general_dilated" stack_frame_id=5}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

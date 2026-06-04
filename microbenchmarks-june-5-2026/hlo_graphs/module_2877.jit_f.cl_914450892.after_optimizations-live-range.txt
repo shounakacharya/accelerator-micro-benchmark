@@ -1,0 +1,47 @@
+HloLiveRange (max 8):
+  InstructionSequence:
+    0:constant.4
+    1:constant.3
+    2:v.1
+    3:k.1
+    4:q.1
+    5:iota.1
+    6:splash_mha_fwd_no_residuals.1
+    7:pallas_call.1
+  BufferLiveRange:
+    constant.3{}:1-6
+    constant.4{}:0-6
+    q.1{}:0-8
+    k.1{}:0-8
+    v.1{}:0-8
+    iota.1{}:5-6
+    splash_mha_fwd_no_residuals.1{}:6-7
+    splash_mha_fwd_no_residuals.1{0}:6-6
+    splash_mha_fwd_no_residuals.1{1}:6-6
+    splash_mha_fwd_no_residuals.1{2}:6-6
+    splash_mha_fwd_no_residuals.1{3}:6-8
+  Live ranges at 6 (peak):
+    k.1{}: 1048576 bytes (cumulative: 1048576 bytes)
+    q.1{}: 1048576 bytes (cumulative: 2097152 bytes)
+    splash_mha_fwd_no_residuals.1{2}: 1048576 bytes (cumulative: 3145728 bytes)
+    splash_mha_fwd_no_residuals.1{3}: 1048576 bytes (cumulative: 4194304 bytes)
+    v.1{}: 1048576 bytes (cumulative: 5242880 bytes)
+    splash_mha_fwd_no_residuals.1{0}: 131072 bytes (cumulative: 5373952 bytes)
+    splash_mha_fwd_no_residuals.1{1}: 131072 bytes (cumulative: 5505024 bytes)
+    iota.1{}: 65536 bytes (cumulative: 5570560 bytes)
+    splash_mha_fwd_no_residuals.1{}: 32 bytes (cumulative: 5570592 bytes)
+    constant.3{}: 1 bytes (cumulative: 5570593 bytes)
+    constant.4{}: 1 bytes (cumulative: 5570594 bytes)
+  Stack trace breakdown for peak usage: 5 570 594 bytes
+    main.2 (100.0%, total: 5 570 594 bytes, current: 0 bytes, remaining: 5 570 594 bytes)
+      ├── jit(f)/vmap(jit(_splash_attention))/splash_mha_fwd_no_residuals/splash_mha_fwd_no_residuals/pallas_call{2} (18.8%, total: 1 048 576 bytes, current: 1 048 576 bytes, remaining: 4 522 018 bytes)
+      ├── jit(f)/vmap(jit(_splash_attention))/splash_mha_fwd_no_residuals/splash_mha_fwd_no_residuals/pallas_call{3} (18.8%, total: 1 048 576 bytes, current: 1 048 576 bytes, remaining: 3 473 442 bytes)
+      ├── k (18.8%, total: 1 048 576 bytes, current: 1 048 576 bytes, remaining: 2 424 866 bytes)
+      ├── q (18.8%, total: 1 048 576 bytes, current: 1 048 576 bytes, remaining: 1 376 290 bytes)
+      ├── v (18.8%, total: 1 048 576 bytes, current: 1 048 576 bytes, remaining: 327 714 bytes)
+      ├── jit(f)/vmap(jit(_splash_attention))/splash_mha_fwd_no_residuals/splash_mha_fwd_no_residuals/pallas_call{0} (2.4%, total: 131 072 bytes, current: 131 072 bytes, remaining: 196 642 bytes)
+      ├── jit(f)/vmap(jit(_splash_attention))/splash_mha_fwd_no_residuals/splash_mha_fwd_no_residuals/pallas_call{1} (2.4%, total: 131 072 bytes, current: 131 072 bytes, remaining: 65 570 bytes)
+      ├── jit(f)/vmap(jit(_splash_attention))/broadcast_in_dim (1.2%, total: 65 536 bytes, current: 65 536 bytes, remaining: 34 bytes)
+      ├── jit(f)/vmap(jit(_splash_attention))/splash_mha_fwd_no_residuals/splash_mha_fwd_no_residuals/pallas_call (0.0%, total: 32 bytes, current: 32 bytes, remaining: 2 bytes)
+      ├── constant.3 (0.0%, total: 1 bytes, current: 1 bytes, remaining: 1 bytes)
+      └── constant.4 (0.0%, total: 1 bytes, current: 1 bytes, remaining: 0 bytes)

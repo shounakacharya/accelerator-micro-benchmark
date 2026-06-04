@@ -1,0 +1,6 @@
+BufferAssignment:
+allocation 0: size 75497472, output shape is |bf16[6144,6144]|, maybe-live-out:
+ value: <1 convert_element_type.1 @0> (size=75497472,offset=0): bf16[6144,6144]{1,0:T(8,128)(2,1)}
+allocation 1: size 150994944, parameter 0, shape |s32[6144,6144]| at ShapeIndex {}:
+ value: <0 args_0_.1 @0> (size=150994944,offset=0): s32[6144,6144]{1,0:T(8,128)}
+allocation 2: size 0, color 1, preallocated-temp:

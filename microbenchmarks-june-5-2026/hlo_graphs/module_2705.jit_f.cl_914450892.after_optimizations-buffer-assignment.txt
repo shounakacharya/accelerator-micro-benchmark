@@ -1,0 +1,20 @@
+BufferAssignment:
+allocation 0: size 4194304, parameter 2, shape |f32[2,1,512,1024]| at ShapeIndex {}:
+ value: <35 v.1 @0> (size=4194304,offset=0): f32[2,1,512,1024]{3,2,1,0:T(8,128)}
+allocation 1: size 4194304, output shape is |f32[2,1,512,1024]|, maybe-live-out:
+ value: <39 online-softmax @0> (size=4194304,offset=0): f32[2,512,1024]{2,1,0:T(8,128)}
+allocation 2: size 4194304, parameter 1, shape |f32[2,1,512,1024]| at ShapeIndex {}:
+ value: <29 k.1 @0> (size=4194304,offset=0): f32[2,1,512,1024]{3,2,1,0:T(8,128)}
+allocation 3: size 4194304, parameter 0, shape |f32[2,1,512,1024]| at ShapeIndex {}:
+ value: <30 q.1 @0> (size=4194304,offset=0): f32[2,1,512,1024]{3,2,1,0:T(8,128)}
+allocation 4: size 11534336, color 1, preallocated-temp:
+ value: <28 fusion.9 @1> (size=1048576,offset=10485760): f32[512,512]{1,0:T(8,128)S(1)}
+ value: <32 copy-start{0} @1> (size=4194304,offset=0): f32[2,1,512,1024]{3,2,1,0:T(8,128)S(1)}
+ value: <34 multiply_subtract_fusion @1> (size=2097152,offset=4194304): f32[2,512,512]{2,1,0:T(8,128)S(1)}
+ value: <37 copy-start.1{0} @1> (size=4194304,offset=6291456): f32[2,1,512,1024]{3,2,1,0:T(8,128)S(1)}
+allocation 5: size 16416, preallocated-temp:
+ value: <31 copy-start{} @0> (size=32,offset=0): (f32[2,1,512,1024]{3,2,1,0:T(8,128)S(1)}, f32[2,1,512,1024]{3,2,1,0:T(8,128)}, u32[]{:S(2)})
+ value: <36 copy-start.1{} @0> (size=32,offset=16384): (f32[2,1,512,1024]{3,2,1,0:T(8,128)S(1)}, f32[2,1,512,1024]{3,2,1,0:T(8,128)}, u32[]{:S(2)})
+allocation 6: size 4, color 2, preallocated-temp:
+ value: <33 copy-start{2} @2> (size=4,offset=0): u32[]{:S(2)}
+ value: <38 copy-start.1{2} @2> (size=4,offset=0): u32[]{:S(2)}

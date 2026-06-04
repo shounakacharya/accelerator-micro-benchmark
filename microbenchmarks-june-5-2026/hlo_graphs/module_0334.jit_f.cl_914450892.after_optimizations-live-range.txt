@@ -1,0 +1,18 @@
+HloLiveRange (max 3):
+  InstructionSequence:
+    0:param.1
+    1:all-gather.4
+    2:copy.3
+  BufferLiveRange:
+    param.1{}:0-3
+    all-gather.4{}:1-2
+    copy.3{}:2-3
+  Live ranges at 2 (peak):
+    all-gather.4{}: 301989888 bytes (cumulative: 301989888 bytes)
+    copy.3{}: 301989888 bytes (cumulative: 603979776 bytes)
+    param.1{}: 75497472 bytes (cumulative: 679477248 bytes)
+  Stack trace breakdown for peak usage: 679 477 248 bytes
+    main.0_spmd (100.0%, total: 679 477 248 bytes, current: 0 bytes, remaining: 679 477 248 bytes)
+      ├── copy.3 (44.4%, total: 301 989 888 bytes, current: 301 989 888 bytes, remaining: 377 487 360 bytes)
+      ├── jit(f)/shard_map/all_gather (44.4%, total: 301 989 888 bytes, current: 301 989 888 bytes, remaining: 75 497 472 bytes)
+      └── x (11.1%, total: 75 497 472 bytes, current: 75 497 472 bytes, remaining: 0 bytes)

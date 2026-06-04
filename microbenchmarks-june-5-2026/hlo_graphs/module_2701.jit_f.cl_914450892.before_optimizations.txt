@@ -1,0 +1,70 @@
+HloModule jit_f, entry_computation_layout={(f32[2,1,512,1024]{3,2,1,0:T(8,128)}, f32[2,1,512,1024]{3,2,1,0:T(8,128)}, f32[2,1,512,1024]{3,2,1,0:T(8,128)})->f32[2,1,512,1024]{3,2,1,0:T(8,128)}}, allow_spmd_sharding_propagation_to_parameters={true,true,true}, allow_spmd_sharding_propagation_to_output={true}
+
+FileNames
+1 "/home/shounaka_google_com/accelerator-microbenchmarks/src/run_benchmark.py"
+2 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_attention.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "run_single_benchmark"
+4 "naive_attention_benchmark"
+5 "naive_attention_benchmark.<locals>.f"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=527 end_line=527 column=4 end_column=41}
+2 {file_name_id=1 function_name_id=2 line=422 end_line=422 column=12 end_column=50}
+3 {file_name_id=1 function_name_id=3 line=328 end_line=330 column=28 end_column=9}
+4 {file_name_id=2 function_name_id=4 line=121 end_line=121 column=13 end_column=38}
+5 {file_name_id=2 function_name_id=5 line=115 end_line=115 column=22 end_column=58}
+6 {file_name_id=2 function_name_id=5 line=105 end_line=105 column=12 end_column=53}
+7 {file_name_id=2 function_name_id=5 line=116 end_line=116 column=15 end_column=62}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+5 {file_location_id=5 parent_frame_id=5}
+6 {file_location_id=6 parent_frame_id=5}
+7 {file_location_id=7 parent_frame_id=5}
+
+
+%region_0.1 (reduce_max.3: f32[], reduce_max.4: f32[]) -> f32[] {
+  %reduce_max.3 = f32[] parameter(0), metadata={op_name="reduce_max"}
+  %reduce_max.4 = f32[] parameter(1), metadata={op_name="reduce_max"}
+  ROOT %reduce_max.5 = f32[] maximum(%reduce_max.3, %reduce_max.4), metadata={op_name="jit(f)/reduce_max" stack_frame_id=5}
+}
+
+%region_1.2 (reduce_sum.3: f32[], reduce_sum.4: f32[]) -> f32[] {
+  %reduce_sum.3 = f32[] parameter(0), metadata={op_name="reduce_sum"}
+  %reduce_sum.4 = f32[] parameter(1), metadata={op_name="reduce_sum"}
+  ROOT %reduce_sum.5 = f32[] add(%reduce_sum.3, %reduce_sum.4), metadata={op_name="jit(f)/reduce_sum" stack_frame_id=5}
+}
+
+ENTRY %main.3 (q.1: f32[2,1,512,1024], k.1: f32[2,1,512,1024], v.1: f32[2,1,512,1024]) -> f32[2,1,512,1024] {
+  %q.1 = f32[2,1,512,1024]{3,2,1,0} parameter(0), metadata={op_name="q"}
+  %k.1 = f32[2,1,512,1024]{3,2,1,0} parameter(1), metadata={op_name="k"}
+  %dot_general.2 = f32[2,1,512,512]{3,2,1,0} dot(%q.1, %k.1), lhs_batch_dims={0,1}, lhs_contracting_dims={3}, rhs_batch_dims={0,1}, rhs_contracting_dims={3}, metadata={op_name="jit(f)/BHSD,BHTD->BHST/dot_general" stack_frame_id=6}
+  %constant.5 = f32[] constant(-inf)
+  %reduce_max.7 = f32[2,1,512]{2,1,0} reduce(%dot_general.2, %constant.5), dimensions={3}, to_apply=%region_0.1, metadata={op_name="jit(f)/reduce_max" stack_frame_id=5}
+  %constant.3 = f32[] constant(-inf)
+  %max.2 = f32[2,1,512]{2,1,0} broadcast(%constant.3), dimensions={}, metadata={op_name="jit(f)/max" stack_frame_id=5}
+  %max.3 = f32[2,1,512]{2,1,0} maximum(%reduce_max.7, %max.2), metadata={op_name="jit(f)/max" stack_frame_id=5}
+  %broadcast_in_dim.2 = f32[2,1,512,1]{3,2,1,0} reshape(%max.3), metadata={op_name="jit(f)/broadcast_in_dim" stack_frame_id=5}
+  %sub.4 = f32[2,1,512,1]{3,2,1,0} broadcast(%broadcast_in_dim.2), dimensions={0,1,2,3}, metadata={op_name="jit(f)/sub" stack_frame_id=5}
+  %sub.5 = f32[2,1,512]{2,1,0} reshape(%sub.4), metadata={op_name="jit(f)/sub" stack_frame_id=5}
+  %sub.6 = f32[2,1,512,512]{3,2,1,0} broadcast(%sub.5), dimensions={0,1,2}, metadata={op_name="jit(f)/sub" stack_frame_id=5}
+  %sub.7 = f32[2,1,512,512]{3,2,1,0} subtract(%dot_general.2, %sub.6), metadata={op_name="jit(f)/sub" stack_frame_id=5}
+  %exp.1 = f32[2,1,512,512]{3,2,1,0} exponential(%sub.7), metadata={op_name="jit(f)/exp" stack_frame_id=5}
+  %constant.4 = f32[] constant(0)
+  %reduce_sum.7 = f32[2,1,512]{2,1,0} reduce(%exp.1, %constant.4), dimensions={3}, to_apply=%region_1.2, metadata={op_name="jit(f)/reduce_sum" stack_frame_id=5}
+  %broadcast_in_dim.3 = f32[2,1,512,1]{3,2,1,0} reshape(%reduce_sum.7), metadata={op_name="jit(f)/broadcast_in_dim" stack_frame_id=5}
+  %div.4 = f32[2,1,512,1]{3,2,1,0} broadcast(%broadcast_in_dim.3), dimensions={0,1,2,3}, metadata={op_name="jit(f)/div" stack_frame_id=5}
+  %div.5 = f32[2,1,512]{2,1,0} reshape(%div.4), metadata={op_name="jit(f)/div" stack_frame_id=5}
+  %div.6 = f32[2,1,512,512]{3,2,1,0} broadcast(%div.5), dimensions={0,1,2}, metadata={op_name="jit(f)/div" stack_frame_id=5}
+  %div.7 = f32[2,1,512,512]{3,2,1,0} divide(%exp.1, %div.6), metadata={op_name="jit(f)/div" stack_frame_id=5}
+  %v.1 = f32[2,1,512,1024]{3,2,1,0} parameter(2), metadata={op_name="v"}
+  ROOT %dot_general.3 = f32[2,1,512,1024]{3,2,1,0} dot(%div.7, %v.1), lhs_batch_dims={0,1}, lhs_contracting_dims={3}, rhs_batch_dims={0,1}, rhs_contracting_dims={2}, metadata={op_name="jit(f)/BHST,BHTD->BHSD/dot_general" stack_frame_id=7}
+}
+

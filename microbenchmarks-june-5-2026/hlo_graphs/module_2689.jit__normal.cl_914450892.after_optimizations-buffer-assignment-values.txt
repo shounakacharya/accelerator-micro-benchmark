@@ -1,0 +1,123 @@
+
+Total bytes used: 8493568 (8.10MiB)
+
+Used values:
+<341 fusion.21{} @0>
+ positions:
+  fusion.21 {}
+ uses:
+  get-tuple-element.2, operand 0 {}
+  get-tuple-element.3, operand 0 {}
+ from instruction: %fusion.21 = (u32[512]{0:T(512)S(1)}, u32[512]{0:T(512)S(1)}) fusion(), kind=kLoop, calls=%fused_computation.34, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"fusion_formation_source":{"fusion_creating_compiler_pass":"TpuAdvancedMOF","fusion_id":"42"},"aliasing_operands":{"lists":[]}}
+<342 fusion.21{0} @1>
+ positions:
+  fusion.21 {0}
+  get-tuple-element.2
+ uses:
+  select_multiply_fusion, operand 3
+ from instruction: %fusion.21 = (u32[512]{0:T(512)S(1)}, u32[512]{0:T(512)S(1)}) fusion(), kind=kLoop, calls=%fused_computation.34, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"fusion_formation_source":{"fusion_creating_compiler_pass":"TpuAdvancedMOF","fusion_id":"42"},"aliasing_operands":{"lists":[]}}
+<343 fusion.21{1} @1>
+ positions:
+  fusion.21 {1}
+  get-tuple-element.3
+ uses:
+  select_multiply_fusion, operand 0
+ from instruction: %fusion.21 = (u32[512]{0:T(512)S(1)}, u32[512]{0:T(512)S(1)}) fusion(), kind=kLoop, calls=%fused_computation.34, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"fusion_formation_source":{"fusion_creating_compiler_pass":"TpuAdvancedMOF","fusion_id":"42"},"aliasing_operands":{"lists":[]}}
+<344 fusion.28{} @0>
+ positions:
+  fusion.28 {}
+ uses:
+  get-tuple-element.6, operand 0 {}
+  get-tuple-element.7, operand 0 {}
+ from instruction: %fusion.28 = (u32[16]{0:T(128)S(1)}, u32[16]{0:T(128)S(1)}) fusion(), kind=kLoop, calls=%fused_computation.45, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"fusion_formation_source":{"fusion_creating_compiler_pass":"TpuAdvancedMOF","fusion_id":"42"},"aliasing_operands":{"lists":[]}}
+<345 fusion.28{0} @1>
+ positions:
+  fusion.28 {0}
+  get-tuple-element.6
+ uses:
+  select_multiply_fusion, operand 4
+ from instruction: %fusion.28 = (u32[16]{0:T(128)S(1)}, u32[16]{0:T(128)S(1)}) fusion(), kind=kLoop, calls=%fused_computation.45, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"fusion_formation_source":{"fusion_creating_compiler_pass":"TpuAdvancedMOF","fusion_id":"42"},"aliasing_operands":{"lists":[]}}
+<346 fusion.28{1} @1>
+ positions:
+  fusion.28 {1}
+  get-tuple-element.7
+ uses:
+  select_multiply_fusion, operand 1
+ from instruction: %fusion.28 = (u32[16]{0:T(128)S(1)}, u32[16]{0:T(128)S(1)}) fusion(), kind=kLoop, calls=%fused_computation.45, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"fusion_formation_source":{"fusion_creating_compiler_pass":"TpuAdvancedMOF","fusion_id":"42"},"aliasing_operands":{"lists":[]}}
+<347 fusion.32{} @0>
+ positions:
+  fusion.32 {}
+ uses:
+  get-tuple-element.8, operand 0 {}
+  get-tuple-element.9, operand 0 {}
+ from instruction: %fusion.32 = (u32[2]{0:T(128)S(1)}, u32[2]{0:T(128)S(1)}) fusion(), kind=kLoop, calls=%fused_computation.49, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"fusion_formation_source":{"fusion_creating_compiler_pass":"TpuAdvancedMOF","fusion_id":"42"},"aliasing_operands":{"lists":[]}}
+<348 fusion.32{0} @1>
+ positions:
+  fusion.32 {0}
+  get-tuple-element.8
+ uses:
+  select_multiply_fusion, operand 5
+ from instruction: %fusion.32 = (u32[2]{0:T(128)S(1)}, u32[2]{0:T(128)S(1)}) fusion(), kind=kLoop, calls=%fused_computation.49, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"fusion_formation_source":{"fusion_creating_compiler_pass":"TpuAdvancedMOF","fusion_id":"42"},"aliasing_operands":{"lists":[]}}
+<349 fusion.32{1} @1>
+ positions:
+  fusion.32 {1}
+  get-tuple-element.9
+ uses:
+  select_multiply_fusion, operand 2
+ from instruction: %fusion.32 = (u32[2]{0:T(128)S(1)}, u32[2]{0:T(128)S(1)}) fusion(), kind=kLoop, calls=%fused_computation.49, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/iota_2x32_shape"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"fusion_formation_source":{"fusion_creating_compiler_pass":"TpuAdvancedMOF","fusion_id":"42"},"aliasing_operands":{"lists":[]}}
+<350 key.1 @0>
+ positions:
+  key.1
+ uses:
+  fusion.36, operand 0
+ from instruction: %key.1 = u32[2]{0:T(128)} parameter(0), metadata={op_name="key"}
+<351 fusion.36{} @0>
+ positions:
+  fusion.36 {}
+ uses:
+  get-tuple-element, operand 0 {}
+  get-tuple-element.1, operand 0 {}
+ from instruction: %fusion.36 = (u32[1]{0:T(128)}, u32[1]{0:T(128)}) fusion(%key.1), kind=kLoop, calls=%fused_computation.53, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/slice"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<352 fusion.36{0} @0>
+ positions:
+  fusion.36 {0}
+  get-tuple-element
+  bitcast.1
+ uses:
+  bitcast.1, operand 0
+  select_multiply_fusion, operand 7
+  xor.72, operand 1
+ from instruction: %fusion.36 = (u32[1]{0:T(128)}, u32[1]{0:T(128)}) fusion(%key.1), kind=kLoop, calls=%fused_computation.53, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/slice"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<353 fusion.36{1} @0>
+ positions:
+  fusion.36 {1}
+  get-tuple-element.1
+  bitcast
+ uses:
+  bitcast, operand 0
+  select_multiply_fusion, operand 8
+  xor.72, operand 0
+ from instruction: %fusion.36 = (u32[1]{0:T(128)}, u32[1]{0:T(128)}) fusion(%key.1), kind=kLoop, calls=%fused_computation.53, metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/slice"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<354 xor.72 @6>
+ positions:
+  xor.72
+ uses:
+  xor.73, operand 0
+ from instruction: %xor.72 = u32[]{:T(128)S(6)} xor(%bitcast, %bitcast.1), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+<355 constant.99 @0>
+ positions:
+  constant.99
+ uses:
+  xor.73, operand 1
+ from instruction: %constant.99 = u32[]{:T(128)} constant(466688986), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)"}
+<356 xor.73 @6>
+ positions:
+  xor.73
+ uses:
+  select_multiply_fusion, operand 6
+ from instruction: %xor.73 = u32[]{:T(128)S(6)} xor(%xor.72, %constant.99), metadata={op_name="jit(_normal)/jit(_normal_real)/jit(_uniform)/xor"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","2"]}]}}
+<357 select_multiply_fusion @0>
+ positions:
+  select_multiply_fusion
+ uses:
+ from instruction: %select_multiply_fusion = f32[2,16,512,128]{3,2,1,0:T(8,128)} fusion(%get-tuple-element.3, %get-tuple-element.7, %get-tuple-element.9, %get-tuple-element.2, %get-tuple-element.6, /*index=5*/%get-tuple-element.8, %xor.73, %bitcast.1, %bitcast), kind=kLoop, calls=%fused_computation.24, metadata={op_name="jit(_normal)/jit(_normal_real)/mul"}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}

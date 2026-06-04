@@ -1,0 +1,25 @@
+HloLiveRange (max 5):
+  InstructionSequence:
+    0:x.1
+    1:copy-start
+    2:y.1
+    3:copy-done
+    4:fusion
+  BufferLiveRange:
+    x.1{}:0-5
+    copy-start{}:1-3
+    copy-start{0}:1-4
+    copy-start{2}:1-3
+    y.1{}:0-5
+    fusion{}:4-5
+  Live ranges at 4 (peak):
+    copy-start{0}: 75497472 bytes (cumulative: 75497472 bytes)
+    fusion{}: 75497472 bytes (cumulative: 150994944 bytes)
+    x.1{}: 75497472 bytes (cumulative: 226492416 bytes)
+    y.1{}: 75497472 bytes (cumulative: 301989888 bytes)
+  Stack trace breakdown for peak usage: 301 989 888 bytes
+    main.1 (100.0%, total: 301 989 888 bytes, current: 0 bytes, remaining: 301 989 888 bytes)
+      ├── copy-start{0} (25.0%, total: 75 497 472 bytes, current: 75 497 472 bytes, remaining: 226 492 416 bytes)
+      ├── jit(f)/ij,jk->ik/dot_general (25.0%, total: 75 497 472 bytes, current: 75 497 472 bytes, remaining: 150 994 944 bytes)
+      ├── x (25.0%, total: 75 497 472 bytes, current: 75 497 472 bytes, remaining: 75 497 472 bytes)
+      └── y (25.0%, total: 75 497 472 bytes, current: 75 497 472 bytes, remaining: 0 bytes)

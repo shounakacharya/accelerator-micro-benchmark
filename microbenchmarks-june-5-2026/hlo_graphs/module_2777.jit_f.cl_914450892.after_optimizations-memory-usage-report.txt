@@ -1,0 +1,41 @@
+Memory Space: default (color=0)
+Total bytes: 2113568 (2.02MiB)
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+   512.0KiB(100%);   512.0KiB;            0;                1; f32[2,1,512,128]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+   512.0KiB(100%);   512.0KiB;            0;                1; f32[2,512,128]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+   512.0KiB(100%);   512.0KiB;            0;                1; f32[2,1,512,128]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+   512.0KiB(100%);   512.0KiB;            0;                1; f32[2,1,512,128]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+        32B( 50%);        32B;            0;                1; (f32[2,1,512,128], f32[2,1,512,128], u32[])
+        64B(100%);        32B;        16384;                1; (f32[2,1,512,128], f32[2,1,512,128], u32[])
+
+
+Memory Space: vmem (color=1)
+Total bytes: 4194304 (4.00MiB)
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+    2.00MiB( 50%);    2.00MiB;       524288;                1; f32[2,512,512]
+    3.00MiB( 75%);    1.00MiB;      2621440;                1; f32[512,512]
+    3.50MiB( 88%);   512.0KiB;            0;                1; f32[2,1,512,128]
+    4.00MiB(100%);   512.0KiB;      3670016;                1; f32[2,1,512,128]
+
+
+Memory Space: smem (color=2)
+Total bytes: 4 (4B)
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+         4B(100%);         4B;            0;                2; 2×u32[]
+
+

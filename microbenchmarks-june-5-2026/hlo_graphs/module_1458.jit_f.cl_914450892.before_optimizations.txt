@@ -1,0 +1,34 @@
+HloModule jit_f, entry_computation_layout={(bf16[12288,12288]{1,0:T(8,128)(2,1)}, bf16[12288,12288]{1,0:T(8,128)(2,1)})->bf16[12288,12288]{1,0:T(8,128)(2,1)}}, allow_spmd_sharding_propagation_to_parameters={true,true}, allow_spmd_sharding_propagation_to_output={true}
+
+FileNames
+1 "/home/shounaka_google_com/accelerator-microbenchmarks/src/run_benchmark.py"
+2 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_matmul.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "run_single_benchmark"
+4 "single_host_naive_matmul"
+5 "single_host_naive_matmul.<locals>.f"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=527 end_line=527 column=4 end_column=41}
+2 {file_name_id=1 function_name_id=2 line=422 end_line=422 column=12 end_column=50}
+3 {file_name_id=1 function_name_id=3 line=328 end_line=330 column=28 end_column=9}
+4 {file_name_id=2 function_name_id=4 line=187 end_line=187 column=13 end_column=31}
+5 {file_name_id=2 function_name_id=5 line=180 end_line=180 column=15 end_column=50}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+5 {file_location_id=5 parent_frame_id=5}
+
+
+ENTRY %main.1 (x.1: bf16[12288,12288], y.1: bf16[12288,12288]) -> bf16[12288,12288] {
+  %x.1 = bf16[12288,12288]{1,0} parameter(0), metadata={op_name="x"}
+  %y.1 = bf16[12288,12288]{1,0} parameter(1), metadata={op_name="y"}
+  ROOT %dot_general.1 = bf16[12288,12288]{1,0} dot(%x.1, %y.1), lhs_contracting_dims={1}, rhs_contracting_dims={0}, metadata={op_name="jit(f)/ij,jk->ik/dot_general" stack_frame_id=5}
+}
+

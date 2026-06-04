@@ -1,0 +1,54 @@
+HloModule jit_f, entry_computation_layout={(bf16[23552,23552]{1,0:T(8,128)(2,1)})->bf16[23552,23552]{1,0:T(8,128)(2,1)}}, allow_spmd_sharding_propagation_to_parameters={true}, allow_spmd_sharding_propagation_to_output={true}, num_partitions=4, frontend_attributes={xla.sdy.meshes={mesh = #sdy.mesh<["ici"=4]>}}
+
+FileNames
+1 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_collectives.py"
+2 "/home/shounaka_google_com/accelerator-microbenchmarks/src/run_benchmark.py"
+3 "/home/shounaka_google_com/accelerator-microbenchmarks/src/benchmark_utils.py"
+
+FunctionNames
+1 "benchmark_collective.<locals>.f"
+2 "<module>"
+3 "main"
+4 "run_single_benchmark"
+5 "psum_benchmark"
+6 "benchmark_collective"
+7 "simple_timeit"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=136 end_line=136 column=15 end_column=52}
+2 {file_name_id=2 function_name_id=2 line=527 end_line=527 column=4 end_column=41}
+3 {file_name_id=2 function_name_id=3 line=422 end_line=422 column=12 end_column=50}
+4 {file_name_id=2 function_name_id=4 line=328 end_line=330 column=28 end_column=9}
+5 {file_name_id=1 function_name_id=5 line=198 end_line=210 column=38 end_column=9}
+6 {file_name_id=1 function_name_id=6 line=139 end_line=147 column=19 end_column=5}
+7 {file_name_id=3 function_name_id=7 line=50 end_line=50 column=17 end_column=25}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=1 parent_frame_id=2}
+3 {file_location_id=2 parent_frame_id=1}
+4 {file_location_id=3 parent_frame_id=4}
+5 {file_location_id=4 parent_frame_id=5}
+6 {file_location_id=5 parent_frame_id=6}
+7 {file_location_id=6 parent_frame_id=7}
+8 {file_location_id=7 parent_frame_id=8}
+
+
+%region_0.1 (psum_invariant.2: bf16[], psum_invariant.3: bf16[]) -> bf16[] {
+  %psum_invariant.2 = bf16[] parameter(0), metadata={op_name="psum_invariant"}
+  %psum_invariant.3 = bf16[] parameter(1), metadata={op_name="psum_invariant"}
+  ROOT %add.1 = bf16[] add(%psum_invariant.2, %psum_invariant.3), metadata={op_name="add" stack_frame_id=2}
+}
+
+%xla.sdy.manual_computation_body.2 (shard_map.2: bf16[23552,23552]) -> bf16[23552,23552] {
+  %shard_map.2 = bf16[23552,23552]{1,0} parameter(0), metadata={op_name="shard_map"}
+  ROOT %psum_invariant.5 = bf16[23552,23552]{1,0} all-reduce(%shard_map.2), channel_id=1, replica_groups={{0,1,2,3}}, use_global_device_ids=true, to_apply=%region_0.1, metadata={op_name="psum_invariant" stack_frame_id=1}
+}
+
+ENTRY %main.3 (x.1: bf16[23552,23552]) -> bf16[23552,23552] {
+  %x.1 = bf16[23552,23552]{1,0} parameter(0), metadata={op_name="x"}
+  %shard_map.5 = bf16[23552,23552]{1,0} custom-call(%x.1), custom_call_target="xla.sdy.GlobalToLocalShape", custom_call_has_side_effect=true, frontend_attributes={xla.sdy.in_shardings="#sdy.sharding_per_value<[<@mesh, [{}, {}]>]>",xla.sdy.manual_axes="#sdy<manual_axes{\"ici\"}>"}, metadata={op_name="jit(f)/shard_map" stack_frame_id=8}
+  %shard_map.6 = bf16[23552,23552]{1,0} call(%shard_map.5), to_apply=%xla.sdy.manual_computation_body.2, frontend_attributes={inlineable="false"}, metadata={op_name="jit(f)/shard_map" stack_frame_id=8}
+  ROOT %shard_map.7 = bf16[23552,23552]{1,0} custom-call(%shard_map.6), custom_call_target="xla.sdy.LocalToGlobalShape", custom_call_has_side_effect=true, frontend_attributes={xla.sdy.manual_axes="#sdy<manual_axes{\"ici\"}>",xla.sdy.out_shardings="#sdy.sharding_per_value<[<@mesh, [{}, {}]>]>"}, metadata={op_name="jit(f)/shard_map" stack_frame_id=8}
+}
+
