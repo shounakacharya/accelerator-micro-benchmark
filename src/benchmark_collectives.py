@@ -76,7 +76,7 @@ def generate_metrics_statistics(
     print(
         f"{benchmark_name}: Matrix size: {matrix_dim}x{matrix_dim}, {dtype=}, "
         f"{matrix_size_gbyte=}, {metrics_name} (median) = "
-        f"{statistics.statistics["p50"]}"
+        f"{statistics.statistics['p50']}"
     )
     metrics.update(statistics.serialize_statistics())
 

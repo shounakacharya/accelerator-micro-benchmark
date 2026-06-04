@@ -127,10 +127,10 @@ def convolve_common_calculate_metrics(
     # Print results
     print(f"Total flops: {flops}")
     print(
-        f"Average Execution Time: {time_ms_statistics.statistics["p50"]:.4f} ms"
+        f"Average Execution Time: {time_ms_statistics.statistics['p50']:.4f} ms"
     )
     print(
-        f"FLOPS Utilization(median): {gflops_per_sec_statistics.statistics["p50"]:.2f} GFLOPS/sec\n"  # pylint: disable=line-too-long
+        f"FLOPS Utilization(median): {gflops_per_sec_statistics.statistics['p50']:.2f} GFLOPS/sec\n"  # pylint: disable=line-too-long
     )
     # Gather the metrics to report.
     metadata.update({"total_flops": flops})
@@ -404,9 +404,9 @@ def lax_conv_general_dilated_calculate_metrics(
     )
     # Print results
     print(f"Total flops: {flops}")
-    print(f"Average Execution Time: {time_ms_statistics.statistics["p50"]:.4f} ms")  # pylint: disable=line-too-long
+    print(f"Average Execution Time: {time_ms_statistics.statistics['p50']:.4f} ms")  # pylint: disable=line-too-long
     print(
-        f"FLOPS Utilization(median): {gflops_per_sec_statistics.statistics["p50"]:.2f} GFLOPS/sec\n" # pylint: disable=line-too-long
+        f"FLOPS Utilization(median): {gflops_per_sec_statistics.statistics['p50']:.2f} GFLOPS/sec\n" # pylint: disable=line-too-long
     )
     # Gather the metrics to report.
     metadata.update({"total_flops": flops})
